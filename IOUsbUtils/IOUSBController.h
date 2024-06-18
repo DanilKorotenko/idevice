@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong) void (^deviceAddedBlock)(IOUSBDevice *aDevice);
 
-- (void)startWatching;
+- (BOOL)startWatching;
 
 @end
 

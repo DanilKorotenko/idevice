@@ -6,13 +6,21 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "IOUSBController.h"
 
 int main(int argc, const char * argv[])
 {
     @autoreleasepool
     {
-        // insert code here...
-        NSLog(@"Hello, World!");
+        NSLog(@"Hello, device Watcher!");
+        [[IOUSBController sharedController] setDeviceAddedBlock:
+            ^(IOUSBDevice * _Nonnull aDevice)
+            {
+                NSLog(@"device added: %@", aDevice);
+            }];
+        [[IOUSBController sharedController] startWatching];
+
+        [[NSRunLoop currentRunLoop] run];
     }
     return 0;
 }

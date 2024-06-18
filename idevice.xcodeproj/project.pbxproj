@@ -26,6 +26,8 @@
 		DA140D6F2C218C930097D7CA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D6E2C218C930097D7CA /* main.m */; };
 		DA140D7E2C218EC70097D7CA /* IOUSBController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D7D2C218EC70097D7CA /* IOUSBController.m */; };
 		DA140D812C2191200097D7CA /* IOUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D802C2191200097D7CA /* IOUSBDevice.m */; };
+		DA140D822C21B0920097D7CA /* IOUSBController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D7D2C218EC70097D7CA /* IOUSBController.m */; };
+		DA140D832C21B0DD0097D7CA /* IOUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D802C2191200097D7CA /* IOUSBDevice.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -233,6 +235,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA140D822C21B0920097D7CA /* IOUSBController.m in Sources */,
+				DA140D832C21B0DD0097D7CA /* IOUSBDevice.m in Sources */,
 				DA140D6F2C218C930097D7CA /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
