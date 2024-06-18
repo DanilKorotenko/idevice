@@ -26,7 +26,6 @@ static void iokit_cfdictionary_set_short(CFMutableDictionaryRef dict, const void
 
 @interface IOUSBController ()
 
-@property (strong) NSMutableArray           *deviceArray;
 @property (assign) IONotificationPortRef    notifyPort;
 
 - (void)deviceAdded:(io_iterator_t)anIterator;
@@ -45,14 +44,14 @@ static void staticDeviceAdded(void *refCon, io_iterator_t iterator)
     }
 }
 
-static void staticDeviceRemoved(void *refCon, io_iterator_t iterator)
-{
-    IOUSBController *controller = (__bridge IOUSBController *)(refCon);
-    if (controller)
-    {
-        [controller deviceRemoved:iterator];
-    }
-}
+//static void staticDeviceRemoved(void *refCon, io_iterator_t iterator)
+//{
+//    IOUSBController *controller = (__bridge IOUSBController *)(refCon);
+//    if (controller)
+//    {
+//        [controller deviceRemoved:iterator];
+//    }
+//}
 
 #pragma mark -
 
@@ -78,7 +77,7 @@ static void staticDeviceRemoved(void *refCon, io_iterator_t iterator)
     self = [super init];
     if (self)
     {
-        self.deviceArray = [NSMutableArray array];
+
     }
     return self;
 }
@@ -101,7 +100,6 @@ static void staticDeviceRemoved(void *refCon, io_iterator_t iterator)
         kIOFirstMatchNotification, matchingDict,
         staticDeviceAdded, (__bridge void *)(self), &_deviceAddedIter);
 
-    // Iterate once to get already-present devices and arm the notification
     [self deviceAdded:_deviceAddedIter];
 
     return YES;
@@ -111,8 +109,9 @@ static void staticDeviceRemoved(void *refCon, io_iterator_t iterator)
 {
     CFMutableDictionaryRef matchingDict = IOServiceMatching(kIOUSBDeviceClassName);
 
+// NOTE: If we set vendorID then we have to set product ID. We cannot set only one of this.
 //    iokit_cfdictionary_set_short(matchingDict, CFSTR(kUSBVendorID), kAppleVendorID);
-//        iokit_cfdictionary_set_short(matchingDict, CFSTR(kUSBProductID), 0x12A8);
+//    iokit_cfdictionary_set_short(matchingDict, CFSTR(kUSBProductID), 0x12A8);
 
     return matchingDict;
 }
@@ -121,7 +120,7 @@ static void staticDeviceRemoved(void *refCon, io_iterator_t iterator)
 
 - (void)deviceAdded:(io_iterator_t)anIterator
 {
-    io_service_t            serviceObject;
+    io_service_t serviceObject;
     while ((serviceObject = IOIteratorNext(anIterator)))
     {
         IOUSBDevice *device = [[IOUSBDevice alloc] initWithIoServiceT:serviceObject];
@@ -129,8 +128,8 @@ static void staticDeviceRemoved(void *refCon, io_iterator_t iterator)
         if (device)
         {
             self.deviceAddedBlock(device);
-            [self.deviceArray addObject:device];
         }
+        IOObjectRelease(serviceObject);
     }
 }
 

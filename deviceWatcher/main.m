@@ -17,6 +17,10 @@ int main(int argc, const char * argv[])
             ^(IOUSBDevice * _Nonnull aDevice)
             {
                 NSLog(@"device added: %@", aDevice);
+                if (aDevice.supportsIPhoneOS)
+                {
+                    [aDevice eject];
+                }
             }];
         [[IOUSBController sharedController] startWatching];
 

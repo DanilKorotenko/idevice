@@ -17,6 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly) NSString *name;
 @property(readonly) NSString *vendorID;
 @property(readonly) NSString *productID;
+@property(readonly) BOOL supportsIPhoneOS;
+
+// Process must be superuser, instead nothing will happen
+- (BOOL)eject;
 
 @end
 

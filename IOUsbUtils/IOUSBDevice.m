@@ -9,17 +9,14 @@
 
 @interface IOUSBDevice ()
 
-@property (readonly) CFMutableDictionaryRef entryProperties;
-
 @end
 
 @implementation IOUSBDevice
 {
-    io_service_t            _ioService;
     IOUSBDeviceInterface    **_deviceInterface;
+    CFMutableDictionaryRef  _entryProperties;
 }
 
-@synthesize entryProperties;
 @synthesize name;
 @synthesize vendorID;
 @synthesize productID;
@@ -33,12 +30,13 @@
         {
             return nil;
         }
-        _ioService = aService;
+
+        IORegistryEntryCreateCFProperties(aService, &_entryProperties, NULL, 0);
 
         IOCFPlugInInterface     **plugInInterface = NULL;
 
         SInt32 score;
-        kern_return_t kernelReturn = IOCreatePlugInInterfaceForService(_ioService,
+        kern_return_t kernelReturn = IOCreatePlugInInterfaceForService(aService,
             kIOUSBDeviceUserClientTypeID, kIOCFPlugInInterfaceID,
             &plugInInterface, &score);
 
@@ -64,18 +62,15 @@
 
 - (void)dealloc
 {
-    if (_ioService != 0)
-    {
-        IOObjectRelease(_ioService);
-    }
 }
 
 - (NSString *)description
 {
+//    NSDictionary *descr = (__bridge NSDictionary *)(_entryProperties);
     NSDictionary *descr =
         @{
-            @"name" :       self.name == nil ? @"<none>" : self.name,
-            @"vendorID" :   self.vendorID == nil ? @"<none>" : self.vendorID,
+            @"name" :       self.name == nil ?      @"<none>" : self.name,
+            @"vendorID" :   self.vendorID == nil ?  @"<none>" : self.vendorID,
             @"productID" :  self.productID == nil ? @"<none>" : self.productID
         };
     return [descr description];
@@ -83,20 +78,11 @@
 
 #pragma mark -
 
-- (CFMutableDictionaryRef)entryProperties
-{
-    if (entryProperties == NULL)
-    {
-        IORegistryEntryCreateCFProperties(_ioService, &entryProperties, NULL, 0);
-    }
-    return entryProperties;
-}
-
 - (NSString *)name
 {
     if (name == nil)
     {
-        name = (NSString *)CFDictionaryGetValue(self.entryProperties, CFSTR(kUSBProductString));
+        name = (NSString *)CFDictionaryGetValue(_entryProperties, CFSTR(kUSBProductString));
         name = [name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     }
     return name;
@@ -122,6 +108,24 @@
         productID = [NSString stringWithFormat: @"0x%04x", productIDNumber];
     }
     return productID;
+}
+
+- (BOOL)supportsIPhoneOS
+{
+    NSNumber *value = (NSNumber *)CFDictionaryGetValue(_entryProperties, CFSTR("SupportsIPhoneOS"));
+    return value.boolValue;
+}
+
+#pragma mark -
+
+- (BOOL)eject
+{
+    kern_return_t kernelReturn = (*_deviceInterface)->USBDeviceReEnumerate(_deviceInterface, kUSBReEnumerateCaptureDeviceMask);
+    if (kernelReturn)
+    {
+        return NO;
+    }
+    return YES;
 }
 
 @end
