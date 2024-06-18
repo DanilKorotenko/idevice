@@ -1,5 +1,5 @@
 //
-//  IOUSBController.h
+//  IOUSBDevice.h
 //  idevice
 //
 //  Created by Danil Korotenko on 6/18/24.
@@ -9,11 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface IOUSBController : NSObject
-
-// singleton instance
-+ (IOUSBController *)sharedController;
-
+@interface IOUSBDevice : NSObject
 
 @end
 

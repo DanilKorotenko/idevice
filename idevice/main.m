@@ -46,8 +46,8 @@ void DeviceNotification(void *refCon, io_service_t service, natural_t messageTyp
         // Dump our private data to stderr just to see what it looks like.
         fprintf(stderr, "privateDataRef->deviceName: ");
         CFShow(privateDataRef->deviceName);
-        fprintf(stderr, "privateDataRef->locationID: 0x%lx.\n\n", privateDataRef->locationID);
-    
+        fprintf(stderr, "privateDataRef->locationID: 0x%x.\n\n", (unsigned int)privateDataRef->locationID);
+
         // Free the data we're no longer using now that the device is going away
         CFRelease(privateDataRef->deviceName);
         
