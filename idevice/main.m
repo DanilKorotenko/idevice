@@ -15,7 +15,8 @@
 #include <IOKit/usb/IOUSBLib.h>
 
 
-typedef struct MyPrivateData {
+typedef struct MyPrivateData
+{
     io_object_t             notification;
     IOUSBDeviceInterface    **deviceInterface;
     CFStringRef             deviceName;
@@ -24,8 +25,7 @@ typedef struct MyPrivateData {
  
 static IONotificationPortRef    gNotifyPort;
 static io_iterator_t            gAddedIter;
-static CFRunLoopRef             gRunLoop;
- 
+
 //================================================================================================
 //
 //  DeviceNotification
@@ -40,9 +40,10 @@ void DeviceNotification(void *refCon, io_service_t service, natural_t messageTyp
     kern_return_t   kr;
     MyPrivateData   *privateDataRef = (MyPrivateData *) refCon;
     
-    if (messageType == kIOMessageServiceIsTerminated) {
+    if (messageType == kIOMessageServiceIsTerminated)
+    {
         fprintf(stderr, "Device removed.\n");
-    
+
         // Dump our private data to stderr just to see what it looks like.
         fprintf(stderr, "privateDataRef->deviceName: ");
         CFShow(privateDataRef->deviceName);
@@ -50,13 +51,14 @@ void DeviceNotification(void *refCon, io_service_t service, natural_t messageTyp
 
         // Free the data we're no longer using now that the device is going away
         CFRelease(privateDataRef->deviceName);
-        
-        if (privateDataRef->deviceInterface) {
+
+        if (privateDataRef->deviceInterface)
+        {
             kr = (*privateDataRef->deviceInterface)->Release(privateDataRef->deviceInterface);
         }
-        
+
         kr = IOObjectRelease(privateDataRef->notification);
-        
+
         free(privateDataRef);
     }
 }
@@ -163,7 +165,7 @@ void DeviceAdded(void *refCon, io_iterator_t iterator)
                                               privateDataRef,                   // refCon
                                               &(privateDataRef->notification)   // notification
                                               );
-                                                
+
         if (KERN_SUCCESS != kr)
         {
             printf("IOServiceAddInterestNotification returned 0x%08x.\n", kr);
@@ -221,8 +223,7 @@ int main(int argc, const char * argv[])
 
         CFRunLoopSourceRef runLoopSource = IONotificationPortGetRunLoopSource(gNotifyPort);
 
-        gRunLoop = CFRunLoopGetCurrent();
-        CFRunLoopAddSource(gRunLoop, runLoopSource, kCFRunLoopDefaultMode);
+        CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, kCFRunLoopDefaultMode);
 
         // Now set up a notification to be called when a device is first matched by I/O Kit.
         kern_return_t kernelReturn = IOServiceAddMatchingNotification(gNotifyPort,                  // notifyPort

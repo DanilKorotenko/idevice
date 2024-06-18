@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "IOUSBDevice.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 // singleton instance
 + (IOUSBController *)sharedController;
 
+@property (strong) void (^deviceAddedBlock)(IOUSBDevice *aDevice);
+
+- (void)startWatching;
 
 @end
 
