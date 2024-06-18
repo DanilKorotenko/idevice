@@ -6,12 +6,54 @@
 	objectVersion = 56;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		DA140D732C218CA90097D7CA /* BuildAll */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = DA140D742C218CA90097D7CA /* Build configuration list for PBXAggregateTarget "BuildAll" */;
+			buildPhases = (
+			);
+			dependencies = (
+				DA140D782C218CB30097D7CA /* PBXTargetDependency */,
+				DA140D7A2C218CB30097D7CA /* PBXTargetDependency */,
+			);
+			name = BuildAll;
+			productName = BuildAll;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		DA140D5F2C20780A0097D7CA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D5E2C20780A0097D7CA /* main.m */; };
+		DA140D6F2C218C930097D7CA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D6E2C218C930097D7CA /* main.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DA140D772C218CB30097D7CA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA140D532C20780A0097D7CA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA140D6B2C218C930097D7CA;
+			remoteInfo = deviceWatcher;
+		};
+		DA140D792C218CB30097D7CA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA140D532C20780A0097D7CA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA140D5A2C20780A0097D7CA;
+			remoteInfo = idevice;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		DA140D592C20780A0097D7CA /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		DA140D6A2C218C930097D7CA /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -25,10 +67,19 @@
 /* Begin PBXFileReference section */
 		DA140D5B2C20780A0097D7CA /* idevice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = idevice; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA140D5E2C20780A0097D7CA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DA140D6C2C218C930097D7CA /* deviceWatcher */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = deviceWatcher; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA140D6E2C218C930097D7CA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		DA140D582C20780A0097D7CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA140D692C218C930097D7CA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -42,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				DA140D5D2C20780A0097D7CA /* idevice */,
+				DA140D6D2C218C930097D7CA /* deviceWatcher */,
 				DA140D5C2C20780A0097D7CA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -50,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				DA140D5B2C20780A0097D7CA /* idevice */,
+				DA140D6C2C218C930097D7CA /* deviceWatcher */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -60,6 +113,14 @@
 				DA140D5E2C20780A0097D7CA /* main.m */,
 			);
 			path = idevice;
+			sourceTree = "<group>";
+		};
+		DA140D6D2C218C930097D7CA /* deviceWatcher */ = {
+			isa = PBXGroup;
+			children = (
+				DA140D6E2C218C930097D7CA /* main.m */,
+			);
+			path = deviceWatcher;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -82,6 +143,23 @@
 			productReference = DA140D5B2C20780A0097D7CA /* idevice */;
 			productType = "com.apple.product-type.tool";
 		};
+		DA140D6B2C218C930097D7CA /* deviceWatcher */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA140D702C218C930097D7CA /* Build configuration list for PBXNativeTarget "deviceWatcher" */;
+			buildPhases = (
+				DA140D682C218C930097D7CA /* Sources */,
+				DA140D692C218C930097D7CA /* Frameworks */,
+				DA140D6A2C218C930097D7CA /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = deviceWatcher;
+			productName = deviceWatcher;
+			productReference = DA140D6C2C218C930097D7CA /* deviceWatcher */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -92,6 +170,12 @@
 				LastUpgradeCheck = 1530;
 				TargetAttributes = {
 					DA140D5A2C20780A0097D7CA = {
+						CreatedOnToolsVersion = 15.3;
+					};
+					DA140D6B2C218C930097D7CA = {
+						CreatedOnToolsVersion = 15.3;
+					};
+					DA140D732C218CA90097D7CA = {
 						CreatedOnToolsVersion = 15.3;
 					};
 				};
@@ -110,6 +194,8 @@
 			projectRoot = "";
 			targets = (
 				DA140D5A2C20780A0097D7CA /* idevice */,
+				DA140D6B2C218C930097D7CA /* deviceWatcher */,
+				DA140D732C218CA90097D7CA /* BuildAll */,
 			);
 		};
 /* End PBXProject section */
@@ -123,7 +209,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DA140D682C218C930097D7CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA140D6F2C218C930097D7CA /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DA140D782C218CB30097D7CA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA140D6B2C218C930097D7CA /* deviceWatcher */;
+			targetProxy = DA140D772C218CB30097D7CA /* PBXContainerItemProxy */;
+		};
+		DA140D7A2C218CB30097D7CA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA140D5A2C20780A0097D7CA /* idevice */;
+			targetProxy = DA140D792C218CB30097D7CA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		DA140D602C20780A0097D7CA /* Debug */ = {
@@ -257,6 +364,38 @@
 			};
 			name = Release;
 		};
+		DA140D712C218C930097D7CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DA140D722C218C930097D7CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		DA140D752C218CA90097D7CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DA140D762C218CA90097D7CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -274,6 +413,24 @@
 			buildConfigurations = (
 				DA140D632C20780A0097D7CA /* Debug */,
 				DA140D642C20780A0097D7CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA140D702C218C930097D7CA /* Build configuration list for PBXNativeTarget "deviceWatcher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA140D712C218C930097D7CA /* Debug */,
+				DA140D722C218C930097D7CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA140D742C218CA90097D7CA /* Build configuration list for PBXAggregateTarget "BuildAll" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA140D752C218CA90097D7CA /* Debug */,
+				DA140D762C218CA90097D7CA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
