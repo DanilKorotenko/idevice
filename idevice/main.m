@@ -225,8 +225,7 @@ int main(int argc, const char * argv[])
 
         CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, kCFRunLoopDefaultMode);
 
-        // Now set up a notification to be called when a device is first matched by I/O Kit.
-        kern_return_t kernelReturn = IOServiceAddMatchingNotification(gNotifyPort,                  // notifyPort
+        IOServiceAddMatchingNotification(gNotifyPort,                  // notifyPort
                                             kIOFirstMatchNotification,    // notificationType
                                             matchingDict,                 // matching
                                             DeviceAdded,                  // callback
