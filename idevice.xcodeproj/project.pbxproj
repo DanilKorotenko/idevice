@@ -24,6 +24,7 @@
 /* Begin PBXBuildFile section */
 		DA140D5F2C20780A0097D7CA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D5E2C20780A0097D7CA /* main.m */; };
 		DA140D6F2C218C930097D7CA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D6E2C218C930097D7CA /* main.m */; };
+		DA140D7E2C218EC70097D7CA /* IOUSBController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D7D2C218EC70097D7CA /* IOUSBController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,8 @@
 		DA140D5E2C20780A0097D7CA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DA140D6C2C218C930097D7CA /* deviceWatcher */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = deviceWatcher; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA140D6E2C218C930097D7CA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DA140D7C2C218EC70097D7CA /* IOUSBController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOUSBController.h; sourceTree = "<group>"; };
+		DA140D7D2C218EC70097D7CA /* IOUSBController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IOUSBController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +95,7 @@
 		DA140D522C20780A0097D7CA = {
 			isa = PBXGroup;
 			children = (
+				DA140D7B2C218D780097D7CA /* IOUsbUtils */,
 				DA140D5D2C20780A0097D7CA /* idevice */,
 				DA140D6D2C218C930097D7CA /* deviceWatcher */,
 				DA140D5C2C20780A0097D7CA /* Products */,
@@ -121,6 +125,15 @@
 				DA140D6E2C218C930097D7CA /* main.m */,
 			);
 			path = deviceWatcher;
+			sourceTree = "<group>";
+		};
+		DA140D7B2C218D780097D7CA /* IOUsbUtils */ = {
+			isa = PBXGroup;
+			children = (
+				DA140D7C2C218EC70097D7CA /* IOUSBController.h */,
+				DA140D7D2C218EC70097D7CA /* IOUSBController.m */,
+			);
+			path = IOUsbUtils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -205,6 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA140D7E2C218EC70097D7CA /* IOUSBController.m in Sources */,
 				DA140D5F2C20780A0097D7CA /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
