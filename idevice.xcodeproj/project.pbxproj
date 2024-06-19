@@ -1,0 +1,577 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		DA140D732C218CA90097D7CA /* BuildAll */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = DA140D742C218CA90097D7CA /* Build configuration list for PBXAggregateTarget "BuildAll" */;
+			buildPhases = (
+			);
+			dependencies = (
+				DA140DCE2C2300B80097D7CA /* PBXTargetDependency */,
+				DA140D782C218CB30097D7CA /* PBXTargetDependency */,
+				DA140D7A2C218CB30097D7CA /* PBXTargetDependency */,
+			);
+			name = BuildAll;
+			productName = BuildAll;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		DA140D5F2C20780A0097D7CA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D5E2C20780A0097D7CA /* main.m */; };
+		DA140D6F2C218C930097D7CA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D6E2C218C930097D7CA /* main.m */; };
+		DA140D7E2C218EC70097D7CA /* IOUSBController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D7D2C218EC70097D7CA /* IOUSBController.m */; };
+		DA140D812C2191200097D7CA /* IOUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D802C2191200097D7CA /* IOUSBDevice.m */; };
+		DA140D822C21B0920097D7CA /* IOUSBController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D7D2C218EC70097D7CA /* IOUSBController.m */; };
+		DA140D832C21B0DD0097D7CA /* IOUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D802C2191200097D7CA /* IOUSBDevice.m */; };
+		DA140DC32C22EED80097D7CA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA140DC22C22EED80097D7CA /* main.cpp */; };
+		DA140DC92C22F4C90097D7CA /* IOUSB.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA140DC72C22F4C90097D7CA /* IOUSB.mm */; };
+		DA140DCC2C22FD2F0097D7CA /* USBDevice.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA140DCA2C22FD2F0097D7CA /* USBDevice.mm */; };
+		DA140DCF2C23011D0097D7CA /* IOUSBController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D7D2C218EC70097D7CA /* IOUSBController.m */; };
+		DA140DD02C2301270097D7CA /* IOUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D802C2191200097D7CA /* IOUSBDevice.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DA140D772C218CB30097D7CA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA140D532C20780A0097D7CA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA140D6B2C218C930097D7CA;
+			remoteInfo = deviceWatcher;
+		};
+		DA140D792C218CB30097D7CA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA140D532C20780A0097D7CA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA140D5A2C20780A0097D7CA;
+			remoteInfo = idevice;
+		};
+		DA140DCD2C2300B80097D7CA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA140D532C20780A0097D7CA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA140DBF2C22EED80097D7CA;
+			remoteInfo = deviceWatcherCpp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DA140D592C20780A0097D7CA /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		DA140D6A2C218C930097D7CA /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		DA140DBE2C22EED80097D7CA /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		DA140D5B2C20780A0097D7CA /* idevice */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = idevice; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA140D5E2C20780A0097D7CA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DA140D6C2C218C930097D7CA /* deviceWatcher */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = deviceWatcher; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA140D6E2C218C930097D7CA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DA140D7C2C218EC70097D7CA /* IOUSBController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOUSBController.h; sourceTree = "<group>"; };
+		DA140D7D2C218EC70097D7CA /* IOUSBController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IOUSBController.m; sourceTree = "<group>"; };
+		DA140D7F2C2191200097D7CA /* IOUSBDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOUSBDevice.h; sourceTree = "<group>"; };
+		DA140D802C2191200097D7CA /* IOUSBDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IOUSBDevice.m; sourceTree = "<group>"; };
+		DA140DC02C22EED80097D7CA /* deviceWatcherCpp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = deviceWatcherCpp; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA140DC22C22EED80097D7CA /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		DA140DC72C22F4C90097D7CA /* IOUSB.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = IOUSB.mm; sourceTree = "<group>"; };
+		DA140DC82C22F4C90097D7CA /* IOUSB.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IOUSB.hpp; sourceTree = "<group>"; };
+		DA140DCA2C22FD2F0097D7CA /* USBDevice.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = USBDevice.mm; sourceTree = "<group>"; };
+		DA140DCB2C22FD2F0097D7CA /* USBDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = USBDevice.hpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DA140D582C20780A0097D7CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA140D692C218C930097D7CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA140DBD2C22EED80097D7CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DA140D522C20780A0097D7CA = {
+			isa = PBXGroup;
+			children = (
+				DA140D7B2C218D780097D7CA /* IOUsbUtils */,
+				DA140D5D2C20780A0097D7CA /* idevice */,
+				DA140D6D2C218C930097D7CA /* deviceWatcher */,
+				DA140DC12C22EED80097D7CA /* deviceWatcherCpp */,
+				DA140D5C2C20780A0097D7CA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DA140D5C2C20780A0097D7CA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DA140D5B2C20780A0097D7CA /* idevice */,
+				DA140D6C2C218C930097D7CA /* deviceWatcher */,
+				DA140DC02C22EED80097D7CA /* deviceWatcherCpp */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DA140D5D2C20780A0097D7CA /* idevice */ = {
+			isa = PBXGroup;
+			children = (
+				DA140D5E2C20780A0097D7CA /* main.m */,
+			);
+			path = idevice;
+			sourceTree = "<group>";
+		};
+		DA140D6D2C218C930097D7CA /* deviceWatcher */ = {
+			isa = PBXGroup;
+			children = (
+				DA140D6E2C218C930097D7CA /* main.m */,
+			);
+			path = deviceWatcher;
+			sourceTree = "<group>";
+		};
+		DA140D7B2C218D780097D7CA /* IOUsbUtils */ = {
+			isa = PBXGroup;
+			children = (
+				DA140D7C2C218EC70097D7CA /* IOUSBController.h */,
+				DA140D7D2C218EC70097D7CA /* IOUSBController.m */,
+				DA140D7F2C2191200097D7CA /* IOUSBDevice.h */,
+				DA140D802C2191200097D7CA /* IOUSBDevice.m */,
+				DA140DC72C22F4C90097D7CA /* IOUSB.mm */,
+				DA140DC82C22F4C90097D7CA /* IOUSB.hpp */,
+				DA140DCA2C22FD2F0097D7CA /* USBDevice.mm */,
+				DA140DCB2C22FD2F0097D7CA /* USBDevice.hpp */,
+			);
+			path = IOUsbUtils;
+			sourceTree = "<group>";
+		};
+		DA140DC12C22EED80097D7CA /* deviceWatcherCpp */ = {
+			isa = PBXGroup;
+			children = (
+				DA140DC22C22EED80097D7CA /* main.cpp */,
+			);
+			path = deviceWatcherCpp;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DA140D5A2C20780A0097D7CA /* idevice */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA140D622C20780A0097D7CA /* Build configuration list for PBXNativeTarget "idevice" */;
+			buildPhases = (
+				DA140D572C20780A0097D7CA /* Sources */,
+				DA140D582C20780A0097D7CA /* Frameworks */,
+				DA140D592C20780A0097D7CA /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = idevice;
+			productName = idevice;
+			productReference = DA140D5B2C20780A0097D7CA /* idevice */;
+			productType = "com.apple.product-type.tool";
+		};
+		DA140D6B2C218C930097D7CA /* deviceWatcher */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA140D702C218C930097D7CA /* Build configuration list for PBXNativeTarget "deviceWatcher" */;
+			buildPhases = (
+				DA140D682C218C930097D7CA /* Sources */,
+				DA140D692C218C930097D7CA /* Frameworks */,
+				DA140D6A2C218C930097D7CA /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = deviceWatcher;
+			productName = deviceWatcher;
+			productReference = DA140D6C2C218C930097D7CA /* deviceWatcher */;
+			productType = "com.apple.product-type.tool";
+		};
+		DA140DBF2C22EED80097D7CA /* deviceWatcherCpp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA140DC42C22EED80097D7CA /* Build configuration list for PBXNativeTarget "deviceWatcherCpp" */;
+			buildPhases = (
+				DA140DBC2C22EED80097D7CA /* Sources */,
+				DA140DBD2C22EED80097D7CA /* Frameworks */,
+				DA140DBE2C22EED80097D7CA /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = deviceWatcherCpp;
+			productName = deviceWatcherCpp;
+			productReference = DA140DC02C22EED80097D7CA /* deviceWatcherCpp */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DA140D532C20780A0097D7CA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1530;
+				TargetAttributes = {
+					DA140D5A2C20780A0097D7CA = {
+						CreatedOnToolsVersion = 15.3;
+					};
+					DA140D6B2C218C930097D7CA = {
+						CreatedOnToolsVersion = 15.3;
+					};
+					DA140D732C218CA90097D7CA = {
+						CreatedOnToolsVersion = 15.3;
+					};
+					DA140DBF2C22EED80097D7CA = {
+						CreatedOnToolsVersion = 15.3;
+					};
+				};
+			};
+			buildConfigurationList = DA140D562C20780A0097D7CA /* Build configuration list for PBXProject "idevice" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DA140D522C20780A0097D7CA;
+			productRefGroup = DA140D5C2C20780A0097D7CA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DA140D5A2C20780A0097D7CA /* idevice */,
+				DA140D6B2C218C930097D7CA /* deviceWatcher */,
+				DA140D732C218CA90097D7CA /* BuildAll */,
+				DA140DBF2C22EED80097D7CA /* deviceWatcherCpp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DA140D572C20780A0097D7CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA140D7E2C218EC70097D7CA /* IOUSBController.m in Sources */,
+				DA140D812C2191200097D7CA /* IOUSBDevice.m in Sources */,
+				DA140D5F2C20780A0097D7CA /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA140D682C218C930097D7CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA140D822C21B0920097D7CA /* IOUSBController.m in Sources */,
+				DA140D832C21B0DD0097D7CA /* IOUSBDevice.m in Sources */,
+				DA140D6F2C218C930097D7CA /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA140DBC2C22EED80097D7CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA140DD02C2301270097D7CA /* IOUSBDevice.m in Sources */,
+				DA140DCC2C22FD2F0097D7CA /* USBDevice.mm in Sources */,
+				DA140DC92C22F4C90097D7CA /* IOUSB.mm in Sources */,
+				DA140DCF2C23011D0097D7CA /* IOUSBController.m in Sources */,
+				DA140DC32C22EED80097D7CA /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DA140D782C218CB30097D7CA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA140D6B2C218C930097D7CA /* deviceWatcher */;
+			targetProxy = DA140D772C218CB30097D7CA /* PBXContainerItemProxy */;
+		};
+		DA140D7A2C218CB30097D7CA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA140D5A2C20780A0097D7CA /* idevice */;
+			targetProxy = DA140D792C218CB30097D7CA /* PBXContainerItemProxy */;
+		};
+		DA140DCE2C2300B80097D7CA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA140DBF2C22EED80097D7CA /* deviceWatcherCpp */;
+			targetProxy = DA140DCD2C2300B80097D7CA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		DA140D602C20780A0097D7CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		DA140D612C20780A0097D7CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		DA140D632C20780A0097D7CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DA140D642C20780A0097D7CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		DA140D712C218C930097D7CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DA140D722C218C930097D7CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		DA140D752C218CA90097D7CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DA140D762C218CA90097D7CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		DA140DC52C22EED80097D7CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DA140DC62C22EED80097D7CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DA140D562C20780A0097D7CA /* Build configuration list for PBXProject "idevice" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA140D602C20780A0097D7CA /* Debug */,
+				DA140D612C20780A0097D7CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA140D622C20780A0097D7CA /* Build configuration list for PBXNativeTarget "idevice" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA140D632C20780A0097D7CA /* Debug */,
+				DA140D642C20780A0097D7CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA140D702C218C930097D7CA /* Build configuration list for PBXNativeTarget "deviceWatcher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA140D712C218C930097D7CA /* Debug */,
+				DA140D722C218C930097D7CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA140D742C218CA90097D7CA /* Build configuration list for PBXAggregateTarget "BuildAll" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA140D752C218CA90097D7CA /* Debug */,
+				DA140D762C218CA90097D7CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA140DC42C22EED80097D7CA /* Build configuration list for PBXNativeTarget "deviceWatcherCpp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA140DC52C22EED80097D7CA /* Debug */,
+				DA140DC62C22EED80097D7CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DA140D532C20780A0097D7CA /* Project object */;
+}
