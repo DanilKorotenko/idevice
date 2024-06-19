@@ -9,22 +9,24 @@
 
 #import <IOKit/usb/IOUSBLib.h>
 
-static void iokit_cfdictionary_set_short(CFMutableDictionaryRef dict, const void *key, SInt16 value)
-{
-    if (dict == NULL)
-    {
-        return;
-    }
-
-    CFNumberRef numberRef = CFNumberCreate(kCFAllocatorDefault, kCFNumberShortType, &value);
-    if (numberRef)
-    {
-        CFDictionarySetValue(dict, key, numberRef);
-        CFRelease(numberRef);
-    }
-}
+//static void iokit_cfdictionary_set_short(CFMutableDictionaryRef dict, const void *key, SInt16 value)
+//{
+//    if (dict == NULL)
+//    {
+//        return;
+//    }
+//
+//    CFNumberRef numberRef = CFNumberCreate(kCFAllocatorDefault, kCFNumberShortType, &value);
+//    if (numberRef)
+//    {
+//        CFDictionarySetValue(dict, key, numberRef);
+//        CFRelease(numberRef);
+//    }
+//}
 
 @interface IOUSBController ()
+
+@property (strong) void (^deviceAddedBlock)(IOUSBDevice *aDevice);
 
 @property (assign) IONotificationPortRef    notifyPort;
 
@@ -72,20 +74,12 @@ static void staticDeviceAdded(void *refCon, io_iterator_t iterator)
     return sharedController;
 }
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self)
-    {
-
-    }
-    return self;
-}
-
 #pragma mark -
 
-- (BOOL)startWatching
+- (BOOL)startWatchingWithBlock:(void (^)(IOUSBDevice *aDevice))aBlock
 {
+    self.deviceAddedBlock = aBlock;
+
     CFMutableDictionaryRef matchingDict = [self createMatchingDict];
     if (matchingDict == NULL)
     {
@@ -124,7 +118,6 @@ static void staticDeviceAdded(void *refCon, io_iterator_t iterator)
     while ((serviceObject = IOIteratorNext(anIterator)))
     {
         IOUSBDevice *device = [[IOUSBDevice alloc] initWithIoServiceT:serviceObject];
-
         if (device)
         {
             self.deviceAddedBlock(device);

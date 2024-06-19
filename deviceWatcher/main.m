@@ -13,7 +13,7 @@ int main(int argc, const char * argv[])
     @autoreleasepool
     {
         NSLog(@"Hello, device Watcher!");
-        [[IOUSBController sharedController] setDeviceAddedBlock:
+        [[IOUSBController sharedController] startWatchingWithBlock:
             ^(IOUSBDevice * _Nonnull aDevice)
             {
                 NSLog(@"device added: %@", aDevice);
@@ -22,7 +22,6 @@ int main(int argc, const char * argv[])
                     [aDevice eject];
                 }
             }];
-        [[IOUSBController sharedController] startWatching];
 
         [[NSRunLoop currentRunLoop] run];
     }

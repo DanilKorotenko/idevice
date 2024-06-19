@@ -15,9 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 // singleton instance
 + (IOUSBController *)sharedController;
 
-@property (strong) void (^deviceAddedBlock)(IOUSBDevice *aDevice);
-
-- (BOOL)startWatching;
+- (BOOL)startWatchingWithBlock:(void (^)(IOUSBDevice *aDevice))aBlock;
 
 @end
 
