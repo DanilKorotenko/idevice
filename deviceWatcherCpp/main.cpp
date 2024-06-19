@@ -6,6 +6,7 @@
 //
 
 #include <iostream>
+#include <dispatch/dispatch.h>
 #include "IOUSB.hpp"
 
 int main(int argc, const char * argv[])
@@ -19,5 +20,6 @@ int main(int argc, const char * argv[])
                 USBDeviceEject(aDevice);
             }
         });
+    dispatch_main();
     return 0;
 }

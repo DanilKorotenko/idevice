@@ -23,7 +23,7 @@ int main(int argc, const char * argv[])
                 }
             }];
 
-        [[NSRunLoop currentRunLoop] run];
+        dispatch_main();
     }
     return 0;
 }

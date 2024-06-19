@@ -61,6 +61,7 @@ static void staticDeviceAdded(void *refCon, io_iterator_t iterator)
 {
     io_iterator_t _deviceAddedIter;
     io_iterator_t _deviceRemovedIter;
+    dispatch_queue_t _queue;
 }
 
 + (IOUSBController *)sharedController
@@ -72,6 +73,16 @@ static void staticDeviceAdded(void *refCon, io_iterator_t iterator)
         sharedController = [[IOUSBController alloc] init];
     });
     return sharedController;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        _queue = dispatch_queue_create("IOUSBControllerQueue", DISPATCH_QUEUE_SERIAL);
+    }
+    return self;
 }
 
 #pragma mark -
@@ -87,8 +98,7 @@ static void staticDeviceAdded(void *refCon, io_iterator_t iterator)
     }
 
     self.notifyPort = IONotificationPortCreate(kIOMainPortDefault);
-    CFRunLoopSourceRef runLoopSource = IONotificationPortGetRunLoopSource(self.notifyPort);
-    CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, kCFRunLoopDefaultMode);
+    IONotificationPortSetDispatchQueue(self.notifyPort, _queue);
 
     IOServiceAddMatchingNotification(self.notifyPort,
         kIOFirstMatchNotification, matchingDict,
