@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)startWatchingWithBlock:(void (^)(IOUSBDevice *aDevice))aBlock;
 
+- (void)reenumerateDevices;
+
 @end
 
 NS_ASSUME_NONNULL_END

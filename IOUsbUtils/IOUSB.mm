@@ -19,3 +19,8 @@ bool IOUSBStartWatchingWithBlock(void (^block)(USBDeviceRef aDevice))
         }];
     return result == YES ? true : false;
 }
+
+void IOUSBReenumerateDevices()
+{
+    [[IOUSBController sharedController] reenumerateDevices];
+}

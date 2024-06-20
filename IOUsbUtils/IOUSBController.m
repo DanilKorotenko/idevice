@@ -109,15 +109,12 @@ static void staticDeviceAdded(void *refCon, io_iterator_t iterator)
     return YES;
 }
 
-- (CFMutableDictionaryRef)createMatchingDict
+- (void)reenumerateDevices
 {
-    CFMutableDictionaryRef matchingDict = IOServiceMatching(kIOUSBDeviceClassName);
-
-// NOTE: If we set vendorID then we have to set product ID. We cannot set only one of this.
-//    iokit_cfdictionary_set_short(matchingDict, CFSTR(kUSBVendorID), kAppleVendorID);
-//    iokit_cfdictionary_set_short(matchingDict, CFSTR(kUSBProductID), 0x12A8);
-
-    return matchingDict;
+    CFMutableDictionaryRef matchingDict = [self createMatchingDict];
+    io_iterator_t iterator;
+    IOServiceGetMatchingServices(kIOMainPortDefault, matchingDict, &iterator);
+    [self deviceAdded:iterator];
 }
 
 #pragma mark -
@@ -139,6 +136,19 @@ static void staticDeviceAdded(void *refCon, io_iterator_t iterator)
 - (void)deviceRemoved:(io_iterator_t)anIterator
 {
 
+}
+
+#pragma mark -
+
+- (CFMutableDictionaryRef)createMatchingDict
+{
+    CFMutableDictionaryRef matchingDict = IOServiceMatching(kIOUSBDeviceClassName);
+
+// NOTE: If we set vendorID then we have to set product ID. We cannot set only one of this.
+//    iokit_cfdictionary_set_short(matchingDict, CFSTR(kUSBVendorID), kAppleVendorID);
+//    iokit_cfdictionary_set_short(matchingDict, CFSTR(kUSBProductID), 0x12A8);
+
+    return matchingDict;
 }
 
 @end
