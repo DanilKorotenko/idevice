@@ -97,7 +97,7 @@ static void staticDeviceAdded(void *refCon, io_iterator_t iterator)
         return NO;
     }
 
-    self.notifyPort = IONotificationPortCreate(kIOMainPortDefault);
+    self.notifyPort = IONotificationPortCreate(kIOMasterPortDefault);
     IONotificationPortSetDispatchQueue(self.notifyPort, _queue);
 
     IOServiceAddMatchingNotification(self.notifyPort,
@@ -113,7 +113,7 @@ static void staticDeviceAdded(void *refCon, io_iterator_t iterator)
 {
     CFMutableDictionaryRef matchingDict = [self createMatchingDict];
     io_iterator_t iterator;
-    IOServiceGetMatchingServices(kIOMainPortDefault, matchingDict, &iterator);
+    IOServiceGetMatchingServices(kIOMasterPortDefault, matchingDict, &iterator);
     [self deviceAdded:iterator];
 }
 
@@ -122,12 +122,15 @@ static void staticDeviceAdded(void *refCon, io_iterator_t iterator)
 - (void)deviceAdded:(io_iterator_t)anIterator
 {
     io_service_t serviceObject;
-    while ((serviceObject = IOIteratorNext(anIterator)))
+    while (IOIteratorIsValid(anIterator) && (serviceObject = IOIteratorNext(anIterator)))
     {
         IOUSBDevice *device = [[IOUSBDevice alloc] initWithIoServiceT:serviceObject];
         if (device)
         {
-            self.deviceAddedBlock(device);
+            if (self.deviceAddedBlock)
+            {
+                self.deviceAddedBlock(device);
+            }
         }
         IOObjectRelease(serviceObject);
     }
