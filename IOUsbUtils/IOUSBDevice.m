@@ -9,6 +9,11 @@
 
 @interface IOUSBDevice ()
 
+@property (readonly) BOOL isApple;
+@property (readonly) BOOL isIPhoneProduct;
+@property (readonly) NSNumber *vendorIdNumber;
+@property (readonly) NSNumber *productIdNumber;
+
 @end
 
 @implementation IOUSBDevice
@@ -18,7 +23,9 @@
 }
 
 @synthesize name;
+@synthesize vendorIdNumber;
 @synthesize vendorID;
+@synthesize productIdNumber;
 @synthesize productID;
 
 - (instancetype)initWithIoServiceT:(io_service_t)aService
@@ -71,7 +78,9 @@
         @{
             @"name" :       self.name == nil ?      @"<none>" : self.name,
             @"vendorID" :   self.vendorID == nil ?  @"<none>" : self.vendorID,
-            @"productID" :  self.productID == nil ? @"<none>" : self.productID
+            @"productID" :  self.productID == nil ? @"<none>" : self.productID,
+            @"isApple" :    self.isApple ? @"YES" : @"NO",
+            @"isIPhone" :   self.isIPhone ? @"YES" : @"NO"
         };
     return [descr description];
 }
@@ -88,32 +97,80 @@
     return name;
 }
 
+- (NSNumber *)vendorIdNumber
+{
+    if (vendorIdNumber == nil)
+    {
+        UInt16 value;
+        (*_deviceInterface)->GetDeviceVendor(_deviceInterface, &value);
+        vendorIdNumber = [NSNumber numberWithUnsignedInteger:value];
+    }
+    return vendorIdNumber;
+}
+
 - (NSString *)vendorID
 {
     if (vendorID == nil)
     {
-        UInt16 vendorIDNumber;
-        (*_deviceInterface)->GetDeviceVendor(_deviceInterface, &vendorIDNumber);
-        vendorID = [NSString stringWithFormat: @"0x%04x", vendorIDNumber];
+        vendorID = [NSString stringWithFormat: @"0x%04x", self.vendorIdNumber.unsignedIntValue];
     }
     return vendorID;
+}
+
+- (NSNumber *)productIdNumber
+{
+    if (productIdNumber == nil)
+    {
+        UInt16 value;
+        (*_deviceInterface)->GetDeviceProduct(_deviceInterface, &value);
+        productIdNumber = [NSNumber numberWithUnsignedInteger:value];
+    }
+    return productIdNumber;
 }
 
 - (NSString *)productID
 {
     if (productID == nil)
     {
-        UInt16 productIDNumber;
-        (*_deviceInterface)->GetDeviceProduct(_deviceInterface, &productIDNumber);
-        productID = [NSString stringWithFormat: @"0x%04x", productIDNumber];
+        productID = [NSString stringWithFormat: @"0x%04x", self.productIdNumber.unsignedIntValue];
     }
     return productID;
 }
 
-- (BOOL)supportsIPhoneOS
+//- (BOOL)supportsIPhoneOS
+//{
+//    NSNumber *value = (NSNumber *)CFDictionaryGetValue(_entryProperties, CFSTR("SupportsIPhoneOS"));
+//    return value.boolValue;
+//}
+
+- (BOOL)isApple
 {
-    NSNumber *value = (NSNumber *)CFDictionaryGetValue(_entryProperties, CFSTR("SupportsIPhoneOS"));
-    return value.boolValue;
+    return self.vendorIdNumber.unsignedIntegerValue == kAppleVendorID;
+}
+
+- (BOOL)isIPhoneProduct
+{
+    static NSArray *iPhoneProducts =
+        @[
+            @(0x1227), //  Mobile Device (DFU Mode)
+            @(0x1281), //  Apple Mobile Device [Recovery Mode]
+            @(0x1290), //  iPhone
+            @(0x1292), //  iPhone 3G
+            @(0x1294), //  iPhone 3GS
+            @(0x1297), //  iPhone 4
+            @(0x129c), //  iPhone 4(CDMA)
+            @(0x129d), //  iPhone
+            @(0x12a0), //  iPhone 4S
+            @(0x12a1), //  iPhone
+            @(0x12a8), //  iPhone 5/5C/5S/6/SE/7/8/X/XR
+            @(0x12ac), //  iPhone
+        ];
+    return [iPhoneProducts containsObject:self.productIdNumber];
+}
+
+- (BOOL)isIPhone
+{
+    return self.isApple && self.isIPhoneProduct;
 }
 
 #pragma mark -

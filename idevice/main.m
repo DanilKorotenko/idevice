@@ -219,7 +219,7 @@ int main(int argc, const char * argv[])
 
         // Create a notification port and add its run loop event source to our run loop
         // This is how async notifications get set up.
-        gNotifyPort = IONotificationPortCreate(kIOMainPortDefault);
+        gNotifyPort = IONotificationPortCreate(kIOMasterPortDefault);
 
         CFRunLoopSourceRef runLoopSource = IONotificationPortGetRunLoopSource(gNotifyPort);
 

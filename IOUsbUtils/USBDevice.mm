@@ -23,10 +23,25 @@ void USBDeviceReleaseAndMakeNull(USBDeviceRef *aDevice)
     *aDevice = NULL;
 }
 
-bool USBDeviceSupportsIPhoneOS(USBDeviceRef aDevice)
+//bool USBDeviceSupportsIPhoneOS(USBDeviceRef aDevice)
+//{
+//    IOUSBDevice *device = (__bridge IOUSBDevice *)aDevice->_usbdevice;
+//    return device.supportsIPhoneOS == YES ? true : false;
+//}
+
+void USBDeviceCopyDescription(USBDeviceRef aDevice, CFStringRef *aDescription)
 {
     IOUSBDevice *device = (__bridge IOUSBDevice *)aDevice->_usbdevice;
-    return device.supportsIPhoneOS == YES ? true : false;
+    if (aDescription != NULL)
+    {
+        *aDescription = (CFStringRef)CFBridgingRetain([device description]);
+    }
+}
+
+bool USBDeviceIsIPhone(USBDeviceRef aDevice)
+{
+    IOUSBDevice *device = (__bridge IOUSBDevice *)aDevice->_usbdevice;
+    return device.isIPhone == YES ? true : false;
 }
 
 bool USBDeviceEject(USBDeviceRef aDevice)

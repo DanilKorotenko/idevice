@@ -9,6 +9,7 @@
 #define USBDevice_hpp
 
 #include <stdio.h>
+#include <CoreFoundation/CoreFoundation.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -24,7 +25,9 @@ typedef USBDevice* USBDeviceRef;
 USBDeviceRef USBDeviceCreateWithIOUSBDevice(void *anIOUSBDevice);
 void USBDeviceReleaseAndMakeNull(USBDeviceRef *aDevice);
 
-bool USBDeviceSupportsIPhoneOS(USBDeviceRef aDevice);
+//bool USBDeviceSupportsIPhoneOS(USBDeviceRef aDevice);
+void USBDeviceCopyDescription(USBDeviceRef aDevice, CFStringRef *aDescription);
+bool USBDeviceIsIPhone(USBDeviceRef aDevice);
 bool USBDeviceEject(USBDeviceRef aDevice);
 
 #ifdef __cplusplus
