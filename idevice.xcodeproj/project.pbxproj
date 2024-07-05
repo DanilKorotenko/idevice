@@ -38,6 +38,7 @@
 		DA27078D2C370026005CBA1D /* UsbMuxController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707812C36F8BA005CBA1D /* UsbMuxController.m */; };
 		DA2707912C37F054005CBA1D /* UsbMuxConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = DA27078F2C37EDA1005CBA1D /* UsbMuxConnection.m */; };
 		DA2707942C37F17D005CBA1D /* DispatchData.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707932C37F17D005CBA1D /* DispatchData.m */; };
+		DA2707982C37F625005CBA1D /* UsbMuxPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707972C37F625005CBA1D /* UsbMuxPacket.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,6 +127,8 @@
 		DA27078F2C37EDA1005CBA1D /* UsbMuxConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UsbMuxConnection.m; sourceTree = "<group>"; };
 		DA2707922C37F17D005CBA1D /* DispatchData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchData.h; sourceTree = "<group>"; };
 		DA2707932C37F17D005CBA1D /* DispatchData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchData.m; sourceTree = "<group>"; };
+		DA2707962C37F625005CBA1D /* UsbMuxPacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UsbMuxPacket.h; sourceTree = "<group>"; };
+		DA2707972C37F625005CBA1D /* UsbMuxPacket.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UsbMuxPacket.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,6 +229,7 @@
 		DA27077F2C36F869005CBA1D /* usbmuxUtils */ = {
 			isa = PBXGroup;
 			children = (
+				DA2707952C37F60B005CBA1D /* UsbMuxPacket */,
 				DA2707922C37F17D005CBA1D /* DispatchData.h */,
 				DA2707932C37F17D005CBA1D /* DispatchData.m */,
 				DA2707802C36F8BA005CBA1D /* UsbMuxController.h */,
@@ -242,6 +246,15 @@
 				DA2707882C36F8E2005CBA1D /* main.m */,
 			);
 			path = usbmuxDeviceInfo;
+			sourceTree = "<group>";
+		};
+		DA2707952C37F60B005CBA1D /* UsbMuxPacket */ = {
+			isa = PBXGroup;
+			children = (
+				DA2707962C37F625005CBA1D /* UsbMuxPacket.h */,
+				DA2707972C37F625005CBA1D /* UsbMuxPacket.m */,
+			);
+			path = UsbMuxPacket;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -400,6 +413,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA2707982C37F625005CBA1D /* UsbMuxPacket.m in Sources */,
 				DA2707892C36F8E2005CBA1D /* main.m in Sources */,
 				DA2707912C37F054005CBA1D /* UsbMuxConnection.m in Sources */,
 				DA27078D2C370026005CBA1D /* UsbMuxController.m in Sources */,
