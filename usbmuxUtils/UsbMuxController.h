@@ -15,8 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UsbMuxController *)sharedInstance;
 
-- (void)start;
-
 @end
 
 NS_ASSUME_NONNULL_END

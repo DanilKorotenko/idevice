@@ -10,11 +10,13 @@
 
 @interface UsbMuxController ()
 
-@property (strong) UsbMuxConnection *connection;
+@property (readonly) UsbMuxConnection *connection;
 
 @end
 
 @implementation UsbMuxController
+
+@synthesize connection;
 
 + (UsbMuxController *)sharedInstance
 {
@@ -29,16 +31,20 @@
 
 #pragma mark -
 
-- (void)start
+- (UsbMuxConnection *)connection
 {
-    self.connection = [UsbMuxConnection startWithDelegate:self];
+    if (connection == nil)
+    {
+        connection = [UsbMuxConnection startWithDelegate:self];
+    }
+    return connection;
 }
 
 #pragma mark -
 
 - (void)connectionCanceled:(nonnull UsbMuxConnection *)aConnection
 {
-    self.connection = [UsbMuxConnection startWithDelegate:self];
+    connection = nil;
 }
 
 - (void)didConnect:(nonnull UsbMuxConnection *)aConnection
