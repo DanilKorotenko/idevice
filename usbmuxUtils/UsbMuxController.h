@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UsbMuxController : NSObject
 
++ (UsbMuxController *)sharedInstance;
+
 @end
 
 NS_ASSUME_NONNULL_END

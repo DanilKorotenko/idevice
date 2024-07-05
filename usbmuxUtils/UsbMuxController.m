@@ -9,4 +9,15 @@
 
 @implementation UsbMuxController
 
++ (UsbMuxController *)sharedInstance
+{
+    static UsbMuxController *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken,
+    ^{
+        sharedInstance = [[UsbMuxController alloc] init];
+    });
+    return sharedInstance;
+}
+
 @end

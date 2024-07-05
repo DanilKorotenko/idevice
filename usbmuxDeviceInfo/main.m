@@ -6,13 +6,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UsbMuxController.h"
 
 int main(int argc, const char * argv[])
 {
     @autoreleasepool
     {
-        // insert code here...
-        NSLog(@"Hello, World!");
+        NSLog(@"Hello, Usbmux!");
+        [UsbMuxController sharedInstance];
     }
     return 0;
 }

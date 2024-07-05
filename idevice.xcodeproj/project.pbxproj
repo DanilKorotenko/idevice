@@ -35,6 +35,8 @@
 		DA140DCF2C23011D0097D7CA /* IOUSBController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D7D2C218EC70097D7CA /* IOUSBController.m */; };
 		DA140DD02C2301270097D7CA /* IOUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D802C2191200097D7CA /* IOUSBDevice.m */; };
 		DA2707892C36F8E2005CBA1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707882C36F8E2005CBA1D /* main.m */; };
+		DA27078D2C370026005CBA1D /* UsbMuxController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707812C36F8BA005CBA1D /* UsbMuxController.m */; };
+		DA2707902C37EDA1005CBA1D /* UsbMuxConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = DA27078F2C37EDA1005CBA1D /* UsbMuxConnection.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +121,8 @@
 		DA2707812C36F8BA005CBA1D /* UsbMuxController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UsbMuxController.m; sourceTree = "<group>"; };
 		DA2707862C36F8E2005CBA1D /* usbmuxDeviceInfo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = usbmuxDeviceInfo; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA2707882C36F8E2005CBA1D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DA27078E2C37EDA1005CBA1D /* UsbMuxConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UsbMuxConnection.h; sourceTree = "<group>"; };
+		DA27078F2C37EDA1005CBA1D /* UsbMuxConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UsbMuxConnection.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +225,8 @@
 			children = (
 				DA2707802C36F8BA005CBA1D /* UsbMuxController.h */,
 				DA2707812C36F8BA005CBA1D /* UsbMuxController.m */,
+				DA27078E2C37EDA1005CBA1D /* UsbMuxConnection.h */,
+				DA27078F2C37EDA1005CBA1D /* UsbMuxConnection.m */,
 			);
 			path = usbmuxUtils;
 			sourceTree = "<group>";
@@ -358,6 +364,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA140D7E2C218EC70097D7CA /* IOUSBController.m in Sources */,
+				DA2707902C37EDA1005CBA1D /* UsbMuxConnection.m in Sources */,
 				DA140D812C2191200097D7CA /* IOUSBDevice.m in Sources */,
 				DA140D5F2C20780A0097D7CA /* main.m in Sources */,
 			);
@@ -390,6 +397,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA2707892C36F8E2005CBA1D /* main.m in Sources */,
+				DA27078D2C370026005CBA1D /* UsbMuxController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
