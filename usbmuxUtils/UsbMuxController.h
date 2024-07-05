@@ -7,11 +7,15 @@
 
 #import <Foundation/Foundation.h>
 
+#import "UsbMuxConnection.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UsbMuxController : NSObject
+@interface UsbMuxController : NSObject<UsbMuxConnectionDelegate>
 
 + (UsbMuxController *)sharedInstance;
+
+- (void)start;
 
 @end
 

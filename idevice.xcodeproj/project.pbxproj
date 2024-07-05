@@ -36,7 +36,8 @@
 		DA140DD02C2301270097D7CA /* IOUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D802C2191200097D7CA /* IOUSBDevice.m */; };
 		DA2707892C36F8E2005CBA1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707882C36F8E2005CBA1D /* main.m */; };
 		DA27078D2C370026005CBA1D /* UsbMuxController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707812C36F8BA005CBA1D /* UsbMuxController.m */; };
-		DA2707902C37EDA1005CBA1D /* UsbMuxConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = DA27078F2C37EDA1005CBA1D /* UsbMuxConnection.m */; };
+		DA2707912C37F054005CBA1D /* UsbMuxConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = DA27078F2C37EDA1005CBA1D /* UsbMuxConnection.m */; };
+		DA2707942C37F17D005CBA1D /* DispatchData.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707932C37F17D005CBA1D /* DispatchData.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +124,8 @@
 		DA2707882C36F8E2005CBA1D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DA27078E2C37EDA1005CBA1D /* UsbMuxConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UsbMuxConnection.h; sourceTree = "<group>"; };
 		DA27078F2C37EDA1005CBA1D /* UsbMuxConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UsbMuxConnection.m; sourceTree = "<group>"; };
+		DA2707922C37F17D005CBA1D /* DispatchData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchData.h; sourceTree = "<group>"; };
+		DA2707932C37F17D005CBA1D /* DispatchData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchData.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +226,8 @@
 		DA27077F2C36F869005CBA1D /* usbmuxUtils */ = {
 			isa = PBXGroup;
 			children = (
+				DA2707922C37F17D005CBA1D /* DispatchData.h */,
+				DA2707932C37F17D005CBA1D /* DispatchData.m */,
 				DA2707802C36F8BA005CBA1D /* UsbMuxController.h */,
 				DA2707812C36F8BA005CBA1D /* UsbMuxController.m */,
 				DA27078E2C37EDA1005CBA1D /* UsbMuxConnection.h */,
@@ -364,7 +369,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA140D7E2C218EC70097D7CA /* IOUSBController.m in Sources */,
-				DA2707902C37EDA1005CBA1D /* UsbMuxConnection.m in Sources */,
 				DA140D812C2191200097D7CA /* IOUSBDevice.m in Sources */,
 				DA140D5F2C20780A0097D7CA /* main.m in Sources */,
 			);
@@ -397,7 +401,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA2707892C36F8E2005CBA1D /* main.m in Sources */,
+				DA2707912C37F054005CBA1D /* UsbMuxConnection.m in Sources */,
 				DA27078D2C370026005CBA1D /* UsbMuxController.m in Sources */,
+				DA2707942C37F17D005CBA1D /* DispatchData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
