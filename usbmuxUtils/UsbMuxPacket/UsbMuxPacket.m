@@ -9,4 +9,9 @@
 
 @implementation UsbMuxPacket
 
+- (dispatch_time_t)timeout
+{
+    return dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * 5);
+}
+
 @end
