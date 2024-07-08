@@ -40,6 +40,7 @@
 		DA2707942C37F17D005CBA1D /* DispatchData.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707932C37F17D005CBA1D /* DispatchData.m */; };
 		DA2707C82C3843FD005CBA1D /* UsbMuxDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707C72C3843FD005CBA1D /* UsbMuxDevice.m */; };
 		DA2707CB2C3BF53E005CBA1D /* UsbMuxPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707CA2C3BF53E005CBA1D /* UsbMuxPacket.m */; };
+		DA2707CE2C3C362D005CBA1D /* UsbMuxDeviceProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707CD2C3C362D005CBA1D /* UsbMuxDeviceProperties.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,6 +133,8 @@
 		DA2707C72C3843FD005CBA1D /* UsbMuxDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UsbMuxDevice.m; sourceTree = "<group>"; };
 		DA2707C92C3BF53E005CBA1D /* UsbMuxPacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UsbMuxPacket.h; sourceTree = "<group>"; };
 		DA2707CA2C3BF53E005CBA1D /* UsbMuxPacket.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UsbMuxPacket.m; sourceTree = "<group>"; };
+		DA2707CC2C3C362D005CBA1D /* UsbMuxDeviceProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UsbMuxDeviceProperties.h; sourceTree = "<group>"; };
+		DA2707CD2C3C362D005CBA1D /* UsbMuxDeviceProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UsbMuxDeviceProperties.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -242,6 +245,8 @@
 				DA2707C72C3843FD005CBA1D /* UsbMuxDevice.m */,
 				DA2707C92C3BF53E005CBA1D /* UsbMuxPacket.h */,
 				DA2707CA2C3BF53E005CBA1D /* UsbMuxPacket.m */,
+				DA2707CC2C3C362D005CBA1D /* UsbMuxDeviceProperties.h */,
+				DA2707CD2C3C362D005CBA1D /* UsbMuxDeviceProperties.m */,
 			);
 			path = usbmuxUtils;
 			sourceTree = "<group>";
@@ -410,6 +415,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA2707CE2C3C362D005CBA1D /* UsbMuxDeviceProperties.m in Sources */,
 				DA2707892C36F8E2005CBA1D /* main.m in Sources */,
 				DA2707912C37F054005CBA1D /* UsbMuxConnection.m in Sources */,
 				DA2707C82C3843FD005CBA1D /* UsbMuxDevice.m in Sources */,
