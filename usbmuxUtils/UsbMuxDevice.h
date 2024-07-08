@@ -9,7 +9,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UsbMuxDeviceInfo : NSObject
+@interface UsbMuxDevice : NSObject
+
+- (instancetype)initWithDeviceInfoDictionary:(NSDictionary *)aDeviceInfoDictionary;
 
 @end
 

@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readwrite) NSUInteger tag;
 
+@property (readonly) NSArray *deviceList;
+
 @end
 
 NS_ASSUME_NONNULL_END

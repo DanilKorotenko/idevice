@@ -38,7 +38,7 @@
 		DA27078D2C370026005CBA1D /* UsbMuxController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707812C36F8BA005CBA1D /* UsbMuxController.m */; };
 		DA2707912C37F054005CBA1D /* UsbMuxConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = DA27078F2C37EDA1005CBA1D /* UsbMuxConnection.m */; };
 		DA2707942C37F17D005CBA1D /* DispatchData.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707932C37F17D005CBA1D /* DispatchData.m */; };
-		DA2707C82C3843FD005CBA1D /* UsbMuxDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707C72C3843FD005CBA1D /* UsbMuxDeviceInfo.m */; };
+		DA2707C82C3843FD005CBA1D /* UsbMuxDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707C72C3843FD005CBA1D /* UsbMuxDevice.m */; };
 		DA2707CB2C3BF53E005CBA1D /* UsbMuxPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707CA2C3BF53E005CBA1D /* UsbMuxPacket.m */; };
 /* End PBXBuildFile section */
 
@@ -128,8 +128,8 @@
 		DA27078F2C37EDA1005CBA1D /* UsbMuxConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UsbMuxConnection.m; sourceTree = "<group>"; };
 		DA2707922C37F17D005CBA1D /* DispatchData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchData.h; sourceTree = "<group>"; };
 		DA2707932C37F17D005CBA1D /* DispatchData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchData.m; sourceTree = "<group>"; };
-		DA2707C62C3843FD005CBA1D /* UsbMuxDeviceInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UsbMuxDeviceInfo.h; sourceTree = "<group>"; };
-		DA2707C72C3843FD005CBA1D /* UsbMuxDeviceInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UsbMuxDeviceInfo.m; sourceTree = "<group>"; };
+		DA2707C62C3843FD005CBA1D /* UsbMuxDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UsbMuxDevice.h; sourceTree = "<group>"; };
+		DA2707C72C3843FD005CBA1D /* UsbMuxDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UsbMuxDevice.m; sourceTree = "<group>"; };
 		DA2707C92C3BF53E005CBA1D /* UsbMuxPacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UsbMuxPacket.h; sourceTree = "<group>"; };
 		DA2707CA2C3BF53E005CBA1D /* UsbMuxPacket.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UsbMuxPacket.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -238,8 +238,8 @@
 				DA2707812C36F8BA005CBA1D /* UsbMuxController.m */,
 				DA27078E2C37EDA1005CBA1D /* UsbMuxConnection.h */,
 				DA27078F2C37EDA1005CBA1D /* UsbMuxConnection.m */,
-				DA2707C62C3843FD005CBA1D /* UsbMuxDeviceInfo.h */,
-				DA2707C72C3843FD005CBA1D /* UsbMuxDeviceInfo.m */,
+				DA2707C62C3843FD005CBA1D /* UsbMuxDevice.h */,
+				DA2707C72C3843FD005CBA1D /* UsbMuxDevice.m */,
 				DA2707C92C3BF53E005CBA1D /* UsbMuxPacket.h */,
 				DA2707CA2C3BF53E005CBA1D /* UsbMuxPacket.m */,
 			);
@@ -412,7 +412,7 @@
 			files = (
 				DA2707892C36F8E2005CBA1D /* main.m in Sources */,
 				DA2707912C37F054005CBA1D /* UsbMuxConnection.m in Sources */,
-				DA2707C82C3843FD005CBA1D /* UsbMuxDeviceInfo.m in Sources */,
+				DA2707C82C3843FD005CBA1D /* UsbMuxDevice.m in Sources */,
 				DA27078D2C370026005CBA1D /* UsbMuxController.m in Sources */,
 				DA2707942C37F17D005CBA1D /* DispatchData.m in Sources */,
 				DA2707CB2C3BF53E005CBA1D /* UsbMuxPacket.m in Sources */,

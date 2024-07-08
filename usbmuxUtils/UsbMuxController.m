@@ -48,14 +48,17 @@ static NSUInteger tag = 0;
 - (NSArray *)devices
 {
     tag++;
+    NSArray *result = nil;
     NSError *error = nil;
     if ([self.connection sendListDevicesPacket:tag error:&error])
     {
         UsbMuxPacket *packet = nil;
-        [self.connection receive_packet:&packet];
+        if ([self.connection receive_packet:&packet])
+        {
+            result = packet.deviceList;
+        }
     }
-
-    return @[];
+    return result;
 }
 
 #pragma mark -

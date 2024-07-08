@@ -6,6 +6,7 @@
 //
 
 #import "UsbMuxPacket.h"
+#import "UsbMuxDevice.h"
 
 @interface UsbMuxPacket ()
 
@@ -69,6 +70,26 @@
             error:&error];
     }
     return xmlData;
+}
+
+#pragma mark -
+
+- (NSArray *)deviceList
+{
+    NSArray *result = nil;
+
+    NSArray *deviceList = self.payload[@"DeviceList"];
+    if (deviceList.count > 0)
+    {
+        NSMutableArray *deviceInfoList = [NSMutableArray array];
+        for (NSDictionary *deviceInfo in deviceList)
+        {
+            [deviceInfoList addObject:[[UsbMuxDevice alloc] initWithDeviceInfoDictionary:deviceInfo]];
+        }
+        result = [NSArray arrayWithArray:deviceInfoList];
+    }
+
+    return result;
 }
 
 @end
