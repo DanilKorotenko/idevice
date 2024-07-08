@@ -8,6 +8,8 @@
 #import "UsbMuxController.h"
 #import "UsbMuxConnection.h"
 
+static NSUInteger tag = 0;
+
 @interface UsbMuxController ()
 
 @property (readonly) UsbMuxConnection *connection;
@@ -36,8 +38,24 @@
     if (connection == nil)
     {
         connection = [UsbMuxConnection startWithDelegate:self];
+        [connection waitConnected];
     }
     return connection;
+}
+
+#pragma mark -
+
+- (NSArray *)devices
+{
+    tag++;
+    NSError *error = nil;
+    if ([self.connection sendListDevicesPacket:tag error:&error])
+    {
+        UsbMuxPacket *packet = nil;
+        [self.connection receive_packet:&packet];
+    }
+
+    return @[];
 }
 
 #pragma mark -

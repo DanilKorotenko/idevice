@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UsbMuxController *)sharedInstance;
 
+@property (readonly) NSArray *devices;
+
 @end
 
 NS_ASSUME_NONNULL_END

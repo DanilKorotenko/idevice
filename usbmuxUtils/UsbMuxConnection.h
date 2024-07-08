@@ -8,6 +8,8 @@
 #import <Foundation/Foundation.h>
 #import <Network/Network.h>
 
+#import "UsbMuxPacket.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @class UsbMuxConnection;
@@ -30,13 +32,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (UsbMuxConnection *)startWithNWConnection:(nw_connection_t)aConnection
     delegate:(id<UsbMuxConnectionDelegate> _Nullable)aDelegate;
 
-- (void)sendData:(dispatch_data_t)aData
-    withSendCompletionBlock:(void (^)(NSError *error))aSendCompletionBlock;
-- (void)sendString:(NSString *)aString
-    withSendCompletionBlock:(void (^)(NSError *error))aSendCompletionBlock;
-- (BOOL)sendStringSynchronously:(NSString *)aString error:(NSError * __autoreleasing *)anError;
+- (BOOL)sendListDevicesPacket:(NSUInteger)aTag error:(NSError **)anError;
 
-- (void)startReceiving;
+- (BOOL)receive_packet:(UsbMuxPacket *_Nonnull*_Nonnull)payload;
+
 - (void)reset;
 - (BOOL)waitConnected;
 

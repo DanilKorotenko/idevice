@@ -14,6 +14,7 @@
 #include <sys/un.h>
 
 #import "DispatchData.h"
+#import "UsbMuxPacket.h"
 
 typedef NS_ENUM(NSUInteger, ConnectionState)
 {
@@ -21,6 +22,28 @@ typedef NS_ENUM(NSUInteger, ConnectionState)
     ConnectionStateConnected,
     ConnectionStateCancelled,
 };
+
+typedef NS_ENUM(NSUInteger, usbmuxd_msgtype)
+{
+    MESSAGE_RESULT  = 1,
+    MESSAGE_CONNECT = 2,
+    MESSAGE_LISTEN = 3,
+    MESSAGE_DEVICE_ADD = 4,
+    MESSAGE_DEVICE_REMOVE = 5,
+    MESSAGE_DEVICE_PAIRED = 6,
+    //???
+    MESSAGE_PLIST = 8,
+};
+
+struct usbmuxd_header
+{
+    uint32_t length;    // length of message, including header
+    uint32_t version;   // protocol version
+    uint32_t message;   // message type
+    uint32_t tag;       // responses to this query will echo back this tag
+} __attribute__((__packed__));
+
+static uint32_t proto_version = 1;
 
 @interface UsbMuxConnection ()
 
@@ -43,7 +66,7 @@ typedef NS_ENUM(NSUInteger, ConnectionState)
     strncpy(address.sun_path, mux, sizeof(address.sun_path));
     address.sun_len = SUN_LEN(&address);
 
-    nw_endpoint_t endpoint = nw_endpoint_create_address(&address);
+    nw_endpoint_t endpoint = nw_endpoint_create_address((const struct sockaddr *)&address);
 
     nw_parameters_t parameters = nw_parameters_create_secure_tcp(NW_PARAMETERS_DISABLE_PROTOCOL,
         NW_PARAMETERS_DEFAULT_CONFIGURATION);
@@ -185,64 +208,182 @@ typedef NS_ENUM(NSUInteger, ConnectionState)
 
 #pragma mark -
 
-- (void)sendData:(dispatch_data_t)aData
-    withSendCompletionBlock:(void (^)(NSError *error))aSendCompletionBlock
+- (BOOL)sendListDevicesPacket:(NSUInteger)aTag error:(NSError *__autoreleasing  _Nullable * _Nullable)anError
 {
-    if (self.state == ConnectionStateConnected)
-    {
-        nw_connection_send(self.connection, aData, NW_CONNECTION_DEFAULT_MESSAGE_CONTEXT, true,
-            ^(nw_error_t  _Nullable error)
-            {
-                NSError *err = nil;
-                if (error)
-                {
-                    CFErrorRef errRef = nw_error_copy_cf_error(error);
-                    if (NULL != errRef)
-                    {
-                        err = CFBridgingRelease(errRef);
-                        if (aSendCompletionBlock)
-                        {
-                            aSendCompletionBlock(err);
-                        }
-                    }
-                }
-                else if (aSendCompletionBlock)
-                {
-                    aSendCompletionBlock(nil);
-                }
-            });
-    }
-    else if (aSendCompletionBlock)
-    {
-        aSendCompletionBlock(nil);
-    }
+    UsbMuxPacket *plist = [[UsbMuxPacket alloc] initWithMessage:@"ListDevices"];
+    return [self sendPlistPacket:aTag message:plist error:(anError)];
 }
 
-- (void)sendString:(NSString *)aString
-    withSendCompletionBlock:(void (^)(NSError *error))aSendCompletionBlock
+#pragma mark -
+
+- (BOOL)sendPlistPacket:(NSUInteger)tag message:(UsbMuxPacket *)message error:(NSError **)anError
 {
-    dispatch_data_t data = [DispatchData dispatch_data_from_NSString:aString queue:self.queue];
-    [self sendData:data withSendCompletionBlock:aSendCompletionBlock];
+    return [self send_packet:MESSAGE_PLIST tag:tag payload:[message xmlData] error:anError];
 }
 
-- (BOOL)sendStringSynchronously:(NSString *)aString error:(NSError * __autoreleasing *)anError
+- (BOOL)send_packet:(usbmuxd_msgtype)message tag:(NSUInteger)tag payload:(NSData *)payload error:(NSError **)anError
 {
-    __block BOOL didSend = NO;
-    __block NSError *outError = nil;
-    [self sendString:aString withSendCompletionBlock:^(NSError * _Nonnull error)
+    if (self.state != ConnectionStateConnected)
+    {
+        if (anError != NULL)
         {
-            didSend = YES;
-            outError = error;
-        }];
-    while (!didSend)
+            *anError = [NSError errorWithDomain:NSPOSIXErrorDomain code:ENOTCONN userInfo:
+                @{NSLocalizedDescriptionKey: @"Not connected."}];
+        }
+        return NO;
+    }
+
+    struct usbmuxd_header header;
+
+    header.length = sizeof(struct usbmuxd_header);
+    header.version = proto_version;
+    header.message = (uint32_t)message;
+    header.tag = (uint32_t)tag;
+    if (payload && (payload.length > 0))
     {
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0f]];
+        header.length += payload.length;
+    }
+
+    dispatch_data_t headerData = dispatch_data_create(&header, sizeof(header), self.queue, DISPATCH_DATA_DESTRUCTOR_DEFAULT);
+
+    __block BOOL sendingDone = NO;
+    __block NSError *outError = nil;
+
+    bool isCompleted = (payload == nil) || payload.length == 0;
+    nw_connection_send(self.connection, headerData, NW_CONNECTION_DEFAULT_MESSAGE_CONTEXT, isCompleted,
+        ^(nw_error_t _Nullable error)
+        {
+            if (error)
+            {
+                CFErrorRef errRef = nw_error_copy_cf_error(error);
+                if (NULL != errRef)
+                {
+                    outError = CFBridgingRelease(errRef);
+                    sendingDone = YES;
+                }
+            }
+            else
+            {
+                dispatch_data_t payloadData = dispatch_data_create(payload.bytes, payload.length, self.queue, DISPATCH_DATA_DESTRUCTOR_DEFAULT);
+
+                nw_connection_send(self.connection, payloadData, NW_CONNECTION_DEFAULT_MESSAGE_CONTEXT, true,
+                    ^(nw_error_t _Nullable error)
+                    {
+                        if (error)
+                        {
+                            CFErrorRef errRef = nw_error_copy_cf_error(error);
+                            if (NULL != errRef)
+                            {
+                                outError = CFBridgingRelease(errRef);
+                            }
+                        }
+                        sendingDone = YES;
+                    });
+            }
+        });
+
+    while (!sendingDone)
+    {
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1f]];
     }
     if (anError != NULL)
     {
         *anError = outError;
     }
     return outError == nil;
+
+//    int sent = socket_send(sfd, &header, sizeof(header));
+//	if (sent != sizeof(header))
+//    {
+//		LIBUSBMUXD_DEBUG(1, "%s: ERROR: could not send packet header\n", __func__);
+//		return -1;
+//	}
+//	if (payload && (payload_size > 0)) {
+//		uint32_t ssize = 0;
+//		do {
+//			int res = socket_send(sfd, (char*)payload + ssize, payload_size - ssize);
+//			if (res < 0) {
+//				break;
+//			}
+//			ssize += res;
+//		} while (ssize < payload_size);
+//		sent += ssize;
+//	}
+//	if (sent != (int)header.length) {
+//		LIBUSBMUXD_DEBUG(1, "%s: ERROR: could not send whole packet (sent %d of %d)\n", __func__, sent, header.length);
+//		socket_close(sfd);
+//		return -1;
+//	}
+//	return sent;
+}
+
+- (BOOL)usbmuxd_get_result:(NSUInteger)tag result_plist:(UsbMuxPacket **)aPacket
+{
+    BOOL result = [self receive_packet:aPacket];
+
+    if (result && (*aPacket).tag != tag)
+    {
+        return NO;
+    }
+
+    return result;
+}
+
+- (BOOL)receive_packet:(UsbMuxPacket **)payload
+{
+    __block BOOL recivingIsDone = NO;
+    __block NSError *error = nil;
+    __block UsbMuxPacket *outPayload = nil;
+
+    nw_connection_receive(self.connection, sizeof(struct usbmuxd_header), sizeof(struct usbmuxd_header),
+        ^(dispatch_data_t  _Nullable content, nw_content_context_t  _Nullable context, bool is_complete, nw_error_t  _Nullable error)
+        {
+            if (content != NULL)
+            {
+                NSData *data = [NSData dataWithData:(NSData *)content];
+                struct usbmuxd_header *hdr = (struct usbmuxd_header *)data.bytes;
+                uint32_t payload_size = hdr->length - sizeof(struct usbmuxd_header);
+                if (payload_size > 0)
+                {
+                    nw_connection_receive(self.connection, payload_size, payload_size,
+                        ^(dispatch_data_t  _Nullable content, nw_content_context_t  _Nullable context, bool is_complete, nw_error_t  _Nullable error)
+                        {
+                            if (content != NULL)
+                            {
+                                NSData *data = [NSData dataWithData:(NSData *)content];
+                                outPayload = [[UsbMuxPacket alloc] initWithPayloadData:data];
+                                outPayload.tag = hdr->tag;
+                            }
+                            // If the context is marked as complete, and is the final context,
+                            // we're read-closed.
+                            if (is_complete &&
+                                (context == NULL || nw_content_context_get_is_final(context)))
+                            {
+                                [self connectionCancelled];
+                            }
+                            recivingIsDone = YES;
+                        });
+                }
+            }
+
+            // If the context is marked as complete, and is the final context,
+            // we're read-closed.
+            if (is_complete &&
+                (context == NULL || nw_content_context_get_is_final(context)))
+            {
+                [self connectionCancelled];
+                recivingIsDone = YES;
+            }
+        });
+
+    while (!recivingIsDone)
+    {
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1f]];
+    }
+
+    *payload = outPayload;
+
+    return error == nil;
 }
 
 #pragma mark -
@@ -266,37 +407,6 @@ typedef NS_ENUM(NSUInteger, ConnectionState)
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0f]];
     }
     return self.state == ConnectionStateConnected;
-}
-
-#pragma mark -
-
-- (void)startReceiving
-{
-    nw_connection_receive(self.connection, 1, UINT32_MAX,
-        ^(dispatch_data_t  _Nullable content, nw_content_context_t _Nullable context,
-            bool is_complete, nw_error_t  _Nullable receive_error)
-        {
-            if (content != NULL)
-            {
-                NSData *data = [NSData dataWithData:(NSData *)content];
-                NSString *stringRecieved = [[NSString alloc] initWithData:data
-                    encoding:NSUTF8StringEncoding];
-                [self stringReceived:stringRecieved];
-            }
-
-            // If the context is marked as complete, and is the final context,
-            // we're read-closed.
-            if (is_complete &&
-                (context == NULL || nw_content_context_get_is_final(context)))
-            {
-                [self connectionCancelled];
-            }
-            else if (receive_error == NULL)
-            {
-                // If there was no error in receiving, request more data
-                [self startReceiving];
-            }
-        });
 }
 
 #pragma mark -

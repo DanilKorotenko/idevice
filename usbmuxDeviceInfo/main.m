@@ -13,9 +13,11 @@ int main(int argc, const char * argv[])
     @autoreleasepool
     {
         NSLog(@"Hello, Usbmux!");
-        [[UsbMuxController sharedInstance] start];
+        NSArray *devices = [UsbMuxController sharedInstance].devices;
 
-        dispatch_main();
+        NSLog(@"devices: %@", devices);
+
+//        dispatch_main();
     }
     return 0;
 }
