@@ -6,14 +6,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "UsbMuxController.h"
+#import "UMController.h"
 
 int main(int argc, const char * argv[])
 {
     @autoreleasepool
     {
         NSLog(@"Hello, Usbmux!");
-        NSArray *devices = [UsbMuxController sharedInstance].devices;
+        NSArray *devices = [UMController sharedInstance].devices;
 
         NSLog(@"devices: %@", devices);
 

@@ -291,30 +291,6 @@ static uint32_t proto_version = 1;
         *anError = outError;
     }
     return outError == nil;
-
-//    int sent = socket_send(sfd, &header, sizeof(header));
-//	if (sent != sizeof(header))
-//    {
-//		LIBUSBMUXD_DEBUG(1, "%s: ERROR: could not send packet header\n", __func__);
-//		return -1;
-//	}
-//	if (payload && (payload_size > 0)) {
-//		uint32_t ssize = 0;
-//		do {
-//			int res = socket_send(sfd, (char*)payload + ssize, payload_size - ssize);
-//			if (res < 0) {
-//				break;
-//			}
-//			ssize += res;
-//		} while (ssize < payload_size);
-//		sent += ssize;
-//	}
-//	if (sent != (int)header.length) {
-//		LIBUSBMUXD_DEBUG(1, "%s: ERROR: could not send whole packet (sent %d of %d)\n", __func__, sent, header.length);
-//		socket_close(sfd);
-//		return -1;
-//	}
-//	return sent;
 }
 
 - (BOOL)usbmuxd_get_result:(NSUInteger)tag result_plist:(UsbMuxPacket **)aPacket

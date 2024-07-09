@@ -35,7 +35,7 @@
 		DA140DCF2C23011D0097D7CA /* IOUSBController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D7D2C218EC70097D7CA /* IOUSBController.m */; };
 		DA140DD02C2301270097D7CA /* IOUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D802C2191200097D7CA /* IOUSBDevice.m */; };
 		DA2707892C36F8E2005CBA1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707882C36F8E2005CBA1D /* main.m */; };
-		DA27078D2C370026005CBA1D /* UsbMuxController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707812C36F8BA005CBA1D /* UsbMuxController.m */; };
+		DA27078D2C370026005CBA1D /* UMController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707812C36F8BA005CBA1D /* UMController.m */; };
 		DA2707912C37F054005CBA1D /* UsbMuxConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = DA27078F2C37EDA1005CBA1D /* UsbMuxConnection.m */; };
 		DA2707942C37F17D005CBA1D /* DispatchData.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707932C37F17D005CBA1D /* DispatchData.m */; };
 		DA2707C82C3843FD005CBA1D /* UsbMuxDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707C72C3843FD005CBA1D /* UsbMuxDevice.m */; };
@@ -121,8 +121,8 @@
 		DA140DC82C22F4C90097D7CA /* IOUSB.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IOUSB.hpp; sourceTree = "<group>"; };
 		DA140DCA2C22FD2F0097D7CA /* USBDevice.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = USBDevice.mm; sourceTree = "<group>"; };
 		DA140DCB2C22FD2F0097D7CA /* USBDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = USBDevice.hpp; sourceTree = "<group>"; };
-		DA2707802C36F8BA005CBA1D /* UsbMuxController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UsbMuxController.h; sourceTree = "<group>"; };
-		DA2707812C36F8BA005CBA1D /* UsbMuxController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UsbMuxController.m; sourceTree = "<group>"; };
+		DA2707802C36F8BA005CBA1D /* UMController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMController.h; sourceTree = "<group>"; };
+		DA2707812C36F8BA005CBA1D /* UMController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMController.m; sourceTree = "<group>"; };
 		DA2707862C36F8E2005CBA1D /* usbmuxDeviceInfo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = usbmuxDeviceInfo; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA2707882C36F8E2005CBA1D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DA27078E2C37EDA1005CBA1D /* UsbMuxConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UsbMuxConnection.h; sourceTree = "<group>"; };
@@ -237,8 +237,8 @@
 			children = (
 				DA2707922C37F17D005CBA1D /* DispatchData.h */,
 				DA2707932C37F17D005CBA1D /* DispatchData.m */,
-				DA2707802C36F8BA005CBA1D /* UsbMuxController.h */,
-				DA2707812C36F8BA005CBA1D /* UsbMuxController.m */,
+				DA2707802C36F8BA005CBA1D /* UMController.h */,
+				DA2707812C36F8BA005CBA1D /* UMController.m */,
 				DA27078E2C37EDA1005CBA1D /* UsbMuxConnection.h */,
 				DA27078F2C37EDA1005CBA1D /* UsbMuxConnection.m */,
 				DA2707C62C3843FD005CBA1D /* UsbMuxDevice.h */,
@@ -419,7 +419,7 @@
 				DA2707892C36F8E2005CBA1D /* main.m in Sources */,
 				DA2707912C37F054005CBA1D /* UsbMuxConnection.m in Sources */,
 				DA2707C82C3843FD005CBA1D /* UsbMuxDevice.m in Sources */,
-				DA27078D2C370026005CBA1D /* UsbMuxController.m in Sources */,
+				DA27078D2C370026005CBA1D /* UMController.m in Sources */,
 				DA2707942C37F17D005CBA1D /* DispatchData.m in Sources */,
 				DA2707CB2C3BF53E005CBA1D /* UsbMuxPacket.m in Sources */,
 			);

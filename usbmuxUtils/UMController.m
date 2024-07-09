@@ -5,28 +5,28 @@
 //  Created by Danil Korotenko on 7/4/24.
 //
 
-#import "UsbMuxController.h"
+#import "UMController.h"
 #import "UsbMuxConnection.h"
 
 static NSUInteger tag = 0;
 
-@interface UsbMuxController ()
+@interface UMController ()
 
 @property (readonly) UsbMuxConnection *connection;
 
 @end
 
-@implementation UsbMuxController
+@implementation UMController
 
 @synthesize connection;
 
-+ (UsbMuxController *)sharedInstance
++ (UMController *)sharedInstance
 {
-    static UsbMuxController *sharedInstance = nil;
+    static UMController *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken,
     ^{
-        sharedInstance = [[UsbMuxController alloc] init];
+        sharedInstance = [[UMController alloc] init];
     });
     return sharedInstance;
 }

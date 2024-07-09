@@ -7,6 +7,16 @@
 
 #import "UsbMuxDeviceProperties.h"
 
+/*
+        ConnectionSpeed = 480000000;
+        ConnectionType = USB;
+        DeviceID = 19;
+        LocationID = 17895424;
+        ProductID = 4776;
+        SerialNumber = "00008020-000E1C121EBA002E";
+        USBSerialNumber = 00008020000E1C121EBA002E;
+*/
+
 @interface UsbMuxDeviceProperties ()
 
 @property (readonly) NSDictionary *dictionary;

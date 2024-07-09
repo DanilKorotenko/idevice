@@ -11,9 +11,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UsbMuxController : NSObject<UsbMuxConnectionDelegate>
+@interface UMController : NSObject<UsbMuxConnectionDelegate>
 
-+ (UsbMuxController *)sharedInstance;
++ (UMController *)sharedInstance;
 
 @property (readonly) NSArray *devices;
 
