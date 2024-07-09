@@ -5,7 +5,7 @@
 //  Created by Danil Korotenko on 7/8/24.
 //
 
-#import "UsbMuxDeviceProperties.h"
+#import "UMDeviceProperties.h"
 
 /*
         ConnectionSpeed = 480000000;
@@ -17,13 +17,13 @@
         USBSerialNumber = 00008020000E1C121EBA002E;
 */
 
-@interface UsbMuxDeviceProperties ()
+@interface UMDeviceProperties ()
 
 @property (readonly) NSDictionary *dictionary;
 
 @end
 
-@implementation UsbMuxDeviceProperties
+@implementation UMDeviceProperties
 
 @synthesize dictionary;
 

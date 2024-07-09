@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UsbMuxPacket : NSObject
+@interface UMPacket : NSObject
 
 - (instancetype)initWithMessage:(NSString *)aMessageType;
 - (instancetype)initWithPayloadData:(NSData *)aPayloadData;

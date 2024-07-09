@@ -6,23 +6,23 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "UsbMuxDeviceProperties.h"
+#import "UMDeviceProperties.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSUInteger, UsbMuxDeviceMessageType)
+typedef NS_ENUM(NSUInteger, UMDeviceMessageType)
 {
-    UsbMuxDeviceMessageTypeAttached = 0,
+    UMDeviceMessageTypeAttached = 0,
 };
 
-@interface UsbMuxDevice : NSObject
+@interface UMDevice : NSObject
 
 - (instancetype)initWithDeviceInfoDictionary:(NSDictionary *)aDeviceInfoDictionary;
 
 @property (readonly) NSInteger deviceID;
-@property (readonly) UsbMuxDeviceProperties *properties;
+@property (readonly) UMDeviceProperties *properties;
 
-@property (readonly) UsbMuxDeviceMessageType messageType;
+@property (readonly) UMDeviceMessageType messageType;
 
 @end
 

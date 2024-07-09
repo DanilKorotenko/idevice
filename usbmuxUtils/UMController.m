@@ -6,13 +6,13 @@
 //
 
 #import "UMController.h"
-#import "UsbMuxConnection.h"
+#import "UMConnection.h"
 
 static NSUInteger tag = 0;
 
 @interface UMController ()
 
-@property (readonly) UsbMuxConnection *connection;
+@property (readonly) UMConnection *connection;
 
 @end
 
@@ -33,11 +33,11 @@ static NSUInteger tag = 0;
 
 #pragma mark -
 
-- (UsbMuxConnection *)connection
+- (UMConnection *)connection
 {
     if (connection == nil)
     {
-        connection = [UsbMuxConnection startWithDelegate:self];
+        connection = [UMConnection startWithDelegate:self];
         [connection waitConnected];
     }
     return connection;
@@ -52,7 +52,7 @@ static NSUInteger tag = 0;
     NSError *error = nil;
     if ([self.connection sendListDevicesPacket:tag error:&error])
     {
-        UsbMuxPacket *packet = nil;
+        UMPacket *packet = nil;
         if ([self.connection receive_packet:&packet])
         {
             result = packet.deviceList;
@@ -63,12 +63,12 @@ static NSUInteger tag = 0;
 
 #pragma mark -
 
-- (void)connectionCanceled:(nonnull UsbMuxConnection *)aConnection
+- (void)connectionCanceled:(nonnull UMConnection *)aConnection
 {
     connection = nil;
 }
 
-- (void)didConnect:(nonnull UsbMuxConnection *)aConnection
+- (void)didConnect:(nonnull UMConnection *)aConnection
 {
     NSLog(@"didConnect");
 }

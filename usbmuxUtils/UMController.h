@@ -7,11 +7,11 @@
 
 #import <Foundation/Foundation.h>
 
-#import "UsbMuxConnection.h"
+#import "UMConnection.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UMController : NSObject<UsbMuxConnectionDelegate>
+@interface UMController : NSObject<UMConnectionDelegate>
 
 + (UMController *)sharedInstance;
 

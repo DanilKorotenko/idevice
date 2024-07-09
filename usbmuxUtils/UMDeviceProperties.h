@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UsbMuxDeviceProperties : NSObject
+@interface UMDeviceProperties : NSObject
 
 - (instancetype)initWithDictionary:(NSDictionary *)aDictionary;
 

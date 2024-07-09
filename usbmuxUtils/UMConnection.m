@@ -5,7 +5,7 @@
 //  Created by Danil Korotenko on 7/5/24.
 //
 
-#import "UsbMuxConnection.h"
+#import "UMConnection.h"
 
 #import <Network/Network.h>
 #include <sys/socket.h>
@@ -14,7 +14,7 @@
 #include <sys/un.h>
 
 #import "DispatchData.h"
-#import "UsbMuxPacket.h"
+#import "UMPacket.h"
 
 typedef NS_ENUM(NSUInteger, ConnectionState)
 {
@@ -45,18 +45,18 @@ struct usbmuxd_header
 
 static uint32_t proto_version = 1;
 
-@interface UsbMuxConnection ()
+@interface UMConnection ()
 
 @property (strong) nw_connection_t connection;
 @property (strong) dispatch_queue_t queue;
 
-@property (weak) id<UsbMuxConnectionDelegate> delegate;
+@property (weak) id<UMConnectionDelegate> delegate;
 
 @property (readwrite) ConnectionState state;
 
 @end
 
-@implementation UsbMuxConnection
+@implementation UMConnection
 
 + (nw_connection_t)newConnection
 {
@@ -76,16 +76,16 @@ static uint32_t proto_version = 1;
     return result;
 }
 
-+ (UsbMuxConnection *)startWithDelegate:(id<UsbMuxConnectionDelegate>)aDelegate
++ (UMConnection *)startWithDelegate:(id<UMConnectionDelegate>)aDelegate
 {
-    nw_connection_t connection = [UsbMuxConnection newConnection];
-    return [UsbMuxConnection startWithNWConnection:connection delegate:aDelegate];
+    nw_connection_t connection = [UMConnection newConnection];
+    return [UMConnection startWithNWConnection:connection delegate:aDelegate];
 }
 
-+ (UsbMuxConnection *)startSynchronously
++ (UMConnection *)startSynchronously
 {
-    nw_connection_t connection = [UsbMuxConnection newConnection];
-    UsbMuxConnection *result = [UsbMuxConnection startWithNWConnection:connection delegate:nil];
+    nw_connection_t connection = [UMConnection newConnection];
+    UMConnection *result = [UMConnection startWithNWConnection:connection delegate:nil];
     if (![result waitConnected])
     {
         result = nil;
@@ -93,10 +93,10 @@ static uint32_t proto_version = 1;
     return result;
 }
 
-+ (UsbMuxConnection *)startWithNWConnection:(nw_connection_t)aConnection
-    delegate:(id<UsbMuxConnectionDelegate> _Nullable)aDelegate
++ (UMConnection *)startWithNWConnection:(nw_connection_t)aConnection
+    delegate:(id<UMConnectionDelegate> _Nullable)aDelegate
 {
-    UsbMuxConnection *result = [[UsbMuxConnection alloc] init];
+    UMConnection *result = [[UMConnection alloc] init];
     result.delegate = aDelegate;
     [result start:aConnection];
     return result;
@@ -210,13 +210,13 @@ static uint32_t proto_version = 1;
 
 - (BOOL)sendListDevicesPacket:(NSUInteger)aTag error:(NSError *__autoreleasing  _Nullable * _Nullable)anError
 {
-    UsbMuxPacket *plist = [[UsbMuxPacket alloc] initWithMessage:@"ListDevices"];
+    UMPacket *plist = [[UMPacket alloc] initWithMessage:@"ListDevices"];
     return [self sendPlistPacket:aTag message:plist error:(anError)];
 }
 
 #pragma mark -
 
-- (BOOL)sendPlistPacket:(NSUInteger)tag message:(UsbMuxPacket *)message error:(NSError **)anError
+- (BOOL)sendPlistPacket:(NSUInteger)tag message:(UMPacket *)message error:(NSError **)anError
 {
     return [self send_packet:MESSAGE_PLIST tag:tag payload:[message xmlData] error:anError];
 }
@@ -293,7 +293,7 @@ static uint32_t proto_version = 1;
     return outError == nil;
 }
 
-- (BOOL)usbmuxd_get_result:(NSUInteger)tag result_plist:(UsbMuxPacket **)aPacket
+- (BOOL)usbmuxd_get_result:(NSUInteger)tag result_plist:(UMPacket **)aPacket
 {
     BOOL result = [self receive_packet:aPacket];
 
@@ -305,11 +305,11 @@ static uint32_t proto_version = 1;
     return result;
 }
 
-- (BOOL)receive_packet:(UsbMuxPacket **)payload
+- (BOOL)receive_packet:(UMPacket **)payload
 {
     __block BOOL recivingIsDone = NO;
     __block NSError *error = nil;
-    __block UsbMuxPacket *outPayload = nil;
+    __block UMPacket *outPayload = nil;
 
     nw_connection_receive(self.connection, sizeof(struct usbmuxd_header), sizeof(struct usbmuxd_header),
         ^(dispatch_data_t  _Nullable content, nw_content_context_t  _Nullable context, bool is_complete, nw_error_t  _Nullable error)
@@ -327,7 +327,7 @@ static uint32_t proto_version = 1;
                             if (content != NULL)
                             {
                                 NSData *data = [NSData dataWithData:(NSData *)content];
-                                outPayload = [[UsbMuxPacket alloc] initWithPayloadData:data];
+                                outPayload = [[UMPacket alloc] initWithPayloadData:data];
                                 outPayload.tag = hdr->tag;
                             }
                             // If the context is marked as complete, and is the final context,

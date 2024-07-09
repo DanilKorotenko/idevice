@@ -5,7 +5,7 @@
 //  Created by Danil Korotenko on 7/5/24.
 //
 
-#import "UsbMuxDevice.h"
+#import "UMDevice.h"
 
 
 /*
@@ -24,13 +24,13 @@ Printing description of ((__NSDictionaryM *)0x0000600002f44940):
     };
 }
 */
-@interface UsbMuxDevice ()
+@interface UMDevice ()
 
 @property (readonly) NSDictionary *deviceInfoDictionary;
 
 @end
 
-@implementation UsbMuxDevice
+@implementation UMDevice
 
 @synthesize deviceInfoDictionary;
 @synthesize properties;
@@ -50,20 +50,20 @@ Printing description of ((__NSDictionaryM *)0x0000600002f44940):
     return [(NSNumber *)self.deviceInfoDictionary[@"DeviceID"] integerValue];
 }
 
-- (UsbMuxDeviceMessageType)messageType
+- (UMDeviceMessageType)messageType
 {
 //    NSString *messageTypeString = self.deviceInfoDictionary[@"MessageType"];
 //    if ([messageTypeString isEqualToString:@"Attached"])
 //    {
-        return UsbMuxDeviceMessageTypeAttached;
+        return UMDeviceMessageTypeAttached;
 //    }
 }
 
-- (UsbMuxDeviceProperties *)properties
+- (UMDeviceProperties *)properties
 {
     if (properties == nil)
     {
-        properties = [[UsbMuxDeviceProperties alloc] initWithDictionary:self.deviceInfoDictionary[@"Properties"]];
+        properties = [[UMDeviceProperties alloc] initWithDictionary:self.deviceInfoDictionary[@"Properties"]];
     }
     return properties;
 }

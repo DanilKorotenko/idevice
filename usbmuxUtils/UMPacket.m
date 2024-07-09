@@ -5,16 +5,16 @@
 //  Created by Danil Korotenko on 7/8/24.
 //
 
-#import "UsbMuxPacket.h"
-#import "UsbMuxDevice.h"
+#import "UMPacket.h"
+#import "UMDevice.h"
 
-@interface UsbMuxPacket ()
+@interface UMPacket ()
 
 @property (readonly) NSDictionary *payload;
 
 @end
 
-@implementation UsbMuxPacket
+@implementation UMPacket
 
 @synthesize payload;
 @synthesize xmlData;
@@ -84,7 +84,7 @@
         NSMutableArray *deviceInfoList = [NSMutableArray array];
         for (NSDictionary *deviceInfo in deviceList)
         {
-            [deviceInfoList addObject:[[UsbMuxDevice alloc] initWithDeviceInfoDictionary:deviceInfo]];
+            [deviceInfoList addObject:[[UMDevice alloc] initWithDeviceInfoDictionary:deviceInfo]];
         }
         result = [NSArray arrayWithArray:deviceInfoList];
     }
