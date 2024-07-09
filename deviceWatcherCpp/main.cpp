@@ -15,18 +15,9 @@ int main(int argc, const char * argv[])
     IOUSBStartWatchingWithBlock(
         ^(USBDeviceRef aDevice)
         {
-            CFStringRef description = NULL;
-            USBDeviceCopyDescription(aDevice, &description);
-            if (description != NULL)
-            {
-                CFIndex len = CFStringGetLength(description);
-                len++;
-                char *buffer = (char *)malloc(len);
-                CFStringGetCString(description, buffer, len, kCFStringEncodingUTF8);
-                std::cout << "Device: " << buffer << std::endl;
-                free(buffer);
-                CFRelease(description);
-            }
+
+            std::cout << "Device: " << USBDeviceGetDescription(aDevice) << std::endl;
+
 //            if (USBDeviceSupportsIPhoneOS(aDevice))
             if (USBDeviceIsIPhone(aDevice))
             {

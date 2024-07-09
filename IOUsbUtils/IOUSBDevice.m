@@ -6,6 +6,7 @@
 //
 
 #import "IOUSBDevice.h"
+#import <IOKit/IOCFPlugIn.h>
 
 @interface IOUSBDevice ()
 
@@ -27,6 +28,7 @@
 @synthesize vendorID;
 @synthesize productIdNumber;
 @synthesize productID;
+@synthesize serial;
 
 - (instancetype)initWithIoServiceT:(io_service_t)aService
 {
@@ -137,6 +139,16 @@
     return productID;
 }
 
+- (NSString *)serial
+{
+    if (serial == nil)
+    {
+        serial = (NSString *)CFDictionaryGetValue(_entryProperties, CFSTR(kUSBSerialNumberString));
+        serial = [serial stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    }
+    return serial;
+}
+
 //- (BOOL)supportsIPhoneOS
 //{
 //    NSNumber *value = (NSNumber *)CFDictionaryGetValue(_entryProperties, CFSTR("SupportsIPhoneOS"));
@@ -150,10 +162,11 @@
 
 - (BOOL)isIPhoneProduct
 {
-    static NSArray *iPhoneProducts =
+    static NSArray *iPhoneProducts = nil;
+    if (iPhoneProducts == nil)
+    {
+        iPhoneProducts =
         @[
-            @(0x1227), //  Mobile Device (DFU Mode)
-            @(0x1281), //  Apple Mobile Device [Recovery Mode]
             @(0x1290), //  iPhone
             @(0x1292), //  iPhone 3G
             @(0x1294), //  iPhone 3GS
@@ -165,6 +178,7 @@
             @(0x12a8), //  iPhone 5/5C/5S/6/SE/7/8/X/XR
             @(0x12ac), //  iPhone
         ];
+    }
     return [iPhoneProducts containsObject:self.productIdNumber];
 }
 

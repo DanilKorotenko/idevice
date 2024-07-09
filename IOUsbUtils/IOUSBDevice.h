@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly) NSString *name;
 @property(readonly) NSString *vendorID;
 @property(readonly) NSString *productID;
+@property(readonly) NSString *serial;
 //@property(readonly) BOOL supportsIPhoneOS;
 @property(readonly) BOOL isIPhone;
 

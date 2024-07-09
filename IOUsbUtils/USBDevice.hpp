@@ -26,8 +26,13 @@ USBDeviceRef USBDeviceCreateWithIOUSBDevice(void *anIOUSBDevice);
 void USBDeviceReleaseAndMakeNull(USBDeviceRef *aDevice);
 
 //bool USBDeviceSupportsIPhoneOS(USBDeviceRef aDevice);
-void USBDeviceCopyDescription(USBDeviceRef aDevice, CFStringRef *aDescription);
+const char *USBDeviceGetDescription(USBDeviceRef aDevice);
+const char *USBDeviceGetName(USBDeviceRef aDevice);
+const char *USBDeviceGetSerial(USBDeviceRef aDevice);
+
 bool USBDeviceIsIPhone(USBDeviceRef aDevice);
+
+
 bool USBDeviceEject(USBDeviceRef aDevice);
 
 #ifdef __cplusplus

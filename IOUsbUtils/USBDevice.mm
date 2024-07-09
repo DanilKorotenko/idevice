@@ -8,7 +8,7 @@
 #include "USBDevice.hpp"
 #import "IOUSBDevice.h"
 
-#include <stdlib.h>
+#import "NSString+SafeUTF8String.h"
 
 USBDeviceRef USBDeviceCreateWithIOUSBDevice(void *anIOUSBDevice)
 {
@@ -29,13 +29,22 @@ void USBDeviceReleaseAndMakeNull(USBDeviceRef *aDevice)
 //    return device.supportsIPhoneOS == YES ? true : false;
 //}
 
-void USBDeviceCopyDescription(USBDeviceRef aDevice, CFStringRef *aDescription)
+const char *USBDeviceGetDescription(USBDeviceRef aDevice)
 {
     IOUSBDevice *device = (__bridge IOUSBDevice *)aDevice->_usbdevice;
-    if (aDescription != NULL)
-    {
-        *aDescription = (CFStringRef)CFBridgingRetain([device description]);
-    }
+    return GetSafeUTF8String([device description]);
+}
+
+const char *USBDeviceGetName(USBDeviceRef aDevice)
+{
+    IOUSBDevice *device = (__bridge IOUSBDevice *)aDevice->_usbdevice;
+    return GetSafeUTF8String(device.name);
+}
+
+const char *USBDeviceGetSerial(USBDeviceRef aDevice)
+{
+    IOUSBDevice *device = (__bridge IOUSBDevice *)aDevice->_usbdevice;
+    return GetSafeUTF8String(device.serial);
 }
 
 bool USBDeviceIsIPhone(USBDeviceRef aDevice)
@@ -48,5 +57,4 @@ bool USBDeviceEject(USBDeviceRef aDevice)
 {
     IOUSBDevice *device = (__bridge IOUSBDevice *)aDevice->_usbdevice;
     return [device eject] == YES ? true : false;
-
 }

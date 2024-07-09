@@ -41,6 +41,7 @@
 		DA2707C82C3843FD005CBA1D /* UMDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707C72C3843FD005CBA1D /* UMDevice.m */; };
 		DA2707CB2C3BF53E005CBA1D /* UMPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707CA2C3BF53E005CBA1D /* UMPacket.m */; };
 		DA2707CE2C3C362D005CBA1D /* UMDeviceProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707CD2C3C362D005CBA1D /* UMDeviceProperties.m */; };
+		DA8504052C3D4A7300D10202 /* NSString+SafeUTF8String.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA8504042C3D498300D10202 /* NSString+SafeUTF8String.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +136,8 @@
 		DA2707CA2C3BF53E005CBA1D /* UMPacket.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMPacket.m; sourceTree = "<group>"; };
 		DA2707CC2C3C362D005CBA1D /* UMDeviceProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMDeviceProperties.h; sourceTree = "<group>"; };
 		DA2707CD2C3C362D005CBA1D /* UMDeviceProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMDeviceProperties.m; sourceTree = "<group>"; };
+		DA8504032C3D498300D10202 /* NSString+SafeUTF8String.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+SafeUTF8String.h"; sourceTree = "<group>"; };
+		DA8504042C3D498300D10202 /* NSString+SafeUTF8String.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSString+SafeUTF8String.mm"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +221,8 @@
 				DA140D7D2C218EC70097D7CA /* IOUSBController.m */,
 				DA140D7F2C2191200097D7CA /* IOUSBDevice.h */,
 				DA140D802C2191200097D7CA /* IOUSBDevice.m */,
+				DA8504032C3D498300D10202 /* NSString+SafeUTF8String.h */,
+				DA8504042C3D498300D10202 /* NSString+SafeUTF8String.mm */,
 				DA140DCB2C22FD2F0097D7CA /* USBDevice.hpp */,
 				DA140DCA2C22FD2F0097D7CA /* USBDevice.mm */,
 			);
@@ -403,6 +408,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA8504052C3D4A7300D10202 /* NSString+SafeUTF8String.mm in Sources */,
 				DA140DD02C2301270097D7CA /* IOUSBDevice.m in Sources */,
 				DA140DCC2C22FD2F0097D7CA /* USBDevice.mm in Sources */,
 				DA140DC92C22F4C90097D7CA /* IOUSB.mm in Sources */,
