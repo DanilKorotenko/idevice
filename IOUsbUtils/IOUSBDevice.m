@@ -14,6 +14,7 @@
 @property (readonly) BOOL isIPhoneProduct;
 @property (readonly) NSNumber *vendorIdNumber;
 @property (readonly) NSNumber *productIdNumber;
+@property (readonly) NSNumber *hasImageInterfaceNumber;
 
 @end
 
@@ -29,6 +30,7 @@
 @synthesize productIdNumber;
 @synthesize productID;
 @synthesize serial;
+@synthesize hasImageInterfaceNumber;
 
 - (instancetype)initWithIoServiceT:(io_service_t)aService
 {
@@ -69,10 +71,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-}
-
 - (NSString *)description
 {
 //    NSDictionary *descr = (__bridge NSDictionary *)(_entryProperties);
@@ -82,7 +80,8 @@
             @"vendorID" :   self.vendorID == nil ?  @"<none>" : self.vendorID,
             @"productID" :  self.productID == nil ? @"<none>" : self.productID,
             @"isApple" :    self.isApple ? @"YES" : @"NO",
-            @"isIPhone" :   self.isIPhone ? @"YES" : @"NO"
+            @"isIPhone" :   self.isIPhone ? @"YES" : @"NO",
+            @"hasImageInterface" : self.hasImageInterface ? @"YES" : @"NO"
         };
     return [descr description];
 }
@@ -185,6 +184,36 @@
 - (BOOL)isIPhone
 {
     return self.isApple && self.isIPhoneProduct;
+}
+
+- (NSNumber *)hasImageInterfaceNumber
+{
+    if (hasImageInterfaceNumber == nil)
+    {
+        hasImageInterfaceNumber = [NSNumber numberWithBool:NO];
+
+        io_iterator_t               iterator;
+        io_service_t                usbInterface;
+
+        IOUSBFindInterfaceRequest   request;
+        request.bInterfaceClass = kUSBImageInterfaceClass;
+        request.bInterfaceSubClass = kIOUSBFindInterfaceDontCare;
+        request.bInterfaceProtocol = kIOUSBFindInterfaceDontCare;
+        request.bAlternateSetting = kIOUSBFindInterfaceDontCare;
+ 
+        (*_deviceInterface)->CreateInterfaceIterator(_deviceInterface, &request, &iterator);
+        while ((usbInterface = IOIteratorNext(iterator)))
+        {
+            hasImageInterfaceNumber = [NSNumber numberWithBool:YES];
+            break;
+        }
+    }
+    return hasImageInterfaceNumber;
+}
+
+- (BOOL)hasImageInterface
+{
+    return self.hasImageInterfaceNumber.boolValue;
 }
 
 #pragma mark -
