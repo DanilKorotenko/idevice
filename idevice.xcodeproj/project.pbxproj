@@ -42,6 +42,9 @@
 		DA2707CB2C3BF53E005CBA1D /* UMPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707CA2C3BF53E005CBA1D /* UMPacket.m */; };
 		DA2707CE2C3C362D005CBA1D /* UMDeviceProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707CD2C3C362D005CBA1D /* UMDeviceProperties.m */; };
 		DA8504052C3D4A7300D10202 /* NSString+SafeUTF8String.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA8504042C3D498300D10202 /* NSString+SafeUTF8String.mm */; };
+		DA8504092C3D4FEB00D10202 /* ICController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8504082C3D4FE500D10202 /* ICController.m */; };
+		DA8504112C3D507000D10202 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8504102C3D507000D10202 /* main.m */; };
+		DA8504152C3D50DB00D10202 /* ICController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8504082C3D4FE500D10202 /* ICController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +108,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		DA85040C2C3D507000D10202 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -138,6 +150,10 @@
 		DA2707CD2C3C362D005CBA1D /* UMDeviceProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMDeviceProperties.m; sourceTree = "<group>"; };
 		DA8504032C3D498300D10202 /* NSString+SafeUTF8String.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+SafeUTF8String.h"; sourceTree = "<group>"; };
 		DA8504042C3D498300D10202 /* NSString+SafeUTF8String.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSString+SafeUTF8String.mm"; sourceTree = "<group>"; };
+		DA8504072C3D4FE500D10202 /* ICController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ICController.h; sourceTree = "<group>"; };
+		DA8504082C3D4FE500D10202 /* ICController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ICController.m; sourceTree = "<group>"; };
+		DA85040E2C3D507000D10202 /* ICDeviceInfo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ICDeviceInfo; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA8504102C3D507000D10202 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,18 +185,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DA85040B2C3D507000D10202 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		DA140D522C20780A0097D7CA = {
 			isa = PBXGroup;
 			children = (
+				DA8504062C3D4FBE00D10202 /* ICUtils */,
 				DA27077F2C36F869005CBA1D /* usbmuxUtils */,
 				DA140D7B2C218D780097D7CA /* IOUsbUtils */,
 				DA140D5D2C20780A0097D7CA /* idevice */,
 				DA140D6D2C218C930097D7CA /* deviceWatcher */,
 				DA140DC12C22EED80097D7CA /* deviceWatcherCpp */,
 				DA2707872C36F8E2005CBA1D /* usbmuxDeviceInfo */,
+				DA85040F2C3D507000D10202 /* ICDeviceInfo */,
 				DA140D5C2C20780A0097D7CA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -192,6 +217,7 @@
 				DA140D6C2C218C930097D7CA /* deviceWatcher */,
 				DA140DC02C22EED80097D7CA /* deviceWatcherCpp */,
 				DA2707862C36F8E2005CBA1D /* usbmuxDeviceInfo */,
+				DA85040E2C3D507000D10202 /* ICDeviceInfo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -262,6 +288,23 @@
 				DA2707882C36F8E2005CBA1D /* main.m */,
 			);
 			path = usbmuxDeviceInfo;
+			sourceTree = "<group>";
+		};
+		DA8504062C3D4FBE00D10202 /* ICUtils */ = {
+			isa = PBXGroup;
+			children = (
+				DA8504072C3D4FE500D10202 /* ICController.h */,
+				DA8504082C3D4FE500D10202 /* ICController.m */,
+			);
+			path = ICUtils;
+			sourceTree = "<group>";
+		};
+		DA85040F2C3D507000D10202 /* ICDeviceInfo */ = {
+			isa = PBXGroup;
+			children = (
+				DA8504102C3D507000D10202 /* main.m */,
+			);
+			path = ICDeviceInfo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -335,6 +378,23 @@
 			productReference = DA2707862C36F8E2005CBA1D /* usbmuxDeviceInfo */;
 			productType = "com.apple.product-type.tool";
 		};
+		DA85040D2C3D507000D10202 /* ICDeviceInfo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA8504122C3D507000D10202 /* Build configuration list for PBXNativeTarget "ICDeviceInfo" */;
+			buildPhases = (
+				DA85040A2C3D507000D10202 /* Sources */,
+				DA85040B2C3D507000D10202 /* Frameworks */,
+				DA85040C2C3D507000D10202 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ICDeviceInfo;
+			productName = ICDeviceInfo;
+			productReference = DA85040E2C3D507000D10202 /* ICDeviceInfo */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -359,6 +419,9 @@
 					DA2707852C36F8E2005CBA1D = {
 						CreatedOnToolsVersion = 15.3;
 					};
+					DA85040D2C3D507000D10202 = {
+						CreatedOnToolsVersion = 15.3;
+					};
 				};
 			};
 			buildConfigurationList = DA140D562C20780A0097D7CA /* Build configuration list for PBXProject "idevice" */;
@@ -379,6 +442,7 @@
 				DA140D732C218CA90097D7CA /* BuildAll */,
 				DA140DBF2C22EED80097D7CA /* deviceWatcherCpp */,
 				DA2707852C36F8E2005CBA1D /* usbmuxDeviceInfo */,
+				DA85040D2C3D507000D10202 /* ICDeviceInfo */,
 			);
 		};
 /* End PBXProject section */
@@ -399,6 +463,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA140D822C21B0920097D7CA /* IOUSBController.m in Sources */,
+				DA8504092C3D4FEB00D10202 /* ICController.m in Sources */,
 				DA140D832C21B0DD0097D7CA /* IOUSBDevice.m in Sources */,
 				DA140D6F2C218C930097D7CA /* main.m in Sources */,
 			);
@@ -428,6 +493,15 @@
 				DA27078D2C370026005CBA1D /* UMController.m in Sources */,
 				DA2707942C37F17D005CBA1D /* DispatchData.m in Sources */,
 				DA2707CB2C3BF53E005CBA1D /* UMPacket.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA85040A2C3D507000D10202 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA8504112C3D507000D10202 /* main.m in Sources */,
+				DA8504152C3D50DB00D10202 /* ICController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -657,6 +731,22 @@
 			};
 			name = Release;
 		};
+		DA8504132C3D507000D10202 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DA8504142C3D507000D10202 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -710,6 +800,15 @@
 			buildConfigurations = (
 				DA27078B2C36F8E2005CBA1D /* Debug */,
 				DA27078C2C36F8E2005CBA1D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA8504122C3D507000D10202 /* Build configuration list for PBXNativeTarget "ICDeviceInfo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA8504132C3D507000D10202 /* Debug */,
+				DA8504142C3D507000D10202 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
