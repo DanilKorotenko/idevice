@@ -10,13 +10,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSUInteger, UsbMuxDeviceMessageType)
+{
+    UsbMuxDeviceMessageTypeAttached = 0,
+};
+
 @interface UsbMuxDevice : NSObject
 
 - (instancetype)initWithDeviceInfoDictionary:(NSDictionary *)aDeviceInfoDictionary;
 
 @property (readonly) NSInteger deviceID;
-@property (readonly) NSString *messageType;
 @property (readonly) UsbMuxDeviceProperties *properties;
+
+@property (readonly) UsbMuxDeviceMessageType messageType;
 
 @end
 

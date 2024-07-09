@@ -50,9 +50,13 @@ Printing description of ((__NSDictionaryM *)0x0000600002f44940):
     return [(NSNumber *)self.deviceInfoDictionary[@"DeviceID"] integerValue];
 }
 
-- (NSString *)messageType
+- (UsbMuxDeviceMessageType)messageType
 {
-    return self.deviceInfoDictionary[@"MessageType"];
+//    NSString *messageTypeString = self.deviceInfoDictionary[@"MessageType"];
+//    if ([messageTypeString isEqualToString:@"Attached"])
+//    {
+        return UsbMuxDeviceMessageTypeAttached;
+//    }
 }
 
 - (UsbMuxDeviceProperties *)properties
