@@ -37,4 +37,13 @@
     return self;
 }
 
+- (UMDeviceConnectionType)connectionType
+{
+//    NSString *connectionTypeString = dictionary[@"ConnectionType"];
+//    if ([connectionTypeString isEqualToString:@"USB"])
+//    {
+        return UMDeviceConnectionTypeUSB;
+//    }
+}
+
 @end
