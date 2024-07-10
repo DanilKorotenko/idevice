@@ -7,6 +7,13 @@
 
 #import "IOUSBDevice.h"
 #import <IOKit/IOCFPlugIn.h>
+#import "IOUSBInterface.h"
+
+UInt16	Swap16(void *p)
+{
+    * (UInt16 *) p = CFSwapInt16LittleToHost(*(UInt16 *)p);
+    return * (UInt16 *) p;
+}
 
 @interface IOUSBDevice ()
 
@@ -14,7 +21,7 @@
 @property (readonly) BOOL isIPhoneProduct;
 @property (readonly) NSNumber *vendorIdNumber;
 @property (readonly) NSNumber *productIdNumber;
-@property (readonly) NSNumber *hasImageInterfaceNumber;
+@property (readonly) NSArray *interfaces;
 
 @end
 
@@ -30,7 +37,7 @@
 @synthesize productIdNumber;
 @synthesize productID;
 @synthesize serial;
-@synthesize hasImageInterfaceNumber;
+@synthesize interfaces;
 
 - (instancetype)initWithIoServiceT:(io_service_t)aService
 {
@@ -81,7 +88,8 @@
             @"productID" :  self.productID == nil ? @"<none>" : self.productID,
             @"isApple" :    self.isApple ? @"YES" : @"NO",
             @"isIPhone" :   self.isIPhone ? @"YES" : @"NO",
-            @"hasImageInterface" : self.hasImageInterface ? @"YES" : @"NO"
+//            @"hasImageInterface" : self.hasImageInterface ? @"YES" : @"NO"
+            @"interfaces" : self.interfaces
         };
     return [descr description];
 }
@@ -186,34 +194,182 @@
     return self.isApple && self.isIPhoneProduct;
 }
 
-- (NSNumber *)hasImageInterfaceNumber
+- (BOOL)isMtpPtp
 {
-    if (hasImageInterfaceNumber == nil)
+    for (IOUSBInterface *interface in self.interfaces)
     {
-        hasImageInterfaceNumber = [NSNumber numberWithBool:NO];
+        if (interface.isMtpPtp)
+        {
+            return YES;
+        }
+    }
+    return NO;
+}
 
+- (NSArray *)interfaces
+{
+    if (interfaces == nil)
+    {
+        IOReturn                    kr;
+        IOUSBFindInterfaceRequest   request;
         io_iterator_t               iterator;
         io_service_t                usbInterface;
+        IOCFPlugInInterface         **plugInInterface = NULL;
+        IOUSBInterfaceInterface     **interface = NULL;
+        HRESULT                     result;
+        SInt32                      score;
+        UInt8                       interfaceClass;
+        UInt8                       interfaceSubClass;
+        UInt8                       interfaceNumEndpoints;
 
-        IOUSBFindInterfaceRequest   request;
-        request.bInterfaceClass = kUSBImageInterfaceClass;
+        NSMutableArray *mutableInterfaces = [NSMutableArray array];
+
+        //Placing the constant kIOUSBFindInterfaceDontCare into the following
+        //fields of the IOUSBFindInterfaceRequest structure will allow you
+        //to find all the interfaces
+        request.bInterfaceClass = kIOUSBFindInterfaceDontCare;
         request.bInterfaceSubClass = kIOUSBFindInterfaceDontCare;
         request.bInterfaceProtocol = kIOUSBFindInterfaceDontCare;
         request.bAlternateSetting = kIOUSBFindInterfaceDontCare;
- 
-        (*_deviceInterface)->CreateInterfaceIterator(_deviceInterface, &request, &iterator);
+
+        //Get an iterator for the interfaces on the device
+        kr = (*_deviceInterface)->CreateInterfaceIterator(_deviceInterface, &request, &iterator);
         while ((usbInterface = IOIteratorNext(iterator)))
         {
-            hasImageInterfaceNumber = [NSNumber numberWithBool:YES];
-            break;
+            //Create an intermediate plug-in
+            kr = IOCreatePlugInInterfaceForService(usbInterface, kIOUSBInterfaceUserClientTypeID,
+                kIOCFPlugInInterfaceID, &plugInInterface, &score);
+
+            //Release the usbInterface object after getting the plug-in
+            kr = IOObjectRelease(usbInterface);
+            if ((kr != kIOReturnSuccess) || !plugInInterface)
+            {
+                printf("Unable to create a plug-in (%08x)\n", kr);
+                break;
+            }
+
+            //Now create the device interface for the interface
+            result = (*plugInInterface)->QueryInterface(plugInInterface,
+                CFUUIDGetUUIDBytes(kIOUSBInterfaceInterfaceID),
+                (LPVOID *) &interface);
+
+            //No longer need the intermediate plug-in
+            (*plugInInterface)->Release(plugInInterface);
+
+            if (result || !interface)
+            {
+                printf("Couldn’t create a device interface for the interface (%08x)\n", (int) result);
+                break;
+            }
+
+            //Get interface class and subclass
+            kr = (*interface)->GetInterfaceClass(interface, &interfaceClass);
+            kr = (*interface)->GetInterfaceSubClass(interface, &interfaceSubClass);
+
+            UInt8 stringIndex = 0;
+            kr = (*interface)->USBInterfaceGetStringIndex(interface, &stringIndex);
+
+            NSString *interfaceName = [self getStringFromIndex:stringIndex];
+            if (interfaceName == nil)
+            {
+                continue;
+            }
+            //Get the number of endpoints associated with this interface
+            kr = (*interface)->GetNumEndpoints(interface, &interfaceNumEndpoints);
+            if (kr != kIOReturnSuccess)
+            {
+                printf("Unable to get number of endpoints (%08x)\n", kr);
+                (void) (*interface)->USBInterfaceClose(interface);
+                (void) (*interface)->Release(interface);
+                break;
+            }
+
+            [mutableInterfaces addObject:
+                [[IOUSBInterface alloc] initWithNumOfEndpoints:interfaceNumEndpoints name:interfaceName]];
         }
+        interfaces = [NSArray arrayWithArray:mutableInterfaces];
     }
-    return hasImageInterfaceNumber;
+    return interfaces;
 }
 
-- (BOOL)hasImageInterface
+- (NSString *)getStringFromIndex:(UInt8)strIndex
 {
-    return self.hasImageInterfaceNumber.boolValue;
+    Byte buf[256];
+
+    if (strIndex > 0)
+    {
+        int len;
+        buf[0] = 0;
+        len = [self getStringDescriptor:strIndex buf:buf len:sizeof(buf)];
+
+        if (len > 2)
+        {
+            Byte *p;
+            for (p = buf + 2; p < buf + len; p += 2)
+            {
+                Swap16(p);
+            }
+
+            NSString *str = [[NSString alloc] initWithCharacters:(const UniChar *)(buf+2) length:(len-2)/2];
+            return str;
+        }
+    }
+
+    return nil;
+}
+
+- (int)getStringDescriptor:(UInt8)descIndex buf:(void *)buf len:(UInt16)len
+{
+    IOUSBDevRequest req;
+    UInt8 		desc[256]; // Max possible descriptor length
+    int stringLen;
+    IOReturn err;
+    UInt16 lang = 0;
+    if (lang == 0) // set default langID
+    {
+        lang=0x0409;
+    }
+
+    bzero(&req, sizeof(req));
+    req.bmRequestType = USBmakebmRequestType(kUSBIn, kUSBStandard, kUSBDevice);
+    req.bRequest = kUSBRqGetDescriptor;
+    req.wValue = (kUSBStringDesc << 8) | descIndex;
+    req.wIndex = lang;	// English
+    req.wLength = 2;
+    req.pData = &desc;
+//    verify_noerr(err = (*deviceIntf)->DeviceRequest(deviceIntf, &req));
+    err = (*_deviceInterface)->DeviceRequest(_deviceInterface, &req);
+    if ( (err != kIOReturnSuccess) && (err != kIOReturnOverrun) )
+    {
+        return -1;
+    }
+
+    // If the string is 0 (it happens), then just return 0 as the length
+    //
+    stringLen = desc[0];
+    if (stringLen == 0)
+    {
+        return 0;
+    }
+    
+    // OK, now that we have the string length, make a request for the full length
+    //
+	bzero(&req, sizeof(req));
+    req.bmRequestType = USBmakebmRequestType(kUSBIn, kUSBStandard, kUSBDevice);
+    req.bRequest = kUSBRqGetDescriptor;
+    req.wValue = (kUSBStringDesc << 8) | descIndex;
+    req.wIndex = lang;	// English
+    req.wLength = stringLen;
+    req.pData = buf;
+    
+//    verify_noerr(err = (*deviceIntf)->DeviceRequest(deviceIntf, &req));
+    err = (*_deviceInterface)->DeviceRequest(_deviceInterface, &req);
+    if ( err )
+    {
+        return -1;
+    }
+
+    return req.wLenDone;
 }
 
 #pragma mark -

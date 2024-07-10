@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly) NSString *serial;
 //@property(readonly) BOOL supportsIPhoneOS;
 @property(readonly) BOOL isIPhone;
-@property(readonly) BOOL hasImageInterface;
+@property(readonly) BOOL isMtpPtp;
 
 // Process must be superuser, instead nothing will happen
 - (BOOL)eject;

@@ -45,6 +45,7 @@
 		DA8504092C3D4FEB00D10202 /* ICController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8504082C3D4FE500D10202 /* ICController.m */; };
 		DA8504112C3D507000D10202 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8504102C3D507000D10202 /* main.m */; };
 		DA8504152C3D50DB00D10202 /* ICController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8504082C3D4FE500D10202 /* ICController.m */; };
+		DA8504182C3EEBFB00D10202 /* IOUSBInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8504172C3EEB9700D10202 /* IOUSBInterface.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -154,6 +155,8 @@
 		DA8504082C3D4FE500D10202 /* ICController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ICController.m; sourceTree = "<group>"; };
 		DA85040E2C3D507000D10202 /* ICDeviceInfo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ICDeviceInfo; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA8504102C3D507000D10202 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DA8504162C3EEB9700D10202 /* IOUSBInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOUSBInterface.h; sourceTree = "<group>"; };
+		DA8504172C3EEB9700D10202 /* IOUSBInterface.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IOUSBInterface.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,6 +254,8 @@
 				DA8504042C3D498300D10202 /* NSString+SafeUTF8String.mm */,
 				DA140DCB2C22FD2F0097D7CA /* USBDevice.hpp */,
 				DA140DCA2C22FD2F0097D7CA /* USBDevice.mm */,
+				DA8504162C3EEB9700D10202 /* IOUSBInterface.h */,
+				DA8504172C3EEB9700D10202 /* IOUSBInterface.m */,
 			);
 			path = IOUsbUtils;
 			sourceTree = "<group>";
@@ -466,6 +471,7 @@
 				DA8504092C3D4FEB00D10202 /* ICController.m in Sources */,
 				DA140D832C21B0DD0097D7CA /* IOUSBDevice.m in Sources */,
 				DA140D6F2C218C930097D7CA /* main.m in Sources */,
+				DA8504182C3EEBFB00D10202 /* IOUSBInterface.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
