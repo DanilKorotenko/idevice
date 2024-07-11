@@ -1,6 +1,5 @@
 //
-//  IOUSBInterface.h
-//  idevice
+//  IUInterface.h
 //
 //  Created by Danil Korotenko on 7/10/24.
 //
@@ -9,7 +8,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface IOUSBInterface : NSObject
+@interface IUInterface : NSObject
 
 - (instancetype)initWithNumOfEndpoints:(NSUInteger)aNumOfEndpoints name:(NSString *)aName;
 

@@ -1,21 +1,21 @@
 //
-//  IOUSBDevice.m
+//  IUDevice.m
 //  idevice
 //
 //  Created by Danil Korotenko on 6/18/24.
 //
 
-#import "IOUSBDevice.h"
+#import "IUDevice.h"
 #import <IOKit/IOCFPlugIn.h>
-#import "IOUSBInterface.h"
+#import "IUInterface.h"
 
-UInt16	Swap16(void *p)
+UInt16 Swap16(void *p)
 {
     * (UInt16 *) p = CFSwapInt16LittleToHost(*(UInt16 *)p);
     return * (UInt16 *) p;
 }
 
-@interface IOUSBDevice ()
+@interface IUDevice ()
 
 @property (readonly) BOOL isApple;
 @property (readonly) BOOL isIPhoneProduct;
@@ -25,7 +25,7 @@ UInt16	Swap16(void *p)
 
 @end
 
-@implementation IOUSBDevice
+@implementation IUDevice
 {
     IOUSBDeviceInterface    **_deviceInterface;
     CFMutableDictionaryRef  _entryProperties;
@@ -88,7 +88,6 @@ UInt16	Swap16(void *p)
             @"productID" :  self.productID == nil ? @"<none>" : self.productID,
             @"isApple" :    self.isApple ? @"YES" : @"NO",
             @"isIPhone" :   self.isIPhone ? @"YES" : @"NO",
-//            @"hasImageInterface" : self.hasImageInterface ? @"YES" : @"NO"
             @"interfaces" : self.interfaces
         };
     return [descr description];
@@ -196,7 +195,7 @@ UInt16	Swap16(void *p)
 
 - (BOOL)isMtpPtp
 {
-    for (IOUSBInterface *interface in self.interfaces)
+    for (IUInterface *interface in self.interfaces)
     {
         if (interface.isMtpPtp)
         {
@@ -218,8 +217,6 @@ UInt16	Swap16(void *p)
         IOUSBInterfaceInterface     **interface = NULL;
         HRESULT                     result;
         SInt32                      score;
-        UInt8                       interfaceClass;
-        UInt8                       interfaceSubClass;
         UInt8                       interfaceNumEndpoints;
 
         NSMutableArray *mutableInterfaces = [NSMutableArray array];
@@ -262,10 +259,6 @@ UInt16	Swap16(void *p)
                 break;
             }
 
-            //Get interface class and subclass
-            kr = (*interface)->GetInterfaceClass(interface, &interfaceClass);
-            kr = (*interface)->GetInterfaceSubClass(interface, &interfaceSubClass);
-
             UInt8 stringIndex = 0;
             kr = (*interface)->USBInterfaceGetStringIndex(interface, &stringIndex);
 
@@ -285,7 +278,7 @@ UInt16	Swap16(void *p)
             }
 
             [mutableInterfaces addObject:
-                [[IOUSBInterface alloc] initWithNumOfEndpoints:interfaceNumEndpoints name:interfaceName]];
+                [[IUInterface alloc] initWithNumOfEndpoints:interfaceNumEndpoints name:interfaceName]];
         }
         interfaces = [NSArray arrayWithArray:mutableInterfaces];
     }

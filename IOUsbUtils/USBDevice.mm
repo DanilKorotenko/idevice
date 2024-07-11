@@ -6,7 +6,7 @@
 //
 
 #include "USBDevice.hpp"
-#import "IOUSBDevice.h"
+#import "IUDevice.h"
 
 #import "NSString+SafeUTF8String.h"
 
@@ -25,36 +25,42 @@ void USBDeviceReleaseAndMakeNull(USBDeviceRef *aDevice)
 
 //bool USBDeviceSupportsIPhoneOS(USBDeviceRef aDevice)
 //{
-//    IOUSBDevice *device = (__bridge IOUSBDevice *)aDevice->_usbdevice;
+//    IUDevice *device = (__bridge IUDevice *)aDevice->_usbdevice;
 //    return device.supportsIPhoneOS == YES ? true : false;
 //}
 
 const char *USBDeviceGetDescription(USBDeviceRef aDevice)
 {
-    IOUSBDevice *device = (__bridge IOUSBDevice *)aDevice->_usbdevice;
+    IUDevice *device = (__bridge IUDevice *)aDevice->_usbdevice;
     return GetSafeUTF8String([device description]);
 }
 
 const char *USBDeviceGetName(USBDeviceRef aDevice)
 {
-    IOUSBDevice *device = (__bridge IOUSBDevice *)aDevice->_usbdevice;
+    IUDevice *device = (__bridge IUDevice *)aDevice->_usbdevice;
     return GetSafeUTF8String(device.name);
 }
 
 const char *USBDeviceGetSerial(USBDeviceRef aDevice)
 {
-    IOUSBDevice *device = (__bridge IOUSBDevice *)aDevice->_usbdevice;
+    IUDevice *device = (__bridge IUDevice *)aDevice->_usbdevice;
     return GetSafeUTF8String(device.serial);
 }
 
 bool USBDeviceIsIPhone(USBDeviceRef aDevice)
 {
-    IOUSBDevice *device = (__bridge IOUSBDevice *)aDevice->_usbdevice;
+    IUDevice *device = (__bridge IUDevice *)aDevice->_usbdevice;
     return device.isIPhone == YES ? true : false;
+}
+
+bool USBDeviceIsMtpPtp(USBDeviceRef aDevice)
+{
+    IUDevice *device = (__bridge IUDevice *)aDevice->_usbdevice;
+    return device.isMtpPtp == YES ? true : false;
 }
 
 bool USBDeviceEject(USBDeviceRef aDevice)
 {
-    IOUSBDevice *device = (__bridge IOUSBDevice *)aDevice->_usbdevice;
+    IUDevice *device = (__bridge IUDevice *)aDevice->_usbdevice;
     return [device eject] == YES ? true : false;
 }

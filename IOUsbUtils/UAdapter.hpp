@@ -1,12 +1,11 @@
 //
-//  IOUSBControllerAdapter.hpp
-//  deviceWatcherCpp
+//  UAdapter.hpp
 //
 //  Created by Danil Korotenko on 6/19/24.
 //
 
-#ifndef IOUSBControllerAdapter_hpp
-#define IOUSBControllerAdapter_hpp
+#ifndef UAdapter_hpp
+#define UAdapter_hpp
 
 #include "USBDevice.hpp"
 
@@ -23,4 +22,4 @@ void IOUSBReenumerateDevices();
 #endif
 
 
-#endif /* IOUSBControllerAdapter_hpp */
+#endif /* UAdapter_hpp */

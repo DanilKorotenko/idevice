@@ -7,7 +7,7 @@
 
 #include <iostream>
 #include <dispatch/dispatch.h>
-#include "IOUSB.hpp"
+#include "UAdapter.hpp"
 
 int main(int argc, const char * argv[])
 {

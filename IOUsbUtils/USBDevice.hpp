@@ -31,6 +31,7 @@ const char *USBDeviceGetName(USBDeviceRef aDevice);
 const char *USBDeviceGetSerial(USBDeviceRef aDevice);
 
 bool USBDeviceIsIPhone(USBDeviceRef aDevice);
+bool USBDeviceIsMtpPtp(USBDeviceRef aDevice);
 
 
 bool USBDeviceEject(USBDeviceRef aDevice);

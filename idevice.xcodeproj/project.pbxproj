@@ -25,15 +25,15 @@
 /* Begin PBXBuildFile section */
 		DA140D5F2C20780A0097D7CA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D5E2C20780A0097D7CA /* main.m */; };
 		DA140D6F2C218C930097D7CA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D6E2C218C930097D7CA /* main.m */; };
-		DA140D7E2C218EC70097D7CA /* IOUSBController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D7D2C218EC70097D7CA /* IOUSBController.m */; };
-		DA140D812C2191200097D7CA /* IOUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D802C2191200097D7CA /* IOUSBDevice.m */; };
-		DA140D822C21B0920097D7CA /* IOUSBController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D7D2C218EC70097D7CA /* IOUSBController.m */; };
-		DA140D832C21B0DD0097D7CA /* IOUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D802C2191200097D7CA /* IOUSBDevice.m */; };
+		DA140D7E2C218EC70097D7CA /* IUController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D7D2C218EC70097D7CA /* IUController.m */; };
+		DA140D812C2191200097D7CA /* IUDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D802C2191200097D7CA /* IUDevice.m */; };
+		DA140D822C21B0920097D7CA /* IUController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D7D2C218EC70097D7CA /* IUController.m */; };
+		DA140D832C21B0DD0097D7CA /* IUDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D802C2191200097D7CA /* IUDevice.m */; };
 		DA140DC32C22EED80097D7CA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA140DC22C22EED80097D7CA /* main.cpp */; };
-		DA140DC92C22F4C90097D7CA /* IOUSB.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA140DC72C22F4C90097D7CA /* IOUSB.mm */; };
+		DA140DC92C22F4C90097D7CA /* UAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA140DC72C22F4C90097D7CA /* UAdapter.mm */; };
 		DA140DCC2C22FD2F0097D7CA /* USBDevice.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA140DCA2C22FD2F0097D7CA /* USBDevice.mm */; };
-		DA140DCF2C23011D0097D7CA /* IOUSBController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D7D2C218EC70097D7CA /* IOUSBController.m */; };
-		DA140DD02C2301270097D7CA /* IOUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D802C2191200097D7CA /* IOUSBDevice.m */; };
+		DA140DCF2C23011D0097D7CA /* IUController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D7D2C218EC70097D7CA /* IUController.m */; };
+		DA140DD02C2301270097D7CA /* IUDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = DA140D802C2191200097D7CA /* IUDevice.m */; };
 		DA2707892C36F8E2005CBA1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707882C36F8E2005CBA1D /* main.m */; };
 		DA27078D2C370026005CBA1D /* UMController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707812C36F8BA005CBA1D /* UMController.m */; };
 		DA2707912C37F054005CBA1D /* UMConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = DA27078F2C37EDA1005CBA1D /* UMConnection.m */; };
@@ -45,7 +45,9 @@
 		DA8504092C3D4FEB00D10202 /* ICController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8504082C3D4FE500D10202 /* ICController.m */; };
 		DA8504112C3D507000D10202 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8504102C3D507000D10202 /* main.m */; };
 		DA8504152C3D50DB00D10202 /* ICController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8504082C3D4FE500D10202 /* ICController.m */; };
-		DA8504182C3EEBFB00D10202 /* IOUSBInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8504172C3EEB9700D10202 /* IOUSBInterface.m */; };
+		DA8504182C3EEBFB00D10202 /* IUInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8504172C3EEB9700D10202 /* IUInterface.m */; };
+		DA85041D2C3FF65900D10202 /* IUInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8504172C3EEB9700D10202 /* IUInterface.m */; };
+		DA85041E2C3FF6A700D10202 /* IUInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8504172C3EEB9700D10202 /* IUInterface.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,14 +127,14 @@
 		DA140D5E2C20780A0097D7CA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DA140D6C2C218C930097D7CA /* deviceWatcher */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = deviceWatcher; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA140D6E2C218C930097D7CA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		DA140D7C2C218EC70097D7CA /* IOUSBController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOUSBController.h; sourceTree = "<group>"; };
-		DA140D7D2C218EC70097D7CA /* IOUSBController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IOUSBController.m; sourceTree = "<group>"; };
-		DA140D7F2C2191200097D7CA /* IOUSBDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOUSBDevice.h; sourceTree = "<group>"; };
-		DA140D802C2191200097D7CA /* IOUSBDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IOUSBDevice.m; sourceTree = "<group>"; };
+		DA140D7C2C218EC70097D7CA /* IUController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IUController.h; sourceTree = "<group>"; };
+		DA140D7D2C218EC70097D7CA /* IUController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IUController.m; sourceTree = "<group>"; };
+		DA140D7F2C2191200097D7CA /* IUDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IUDevice.h; sourceTree = "<group>"; };
+		DA140D802C2191200097D7CA /* IUDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IUDevice.m; sourceTree = "<group>"; };
 		DA140DC02C22EED80097D7CA /* deviceWatcherCpp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = deviceWatcherCpp; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA140DC22C22EED80097D7CA /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		DA140DC72C22F4C90097D7CA /* IOUSB.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = IOUSB.mm; sourceTree = "<group>"; };
-		DA140DC82C22F4C90097D7CA /* IOUSB.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IOUSB.hpp; sourceTree = "<group>"; };
+		DA140DC72C22F4C90097D7CA /* UAdapter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = UAdapter.mm; sourceTree = "<group>"; };
+		DA140DC82C22F4C90097D7CA /* UAdapter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UAdapter.hpp; sourceTree = "<group>"; };
 		DA140DCA2C22FD2F0097D7CA /* USBDevice.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = USBDevice.mm; sourceTree = "<group>"; };
 		DA140DCB2C22FD2F0097D7CA /* USBDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = USBDevice.hpp; sourceTree = "<group>"; };
 		DA2707802C36F8BA005CBA1D /* UMController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMController.h; sourceTree = "<group>"; };
@@ -155,8 +157,8 @@
 		DA8504082C3D4FE500D10202 /* ICController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ICController.m; sourceTree = "<group>"; };
 		DA85040E2C3D507000D10202 /* ICDeviceInfo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ICDeviceInfo; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA8504102C3D507000D10202 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		DA8504162C3EEB9700D10202 /* IOUSBInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOUSBInterface.h; sourceTree = "<group>"; };
-		DA8504172C3EEB9700D10202 /* IOUSBInterface.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IOUSBInterface.m; sourceTree = "<group>"; };
+		DA8504162C3EEB9700D10202 /* IUInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IUInterface.h; sourceTree = "<group>"; };
+		DA8504172C3EEB9700D10202 /* IUInterface.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IUInterface.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -244,18 +246,18 @@
 		DA140D7B2C218D780097D7CA /* IOUsbUtils */ = {
 			isa = PBXGroup;
 			children = (
-				DA140DC82C22F4C90097D7CA /* IOUSB.hpp */,
-				DA140DC72C22F4C90097D7CA /* IOUSB.mm */,
-				DA140D7C2C218EC70097D7CA /* IOUSBController.h */,
-				DA140D7D2C218EC70097D7CA /* IOUSBController.m */,
-				DA140D7F2C2191200097D7CA /* IOUSBDevice.h */,
-				DA140D802C2191200097D7CA /* IOUSBDevice.m */,
+				DA140DC82C22F4C90097D7CA /* UAdapter.hpp */,
+				DA140DC72C22F4C90097D7CA /* UAdapter.mm */,
+				DA140D7C2C218EC70097D7CA /* IUController.h */,
+				DA140D7D2C218EC70097D7CA /* IUController.m */,
+				DA140D7F2C2191200097D7CA /* IUDevice.h */,
+				DA140D802C2191200097D7CA /* IUDevice.m */,
 				DA8504032C3D498300D10202 /* NSString+SafeUTF8String.h */,
 				DA8504042C3D498300D10202 /* NSString+SafeUTF8String.mm */,
 				DA140DCB2C22FD2F0097D7CA /* USBDevice.hpp */,
 				DA140DCA2C22FD2F0097D7CA /* USBDevice.mm */,
-				DA8504162C3EEB9700D10202 /* IOUSBInterface.h */,
-				DA8504172C3EEB9700D10202 /* IOUSBInterface.m */,
+				DA8504162C3EEB9700D10202 /* IUInterface.h */,
+				DA8504172C3EEB9700D10202 /* IUInterface.m */,
 			);
 			path = IOUsbUtils;
 			sourceTree = "<group>";
@@ -457,9 +459,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA140D7E2C218EC70097D7CA /* IOUSBController.m in Sources */,
-				DA140D812C2191200097D7CA /* IOUSBDevice.m in Sources */,
+				DA140D7E2C218EC70097D7CA /* IUController.m in Sources */,
+				DA140D812C2191200097D7CA /* IUDevice.m in Sources */,
 				DA140D5F2C20780A0097D7CA /* main.m in Sources */,
+				DA85041D2C3FF65900D10202 /* IUInterface.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,11 +470,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA140D822C21B0920097D7CA /* IOUSBController.m in Sources */,
+				DA140D822C21B0920097D7CA /* IUController.m in Sources */,
 				DA8504092C3D4FEB00D10202 /* ICController.m in Sources */,
-				DA140D832C21B0DD0097D7CA /* IOUSBDevice.m in Sources */,
+				DA140D832C21B0DD0097D7CA /* IUDevice.m in Sources */,
 				DA140D6F2C218C930097D7CA /* main.m in Sources */,
-				DA8504182C3EEBFB00D10202 /* IOUSBInterface.m in Sources */,
+				DA8504182C3EEBFB00D10202 /* IUInterface.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,10 +483,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA8504052C3D4A7300D10202 /* NSString+SafeUTF8String.mm in Sources */,
-				DA140DD02C2301270097D7CA /* IOUSBDevice.m in Sources */,
+				DA140DD02C2301270097D7CA /* IUDevice.m in Sources */,
+				DA85041E2C3FF6A700D10202 /* IUInterface.m in Sources */,
 				DA140DCC2C22FD2F0097D7CA /* USBDevice.mm in Sources */,
-				DA140DC92C22F4C90097D7CA /* IOUSB.mm in Sources */,
-				DA140DCF2C23011D0097D7CA /* IOUSBController.m in Sources */,
+				DA140DC92C22F4C90097D7CA /* UAdapter.mm in Sources */,
+				DA140DCF2C23011D0097D7CA /* IUController.m in Sources */,
 				DA140DC32C22EED80097D7CA /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

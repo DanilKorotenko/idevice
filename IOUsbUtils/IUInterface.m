@@ -1,13 +1,12 @@
 //
-//  IOUSBInterface.m
-//  idevice
+//  IUInterface.m
 //
 //  Created by Danil Korotenko on 7/10/24.
 //
 
-#import "IOUSBInterface.h"
+#import "IUInterface.h"
 
-@implementation IOUSBInterface
+@implementation IUInterface
 
 @synthesize numberOfEndpoints;
 @synthesize name;

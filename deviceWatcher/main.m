@@ -6,15 +6,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "IOUSBController.h"
+#import "IUController.h"
 
 int main(int argc, const char * argv[])
 {
     @autoreleasepool
     {
         NSLog(@"Hello, device Watcher!");
-        [[IOUSBController sharedController] startWatchingWithBlock:
-            ^(IOUSBDevice * _Nonnull aDevice)
+        [[IUController sharedController] startWatchingWithBlock:
+            ^(IUDevice * _Nonnull aDevice)
             {
                 NSLog(@"device added: %@", aDevice);
                 if (aDevice.isIPhone)

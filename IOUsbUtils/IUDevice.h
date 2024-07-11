@@ -1,5 +1,5 @@
 //
-//  IOUSBDevice.h
+//  IUDevice.h
 //  idevice
 //
 //  Created by Danil Korotenko on 6/18/24.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface IOUSBDevice : NSObject
+@interface IUDevice : NSObject
 
 - (instancetype)initWithIoServiceT:(io_service_t)aService;
 

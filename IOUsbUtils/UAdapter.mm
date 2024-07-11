@@ -1,17 +1,16 @@
 //
-//  IOUSBControllerAdapter.cpp
-//  deviceWatcherCpp
+//  UAdapter.mm
 //
 //  Created by Danil Korotenko on 6/19/24.
 //
 
-#include "IOUSB.hpp"
-#import "IOUSBController.h"
+#include "UAdapter.hpp"
+#import "IUController.h"
 
 bool IOUSBStartWatchingWithBlock(void (^block)(USBDeviceRef aDevice))
 {
-    BOOL result =[[IOUSBController sharedController] startWatchingWithBlock:
-        ^(IOUSBDevice * _Nonnull aDevice)
+    BOOL result =[[IUController sharedController] startWatchingWithBlock:
+        ^(IUDevice * _Nonnull aDevice)
         {
             USBDeviceRef device = USBDeviceCreateWithIOUSBDevice((__bridge void *)aDevice);
             block(device);
@@ -22,5 +21,5 @@ bool IOUSBStartWatchingWithBlock(void (^block)(USBDeviceRef aDevice))
 
 void IOUSBReenumerateDevices()
 {
-    [[IOUSBController sharedController] reenumerateDevices];
+    [[IUController sharedController] reenumerateDevices];
 }

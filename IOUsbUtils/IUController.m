@@ -1,11 +1,11 @@
 //
-//  IOUSBController.m
+//  IUController.m
 //  idevice
 //
 //  Created by Danil Korotenko on 6/18/24.
 //
 
-#import "IOUSBController.h"
+#import "IUController.h"
 
 #import <IOKit/usb/IOUSBLib.h>
 
@@ -24,9 +24,9 @@
 //    }
 //}
 
-@interface IOUSBController ()
+@interface IUController ()
 
-@property (strong) void (^deviceAddedBlock)(IOUSBDevice *aDevice);
+@property (strong) void (^deviceAddedBlock)(IUDevice *aDevice);
 
 @property (assign) IONotificationPortRef    notifyPort;
 
@@ -39,7 +39,7 @@
 
 static void staticDeviceAdded(void *refCon, io_iterator_t iterator)
 {
-    IOUSBController *controller = (__bridge IOUSBController *)(refCon);
+    IUController *controller = (__bridge IUController *)(refCon);
     if (controller)
     {
         [controller deviceAdded:iterator];
@@ -48,7 +48,7 @@ static void staticDeviceAdded(void *refCon, io_iterator_t iterator)
 
 //static void staticDeviceRemoved(void *refCon, io_iterator_t iterator)
 //{
-//    IOUSBController *controller = (__bridge IOUSBController *)(refCon);
+//    IUController *controller = (__bridge IUController *)(refCon);
 //    if (controller)
 //    {
 //        [controller deviceRemoved:iterator];
@@ -57,20 +57,20 @@ static void staticDeviceAdded(void *refCon, io_iterator_t iterator)
 
 #pragma mark -
 
-@implementation IOUSBController
+@implementation IUController
 {
     io_iterator_t _deviceAddedIter;
     io_iterator_t _deviceRemovedIter;
     dispatch_queue_t _queue;
 }
 
-+ (IOUSBController *)sharedController
++ (IUController *)sharedController
 {
-    static IOUSBController *sharedController = nil;
+    static IUController *sharedController = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken,
     ^{
-        sharedController = [[IOUSBController alloc] init];
+        sharedController = [[IUController alloc] init];
     });
     return sharedController;
 }
@@ -80,14 +80,14 @@ static void staticDeviceAdded(void *refCon, io_iterator_t iterator)
     self = [super init];
     if (self)
     {
-        _queue = dispatch_queue_create("IOUSBControllerQueue", DISPATCH_QUEUE_SERIAL);
+        _queue = dispatch_queue_create("IUControllerQueue", DISPATCH_QUEUE_SERIAL);
     }
     return self;
 }
 
 #pragma mark -
 
-- (BOOL)startWatchingWithBlock:(void (^)(IOUSBDevice *aDevice))aBlock
+- (BOOL)startWatchingWithBlock:(void (^)(IUDevice *aDevice))aBlock
 {
     self.deviceAddedBlock = aBlock;
 
@@ -124,7 +124,7 @@ static void staticDeviceAdded(void *refCon, io_iterator_t iterator)
     io_service_t serviceObject;
     while (IOIteratorIsValid(anIterator) && (serviceObject = IOIteratorNext(anIterator)))
     {
-        IOUSBDevice *device = [[IOUSBDevice alloc] initWithIoServiceT:serviceObject];
+        IUDevice *device = [[IUDevice alloc] initWithIoServiceT:serviceObject];
         if (device)
         {
             if (self.deviceAddedBlock)

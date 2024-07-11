@@ -1,21 +1,21 @@
 //
-//  IOUSBController.h
+//  IUController.h
 //  idevice
 //
 //  Created by Danil Korotenko on 6/18/24.
 //
 
 #import <Foundation/Foundation.h>
-#import "IOUSBDevice.h"
+#import "IUDevice.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface IOUSBController : NSObject
+@interface IUController : NSObject
 
 // singleton instance
-+ (IOUSBController *)sharedController;
++ (IUController *)sharedController;
 
-- (BOOL)startWatchingWithBlock:(void (^)(IOUSBDevice *aDevice))aBlock;
+- (BOOL)startWatchingWithBlock:(void (^)(IUDevice *aDevice))aBlock;
 
 - (void)reenumerateDevices;
 
