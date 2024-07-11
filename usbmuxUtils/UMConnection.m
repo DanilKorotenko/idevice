@@ -16,6 +16,8 @@
 #import "DispatchData.h"
 #import "UMPacket.h"
 
+static NSUInteger tag = 0;
+
 typedef NS_ENUM(NSUInteger, ConnectionState)
 {
     ConnectionStateNone,
@@ -197,10 +199,12 @@ static uint32_t proto_version = 1;
 
 #pragma mark -
 
-- (BOOL)sendListDevicesPacket:(NSUInteger)aTag error:(NSError *__autoreleasing  _Nullable * _Nullable)anError
+- (BOOL)sendListDevicesPacket:(NSUInteger *)aTag error:(NSError *__autoreleasing  _Nullable * _Nullable)anError
 {
+    tag++;
+    *aTag = tag;
     UMPacket *plist = [[UMPacket alloc] initWithMessage:@"ListDevices"];
-    return [self sendPlistPacket:aTag message:plist error:(anError)];
+    return [self sendPlistPacket:tag message:plist error:(anError)];
 }
 
 #pragma mark -
