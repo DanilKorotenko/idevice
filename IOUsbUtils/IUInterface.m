@@ -51,7 +51,8 @@
     */
 
     return self.numberOfEndpoints == 3 &&
-        ([self.name containsString:@"mtp"] || [self.name containsString:@"ptp"]);
+        ([self.name localizedCaseInsensitiveContainsString:@"mtp"] ||
+        [self.name localizedCaseInsensitiveContainsString:@"ptp"]);
 }
 
 @end
