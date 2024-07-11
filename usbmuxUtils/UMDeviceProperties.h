@@ -19,6 +19,7 @@ typedef NS_ENUM(NSUInteger, UMDeviceConnectionType)
 - (instancetype)initWithDictionary:(NSDictionary *)aDictionary;
 
 @property (readonly) UMDeviceConnectionType connectionType;
+@property (readonly) NSString *udid;
 
 @end
 

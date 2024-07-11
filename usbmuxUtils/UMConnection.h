@@ -28,9 +28,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UMConnection : NSObject
 
 + (UMConnection *)startWithDelegate:(id<UMConnectionDelegate>)aDelegate;
-+ (UMConnection *)startSynchronously;
-+ (UMConnection *)startWithNWConnection:(nw_connection_t)aConnection
-    delegate:(id<UMConnectionDelegate> _Nullable)aDelegate;
 
 - (BOOL)sendListDevicesPacket:(NSUInteger)aTag error:(NSError **)anError;
 

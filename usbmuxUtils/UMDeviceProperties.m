@@ -37,6 +37,13 @@
     return self;
 }
 
+- (NSString *)description
+{
+    return [dictionary description];
+}
+
+#pragma mark -
+
 - (UMDeviceConnectionType)connectionType
 {
 //    NSString *connectionTypeString = dictionary[@"ConnectionType"];
@@ -44,6 +51,11 @@
 //    {
         return UMDeviceConnectionTypeUSB;
 //    }
+}
+
+- (NSString *)udid
+{
+    return dictionary[@"SerialNumber"];
 }
 
 @end

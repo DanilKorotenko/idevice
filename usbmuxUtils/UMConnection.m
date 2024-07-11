@@ -82,17 +82,6 @@ static uint32_t proto_version = 1;
     return [UMConnection startWithNWConnection:connection delegate:aDelegate];
 }
 
-+ (UMConnection *)startSynchronously
-{
-    nw_connection_t connection = [UMConnection newConnection];
-    UMConnection *result = [UMConnection startWithNWConnection:connection delegate:nil];
-    if (![result waitConnected])
-    {
-        result = nil;
-    }
-    return result;
-}
-
 + (UMConnection *)startWithNWConnection:(nw_connection_t)aConnection
     delegate:(id<UMConnectionDelegate> _Nullable)aDelegate
 {

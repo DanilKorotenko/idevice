@@ -275,16 +275,16 @@
 			children = (
 				DA2707922C37F17D005CBA1D /* DispatchData.h */,
 				DA2707932C37F17D005CBA1D /* DispatchData.m */,
-				DA2707802C36F8BA005CBA1D /* UMController.h */,
-				DA2707812C36F8BA005CBA1D /* UMController.m */,
 				DA27078E2C37EDA1005CBA1D /* UMConnection.h */,
 				DA27078F2C37EDA1005CBA1D /* UMConnection.m */,
+				DA2707802C36F8BA005CBA1D /* UMController.h */,
+				DA2707812C36F8BA005CBA1D /* UMController.m */,
 				DA2707C62C3843FD005CBA1D /* UMDevice.h */,
 				DA2707C72C3843FD005CBA1D /* UMDevice.m */,
-				DA2707C92C3BF53E005CBA1D /* UMPacket.h */,
-				DA2707CA2C3BF53E005CBA1D /* UMPacket.m */,
 				DA2707CC2C3C362D005CBA1D /* UMDeviceProperties.h */,
 				DA2707CD2C3C362D005CBA1D /* UMDeviceProperties.m */,
+				DA2707C92C3BF53E005CBA1D /* UMPacket.h */,
+				DA2707CA2C3BF53E005CBA1D /* UMPacket.m */,
 			);
 			path = usbmuxUtils;
 			sourceTree = "<group>";

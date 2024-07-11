@@ -45,6 +45,13 @@ Printing description of ((__NSDictionaryM *)0x0000600002f44940):
     return self;
 }
 
+- (NSString *)description
+{
+    return [deviceInfoDictionary description];
+}
+
+#pragma mark -
+
 - (NSInteger)deviceID
 {
     return [(NSNumber *)self.deviceInfoDictionary[@"DeviceID"] integerValue];
