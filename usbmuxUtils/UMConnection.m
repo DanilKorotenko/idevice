@@ -58,20 +58,32 @@ static uint32_t proto_version = 1;
 
 @end
 
+nw_endpoint_t nw_endpoint_create_unix(const char *path);
+
 @implementation UMConnection
 
 + (nw_connection_t)newConnection
 {
-    char *mux = "/var/run/usbmuxd";
-    struct sockaddr_un address;
-    address.sun_family = AF_UNIX;
-    strncpy(address.sun_path, mux, sizeof(address.sun_path));
-    address.sun_len = SUN_LEN(&address);
+    nw_parameters_t parameters = nw_parameters_create();
 
-    nw_endpoint_t endpoint = nw_endpoint_create_address((const struct sockaddr *)&address);
+    nw_protocol_stack_t defaultStack = nw_parameters_copy_default_protocol_stack(parameters);
+    nw_protocol_stack_set_transport_protocol(defaultStack, nw_tcp_create_options());
+
+    char *mux = "/var/run/usbmuxd";
+//    struct sockaddr_un address;
+//    address.sun_family = AF_UNIX;
+//    strncpy(address.sun_path, mux, sizeof(address.sun_path));
+//    address.sun_len = SUN_LEN(&address);
+//    nw_endpoint_t endpoint = nw_endpoint_create_address((const struct sockaddr *)&address);
+    nw_endpoint_t endpoint = nw_endpoint_create_unix(mux);
+    nw_parameters_set_local_endpoint(parameters, endpoint);
+    nw_parameters_set_reuse_local_address(parameters, true);
 
     nw_parameters_t parameters = nw_parameters_create_secure_tcp(NW_PARAMETERS_DISABLE_PROTOCOL,
-        NW_PARAMETERS_DEFAULT_CONFIGURATION);
+        ^(nw_protocol_options_t  _Nonnull options)
+        {
+
+        });
 
     nw_connection_t result = nw_connection_create(endpoint, parameters);
 
