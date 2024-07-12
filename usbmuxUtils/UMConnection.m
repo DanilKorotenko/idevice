@@ -215,6 +215,14 @@ static uint32_t proto_version = 1;
     return [self sendPlistPacket:tag message:plist error:(anError)];
 }
 
+- (BOOL)sendGetValuePacket:(NSUInteger *)aTag domain:(NSString*)aDomain key:(NSString *)aKey error:(NSError **)anError
+{
+    tag++;
+    *aTag = tag;
+    UMPacket *plist = [[UMPacket alloc] initWithGetValueForDomain:aDomain key:aKey];
+    return [self sendPlistPacket:tag message:plist error:(anError)];
+}
+
 #pragma mark -
 
 - (BOOL)sendPlistPacket:(NSUInteger)tag message:(UMPacket *)message error:(NSError **)anError

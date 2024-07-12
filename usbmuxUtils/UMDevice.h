@@ -25,6 +25,8 @@ typedef NS_ENUM(NSUInteger, UMDeviceMessageType)
 
 @property (readonly) UMDeviceMessageType messageType;
 
+@property (readonly) NSDictionary *allValues;
+
 @end
 
 NS_ASSUME_NONNULL_END

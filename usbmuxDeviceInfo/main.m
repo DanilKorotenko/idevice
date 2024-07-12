@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "UMController.h"
+#import "UMDevice.h"
 
 int main(int argc, const char * argv[])
 {
@@ -16,6 +17,10 @@ int main(int argc, const char * argv[])
         NSArray *devices = [UMController sharedInstance].devices;
 
         NSLog(@"devices: %@", devices);
+
+        UMDevice *device = [devices objectAtIndex:0];
+
+        NSLog(@"%@", device.allValues);
 
 //        dispatch_main();
     }

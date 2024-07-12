@@ -36,6 +36,7 @@ Printing description of ((__NSDictionaryM *)0x0000600002f44940):
 @synthesize deviceInfoDictionary;
 @synthesize properties;
 @synthesize connection;
+@synthesize allValues;
 
 - (instancetype)initWithDeviceInfoDictionary:(NSDictionary *)aDeviceInfoDictionary
 {
@@ -77,6 +78,33 @@ Printing description of ((__NSDictionaryM *)0x0000600002f44940):
     return properties;
 }
 
+- (NSDictionary *)allValues
+{
+    if (allValues == nil)
+    {
+        UMConnection *connection = self.connection;
+        while (!connection)
+        {
+            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0f]];
+            connection = self.connection;
+        }
+        NSUInteger tag = 0;
+        NSError *error = nil;
+        if ([connection sendGetValuePacket:&tag domain:nil key:nil error:&error])
+        {
+            UMPacket *packet = nil;
+            if ([connection receive_packet:&packet])
+            {
+                NSLog(@"packet: %@", packet);
+            }
+
+        }
+    }
+    return allValues;
+}
+
+
+
 #pragma mark -
 
 - (UMConnection *)connection
@@ -92,6 +120,10 @@ Printing description of ((__NSDictionaryM *)0x0000600002f44940):
         {
             UMPacket *packet = nil;
             if (![connection receive_packet:&packet])
+            {
+                connection = nil;
+            }
+            else if (packet.result != UsbmuxdResultOK)
             {
                 connection = nil;
             }

@@ -31,6 +31,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)sendListDevicesPacket:(NSUInteger *)aTag error:(NSError **)anError;
 - (BOOL)sendConnectPacket:(NSUInteger *)aTag deviceId:(NSInteger)aDeviceId error:(NSError **)anError;
+- (BOOL)sendGetValuePacket:(NSUInteger *)aTag
+    domain:(NSString * _Nullable)aDomain key:(NSString * _Nullable)aKey error:(NSError **)anError;
 
 - (BOOL)receive_packet:(UMPacket *_Nonnull*_Nonnull)payload;
 

@@ -28,21 +28,16 @@
             @{
                 @"ClientVersionString": @"usbmuxd-323",
                 @"MessageType": aMessageType,
-                @"kLibUSBMuxVersion": @(3)
+                @"kLibUSBMuxVersion": @(3),
+                @"ProgName": [[[[NSProcessInfo processInfo] arguments] objectAtIndex:0] lastPathComponent]
             };
 //	if (!bundle_id)
 //    {
 //		get_bundle_id();
 //	}
-//	if (!prog_name) {
-//		get_prog_name();
-//	}
 
 //	if (bundle_id) {
 //		plist_dict_set_item(plist, "BundleID", plist_new_string(bundle_id));
-//	}
-//	if (prog_name) {
-//		plist_dict_set_item(plist, "ProgName", plist_new_string(prog_name));
 //	}
 
     }
@@ -56,8 +51,31 @@
     {
         NSMutableDictionary *mutablePayload = [NSMutableDictionary dictionaryWithDictionary:payload];
         [mutablePayload setObject:@(aDeviceId) forKey:@"DeviceID"];
-        //[mutablePayload setObject:@(0x7ef2) forKey:@"PortNumber"];
-        [mutablePayload setObject:@(0xf27e) forKey:@"PortNumber"];
+        [mutablePayload setObject:@(0x7ef2) forKey:@"PortNumber"];
+        //[mutablePayload setObject:@(0xf27e) forKey:@"PortNumber"];
+        payload = [NSDictionary dictionaryWithDictionary:mutablePayload];
+    }
+    return self;
+}
+
+- (instancetype)initWithGetValueForDomain:(NSString *)aDomain key:(NSString *)aKey
+{
+    self = [super init];
+    if (self)
+    {
+        NSMutableDictionary *mutablePayload = [NSMutableDictionary dictionary];
+        [mutablePayload setObject:[[[[NSProcessInfo processInfo] arguments] objectAtIndex:0] lastPathComponent]
+            forKey:@"Label"];
+        if (aDomain)
+        {
+            [mutablePayload setObject:aDomain forKey:@"Domain"];
+        }
+        if (aKey)
+        {
+            [mutablePayload setObject:aKey forKey:@"Key"];
+        }
+        [mutablePayload setObject:@"GetValue" forKey:@"Request"];
+
         payload = [NSDictionary dictionaryWithDictionary:mutablePayload];
     }
     return self;
@@ -104,6 +122,11 @@
     }
 
     return result;
+}
+
+- (UsbmuxdResult)result
+{
+    return (UsbmuxdResult)((NSNumber *)self.payload[@"Result"]).integerValue;
 }
 
 @end
