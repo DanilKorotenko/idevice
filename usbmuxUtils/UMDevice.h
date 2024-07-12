@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "UMDeviceProperties.h"
+#import "UMConnection.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,11 +16,11 @@ typedef NS_ENUM(NSUInteger, UMDeviceMessageType)
     UMDeviceMessageTypeAttached = 0,
 };
 
-@interface UMDevice : NSObject
+@interface UMDevice : NSObject<UMConnectionDelegate>
 
 - (instancetype)initWithDeviceInfoDictionary:(NSDictionary *)aDeviceInfoDictionary;
 
-@property (readonly) NSInteger deviceID;
+@property (readonly) NSInteger deviceID; // mux_id, handle
 @property (readonly) UMDeviceProperties *properties;
 
 @property (readonly) UMDeviceMessageType messageType;

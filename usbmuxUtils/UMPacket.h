@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UMPacket : NSObject
 
 - (instancetype)initWithMessage:(NSString *)aMessageType;
+- (instancetype)initWithConnectDeviceId:(NSInteger)aDeviceId;
+
 - (instancetype)initWithPayloadData:(NSData *)aPayloadData;
 
 @property (readonly) NSData *xmlData;

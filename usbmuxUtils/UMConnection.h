@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (UMConnection *)startWithDelegate:(id<UMConnectionDelegate>)aDelegate;
 
 - (BOOL)sendListDevicesPacket:(NSUInteger *)aTag error:(NSError **)anError;
+- (BOOL)sendConnectPacket:(NSUInteger *)aTag deviceId:(NSInteger)aDeviceId error:(NSError **)anError;
 
 - (BOOL)receive_packet:(UMPacket *_Nonnull*_Nonnull)payload;
 

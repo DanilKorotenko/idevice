@@ -24,12 +24,12 @@
     self = [super init];
     if (self)
     {
-        payload = @{
-            @"ClientVersionString": @"usbmuxd-323",
-            @"MessageType": aMessageType,
-            @"kLibUSBMuxVersion": @(3)
-
-        };
+        payload =
+            @{
+                @"ClientVersionString": @"usbmuxd-323",
+                @"MessageType": aMessageType,
+                @"kLibUSBMuxVersion": @(3)
+            };
 //	if (!bundle_id)
 //    {
 //		get_bundle_id();
@@ -45,6 +45,20 @@
 //		plist_dict_set_item(plist, "ProgName", plist_new_string(prog_name));
 //	}
 
+    }
+    return self;
+}
+
+- (instancetype)initWithConnectDeviceId:(NSInteger)aDeviceId
+{
+    self = [self initWithMessage:@"Connect"];
+    if (self)
+    {
+        NSMutableDictionary *mutablePayload = [NSMutableDictionary dictionaryWithDictionary:payload];
+        [mutablePayload setObject:@(aDeviceId) forKey:@"DeviceID"];
+        //[mutablePayload setObject:@(0x7ef2) forKey:@"PortNumber"];
+        [mutablePayload setObject:@(0xf27e) forKey:@"PortNumber"];
+        payload = [NSDictionary dictionaryWithDictionary:mutablePayload];
     }
     return self;
 }

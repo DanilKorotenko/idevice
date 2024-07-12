@@ -6,7 +6,7 @@
 //
 
 #import "UMDevice.h"
-
+#import "UMConnection.h"
 
 /*
 Printing description of ((__NSDictionaryM *)0x0000600002f44940):
@@ -27,6 +27,7 @@ Printing description of ((__NSDictionaryM *)0x0000600002f44940):
 @interface UMDevice ()
 
 @property (readonly) NSDictionary *deviceInfoDictionary;
+@property (readonly) UMConnection *connection;
 
 @end
 
@@ -34,6 +35,7 @@ Printing description of ((__NSDictionaryM *)0x0000600002f44940):
 
 @synthesize deviceInfoDictionary;
 @synthesize properties;
+@synthesize connection;
 
 - (instancetype)initWithDeviceInfoDictionary:(NSDictionary *)aDeviceInfoDictionary
 {
@@ -75,5 +77,47 @@ Printing description of ((__NSDictionaryM *)0x0000600002f44940):
     return properties;
 }
 
+#pragma mark -
+
+- (UMConnection *)connection
+{
+    if (connection == nil)
+    {
+        connection = [UMConnection startWithDelegate:self];
+        [connection waitConnected];
+        NSUInteger tag = 0;
+        NSError *error = nil;
+
+        if ([connection sendConnectPacket:&tag deviceId:self.deviceID error:&error])
+        {
+            UMPacket *packet = nil;
+            if (![connection receive_packet:&packet])
+            {
+                connection = nil;
+            }
+        }
+    }
+    return connection;
+}
+
+- (void)connectionCanceled:(nonnull UMConnection *)aConnection
+{
+    connection = nil;
+}
+
+- (void)didConnect:(nonnull UMConnection *)aConnection
+{
+
+}
+
+- (void)log:(nonnull NSString *)aLogMessage
+{
+    NSLog(@"%@", aLogMessage);
+}
+
+- (void)stringReceived:(nonnull NSString *)aStringReceived
+{ 
+
+}
 
 @end

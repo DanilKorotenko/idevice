@@ -207,6 +207,14 @@ static uint32_t proto_version = 1;
     return [self sendPlistPacket:tag message:plist error:(anError)];
 }
 
+- (BOOL)sendConnectPacket:(NSUInteger *)aTag deviceId:(NSInteger)aDeviceId error:(NSError **)anError
+{
+    tag++;
+    *aTag = tag;
+    UMPacket *plist = [[UMPacket alloc] initWithConnectDeviceId:aDeviceId];
+    return [self sendPlistPacket:tag message:plist error:(anError)];
+}
+
 #pragma mark -
 
 - (BOOL)sendPlistPacket:(NSUInteger)tag message:(UMPacket *)message error:(NSError **)anError
