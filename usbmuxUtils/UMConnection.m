@@ -183,7 +183,7 @@ static uint32_t proto_version = 1;
 
 #pragma mark -
 
-- (BOOL)sendListDevicesPacket:(NSUInteger *)aTag error:(NSError *__autoreleasing  _Nullable * _Nullable)anError
+- (BOOL)sendUsbMuxListDevicesPacket:(NSUInteger *)aTag error:(NSError *__autoreleasing  _Nullable * _Nullable)anError
 {
     tag++;
     *aTag = tag;
@@ -191,7 +191,7 @@ static uint32_t proto_version = 1;
     return [self sendPlistPacket:tag message:plist error:(anError)];
 }
 
-- (BOOL)sendConnectPacket:(NSUInteger *)aTag deviceId:(NSInteger)aDeviceId error:(NSError **)anError
+- (BOOL)sendUsbMuxConnectPacket:(NSUInteger *)aTag deviceId:(NSInteger)aDeviceId error:(NSError **)anError
 {
     tag++;
     *aTag = tag;
@@ -199,7 +199,7 @@ static uint32_t proto_version = 1;
     return [self sendPlistPacket:tag message:plist error:(anError)];
 }
 
-- (BOOL)sendGetValuePacket:(NSUInteger *)aTag domain:(NSString*)aDomain key:(NSString *)aKey error:(NSError **)anError
+- (BOOL)sendDeviceGetValueMessage:(NSUInteger *)aTag domain:(NSString*)aDomain key:(NSString *)aKey error:(NSError **)anError
 {
     tag++;
     *aTag = tag;

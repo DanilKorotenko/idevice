@@ -90,7 +90,7 @@ Printing description of ((__NSDictionaryM *)0x0000600002f44940):
         }
         NSUInteger tag = 0;
         NSError *error = nil;
-        if ([connection sendGetValuePacket:&tag domain:nil key:nil error:&error])
+        if ([connection sendDeviceGetValueMessage:&tag domain:nil key:nil error:&error])
         {
             UMPacket *packet = nil;
             if ([connection receive_packet:&packet])
@@ -116,7 +116,7 @@ Printing description of ((__NSDictionaryM *)0x0000600002f44940):
         NSUInteger tag = 0;
         NSError *error = nil;
 
-        if (connection != nil && [connection sendConnectPacket:&tag deviceId:self.deviceID error:&error])
+        if (connection != nil && [connection sendUsbMuxConnectPacket:&tag deviceId:self.deviceID error:&error])
         {
             UMPacket *packet = nil;
             if (![connection receive_packet:&packet])

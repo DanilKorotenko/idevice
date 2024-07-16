@@ -47,7 +47,7 @@
     NSUInteger tag = 0;
     NSArray *result = nil;
     NSError *error = nil;
-    if ([self.connection sendListDevicesPacket:&tag error:&error])
+    if ([self.connection sendUsbMuxListDevicesPacket:&tag error:&error])
     {
         UMPacket *packet = nil;
         if ([self.connection receive_packet:&packet])
