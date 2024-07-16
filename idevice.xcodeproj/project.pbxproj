@@ -48,6 +48,7 @@
 		DA8504182C3EEBFB00D10202 /* IUInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8504172C3EEB9700D10202 /* IUInterface.m */; };
 		DA85041D2C3FF65900D10202 /* IUInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8504172C3EEB9700D10202 /* IUInterface.m */; };
 		DA85041E2C3FF6A700D10202 /* IUInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8504172C3EEB9700D10202 /* IUInterface.m */; };
+		DAEF0E402C46762200F01B8D /* UMDeviceMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = DAEF0E3F2C46762200F01B8D /* UMDeviceMessage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,6 +160,8 @@
 		DA8504102C3D507000D10202 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DA8504162C3EEB9700D10202 /* IUInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IUInterface.h; sourceTree = "<group>"; };
 		DA8504172C3EEB9700D10202 /* IUInterface.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IUInterface.m; sourceTree = "<group>"; };
+		DAEF0E3E2C46762200F01B8D /* UMDeviceMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMDeviceMessage.h; sourceTree = "<group>"; };
+		DAEF0E3F2C46762200F01B8D /* UMDeviceMessage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMDeviceMessage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -285,6 +288,8 @@
 				DA2707CD2C3C362D005CBA1D /* UMDeviceProperties.m */,
 				DA2707C92C3BF53E005CBA1D /* UMPacket.h */,
 				DA2707CA2C3BF53E005CBA1D /* UMPacket.m */,
+				DAEF0E3E2C46762200F01B8D /* UMDeviceMessage.h */,
+				DAEF0E3F2C46762200F01B8D /* UMDeviceMessage.m */,
 			);
 			path = usbmuxUtils;
 			sourceTree = "<group>";
@@ -499,6 +504,7 @@
 				DA2707CE2C3C362D005CBA1D /* UMDeviceProperties.m in Sources */,
 				DA2707892C36F8E2005CBA1D /* main.m in Sources */,
 				DA2707912C37F054005CBA1D /* UMConnection.m in Sources */,
+				DAEF0E402C46762200F01B8D /* UMDeviceMessage.m in Sources */,
 				DA2707C82C3843FD005CBA1D /* UMDevice.m in Sources */,
 				DA27078D2C370026005CBA1D /* UMController.m in Sources */,
 				DA2707942C37F17D005CBA1D /* DispatchData.m in Sources */,
