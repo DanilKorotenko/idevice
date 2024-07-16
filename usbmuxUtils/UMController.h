@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UMController : NSObject<UMConnectionDelegate>
+@interface UMController : NSObject
 
 + (UMController *)sharedInstance;
 

@@ -16,7 +16,7 @@ typedef NS_ENUM(NSUInteger, UMDeviceMessageType)
     UMDeviceMessageTypeAttached = 0,
 };
 
-@interface UMDevice : NSObject<UMConnectionDelegate>
+@interface UMDevice : NSObject
 
 - (instancetype)initWithDeviceInfoDictionary:(NSDictionary *)aDeviceInfoDictionary;
 

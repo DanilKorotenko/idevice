@@ -29,17 +29,9 @@
                 @"ClientVersionString": @"usbmuxd-323",
                 @"MessageType": aMessageType,
                 @"kLibUSBMuxVersion": @(3),
-                @"ProgName": [[[[NSProcessInfo processInfo] arguments] objectAtIndex:0] lastPathComponent]
+                @"ProgName": [[[[NSProcessInfo processInfo] arguments] objectAtIndex:0] lastPathComponent],
+                @"BundleId": @"com.danilkorotenko.idevice"
             };
-//	if (!bundle_id)
-//    {
-//		get_bundle_id();
-//	}
-
-//	if (bundle_id) {
-//		plist_dict_set_item(plist, "BundleID", plist_new_string(bundle_id));
-//	}
-
     }
     return self;
 }

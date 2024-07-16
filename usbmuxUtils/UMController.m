@@ -35,8 +35,7 @@
 {
     if (connection == nil)
     {
-        connection = [UMConnection startWithDelegate:self];
-        [connection waitConnected];
+        connection = [[UMConnection alloc] init];
     }
     return connection;
 }
@@ -57,28 +56,6 @@
         }
     }
     return result;
-}
-
-#pragma mark -
-
-- (void)connectionCanceled:(nonnull UMConnection *)aConnection
-{
-    connection = nil;
-}
-
-- (void)didConnect:(nonnull UMConnection *)aConnection
-{
-    NSLog(@"didConnect");
-}
-
-- (void)log:(nonnull NSString *)aLogMessage
-{
-    NSLog(@"%@", aLogMessage);
-}
-
-- (void)stringReceived:(nonnull NSString *)aStringReceived
-{
-    NSLog(@"stringReceived");
 }
 
 @end

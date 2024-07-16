@@ -7,7 +7,6 @@
 
 #import "UMConnection.h"
 
-#import <Network/Network.h>
 #include <sys/socket.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
@@ -49,164 +48,137 @@ static uint32_t proto_version = 1;
 
 @interface UMConnection ()
 
-@property (strong) nw_connection_t connection;
-@property (strong) dispatch_queue_t queue;
-
-@property (weak) id<UMConnectionDelegate> delegate;
-
-@property (readwrite) ConnectionState state;
-
+@property (readwrite) uint32_t socket;
 @end
-
-nw_endpoint_t nw_endpoint_create_unix(const char *path);
 
 @implementation UMConnection
 
-+ (nw_connection_t)newConnection
+/*
+ debugging traffic:
+ sudo mv /var/run/usbmuxd /var/run/usbmuxx
+ sudo socat -t100 -x -v UNIX-LISTEN:/var/run/usbmuxd,mode=777,reuseaddr,fork UNIX-CONNECT:/var/run/usbmuxx
+ */
++ (uint32_t)connectToUSBMux:(time_t)recvTimeoutSec
 {
-    nw_parameters_t parameters = nw_parameters_create();
+    int result = 0;
 
-    nw_protocol_stack_t defaultStack = nw_parameters_copy_default_protocol_stack(parameters);
-    nw_protocol_stack_set_transport_protocol(defaultStack, nw_tcp_create_options());
+    // Initialize socket
+    uint32_t sock = socket(AF_UNIX, SOCK_STREAM, 0);
 
-    char *mux = "/var/run/usbmuxd";
-//    struct sockaddr_un address;
-//    address.sun_family = AF_UNIX;
-//    strncpy(address.sun_path, mux, sizeof(address.sun_path));
-//    address.sun_len = SUN_LEN(&address);
-//    nw_endpoint_t endpoint = nw_endpoint_create_address((const struct sockaddr *)&address);
-    nw_endpoint_t endpoint = nw_endpoint_create_unix(mux);
-    nw_parameters_set_local_endpoint(parameters, endpoint);
-    nw_parameters_set_reuse_local_address(parameters, true);
-
-    nw_parameters_t parameters = nw_parameters_create_secure_tcp(NW_PARAMETERS_DISABLE_PROTOCOL,
-        ^(nw_protocol_options_t  _Nonnull options)
+    if (recvTimeoutSec != 0)
+    {
+        struct timeval timeout = {.tv_sec = recvTimeoutSec, .tv_usec = 0};
+        if (setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout)))
         {
+            int err = errno;
+            NSLog(@"setsockopt SO_RCVTIMEO failed: %d - %s\n", err, strerror(err));
+        }
+    }
 
-        });
+    // Set send/receive buffer sizes
+    uint32_t bufSize = 0x00010400;
+    if (!result)
+    {
+        if (setsockopt(sock, SOL_SOCKET, SO_SNDBUF, &bufSize, sizeof(bufSize)))
+        {
+            result = 1;
+            int err = errno;
+            NSLog(@"setsockopt SO_SNDBUF failed: %d - %s\n", errno, strerror(err));
+        }
+    }
 
-    nw_connection_t result = nw_connection_create(endpoint, parameters);
+    if (!result)
+    {
+        if (setsockopt(sock, SOL_SOCKET, SO_RCVBUF, &bufSize, sizeof(bufSize)))
+        {
+            result = 2;
+            int err = errno;
+            NSLog(@"setsockopt SO_SNDBUF failed: %d - %s\n", errno, strerror(err));
+        }
+    }
 
-    return result;
-}
+    if (!result)
+    {
+        uint32_t noPipe = 1; // Disable SIGPIPE on socket i/o error
+        if (setsockopt(sock, SOL_SOCKET, SO_NOSIGPIPE, &noPipe, sizeof(noPipe)))
+        {
+            result = 3;
+            int err = errno;
+            NSLog(@"setsockopt SO_SNDBUF failed: %d - %s\n", errno, strerror(err));
+        }
+    }
 
-+ (UMConnection *)startWithDelegate:(id<UMConnectionDelegate>)aDelegate
-{
-    nw_connection_t connection = [UMConnection newConnection];
-    return [UMConnection startWithNWConnection:connection delegate:aDelegate];
-}
+    if (!result)
+    {
+        // Create address structure to point to usbmuxd socket
+        char *mux = "/var/run/usbmuxd";
+        struct sockaddr_un address;
+        address.sun_family = AF_UNIX;
+        strncpy(address.sun_path, mux, sizeof(address.sun_path));
+        address.sun_len = SUN_LEN(&address);
 
-+ (UMConnection *)startWithNWConnection:(nw_connection_t)aConnection
-    delegate:(id<UMConnectionDelegate> _Nullable)aDelegate
-{
-    UMConnection *result = [[UMConnection alloc] init];
-    result.delegate = aDelegate;
-    [result start:aConnection];
-    return result;
+        // Connect socket
+        if (connect(sock, (const struct sockaddr *)&address, sizeof(struct sockaddr_un)))
+        {
+            result = 4;
+            int err = errno;
+            NSLog(@"connect socket failed: %d - %s\n", err, strerror(err));
+        }
+    }
+
+    if (!result)
+    {
+        // Set socket to blocking IO mode
+        uint32_t nonblock = 0;
+        if (ioctl(sock, FIONBIO, &nonblock))
+        {
+            result = 5;
+            int err = errno;
+            NSLog(@"ioctl FIONBIO failed: %d - %s\n", err, strerror(err));
+        }
+    }
+
+    if (result)
+    {
+        // Socket creation failed
+        close(sock);
+        sock = -1;
+    }
+
+    return sock;
 }
 
 - (instancetype)init
 {
+    self = [self initWithTimeOut:10];
+    if (self)
+    {
+
+    }
+    return self;
+}
+
+- (instancetype)initWithTimeOut:(time_t)aTimeout
+{
     self = [super init];
     if (self)
     {
-        self.queue = dispatch_queue_create("UsbMuxConnectionsManager.queue", NULL);
+        self.socket = [UMConnection connectToUSBMux:aTimeout];
+        if (!self.socket)
+        {
+            self = nil;
+        }
     }
     return self;
 }
 
 - (void)dealloc
 {
-    [self reset];
-    self.queue = nil;
-}
-
-#pragma mark -
-
-- (void)start:(nw_connection_t)aConnection
-{
-    self.connection = aConnection;
-    self.state = ConnectionStateNone;
-
-    nw_connection_set_queue(aConnection, self.queue);
-    nw_connection_set_state_changed_handler(aConnection,
-        ^(nw_connection_state_t state, nw_error_t  _Nullable error)
-        {
-            switch (state)
-            {
-                case nw_connection_state_invalid:   { [self connectionInvalid]; break; }
-                case nw_connection_state_waiting:   { [self connectionWaiting]; break; }
-                case nw_connection_state_preparing: { [self connectionPreparing]; break; }
-                case nw_connection_state_ready:     { [self connectionReady]; break; }
-                case nw_connection_state_failed:    { [self connectionFailedError:error]; break; }
-                case nw_connection_state_cancelled: { [self connectionCancelledError:error]; break;}
-            }
-        });
-    nw_connection_start(aConnection);
-}
-
-#pragma mark -
-
-- (void)connectionInvalid
-{
-    [self logOutside:@"Connection Invalid"];
-}
-
-- (void)connectionWaiting
-{
-    [self logOutside:@"Connection waiting"];
-}
-
-- (void)connectionPreparing
-{
-    [self logOutside:@"Connection Preparing"];
-}
-
-- (void)connectionReady
-{
-    [self logOutside:@"Connection Ready"];
-    self.state = ConnectionStateConnected;
-    [self.delegate didConnect:self];
-}
-
-- (void)connectionFailedError:(nw_error_t  _Nullable)error
-{
-    [self logOutside:@"Connection Failed"];
-    if (error)
+    if (self.socket)
     {
-        CFErrorRef errorRef = nw_error_copy_cf_error(error);
-        if (NULL != errorRef)
-        {
-            NSError *err = CFBridgingRelease(errorRef);
-            if (err.code != 54) // connection reset by peer
-            {
-                [self logOutside:@"Connection error: %@", err];
-            }
-        }
+        close(self.socket);
+        self.socket = -1;
     }
-
-    [self logOutside:@"Connection closed."];
-    [self connectionCancelled];
-}
-
-- (void)connectionCancelledError:(nw_error_t _Nullable)error
-{
-    [self logOutside:@"Connection Cancelled"];
-    if (error)
-    {
-        CFErrorRef errorRef = nw_error_copy_cf_error(error);
-        if (NULL != errorRef)
-        {
-            NSError *err = CFBridgingRelease(errorRef);
-            if (err.code != 54) // connection reset by peer
-            {
-                [self logOutside:@"Connection error: %@", err];
-            }
-        }
-    }
-
-    [self logOutside:@"Connection closed."];
-    [self connectionCancelled];
 }
 
 #pragma mark -
@@ -244,16 +216,6 @@ nw_endpoint_t nw_endpoint_create_unix(const char *path);
 
 - (BOOL)send_packet:(usbmuxd_msgtype)message tag:(NSUInteger)tag payload:(NSData *)payload error:(NSError **)anError
 {
-    if (self.state != ConnectionStateConnected)
-    {
-        if (anError != NULL)
-        {
-            *anError = [NSError errorWithDomain:NSPOSIXErrorDomain code:ENOTCONN userInfo:
-                @{NSLocalizedDescriptionKey: @"Not connected."}];
-        }
-        return NO;
-    }
-
     struct usbmuxd_header header;
 
     header.length = sizeof(struct usbmuxd_header);
@@ -265,53 +227,27 @@ nw_endpoint_t nw_endpoint_create_unix(const char *path);
         header.length += payload.length;
     }
 
-    dispatch_data_t headerData = dispatch_data_create(&header, sizeof(header), self.queue, DISPATCH_DATA_DESTRUCTOR_DEFAULT);
-
-    __block BOOL sendingDone = NO;
-    __block NSError *outError = nil;
-
-    bool isCompleted = (payload == nil) || payload.length == 0;
-    nw_connection_send(self.connection, headerData, NW_CONNECTION_DEFAULT_MESSAGE_CONTEXT, isCompleted,
-        ^(nw_error_t _Nullable error)
+    ssize_t result = send(self.socket, &header, sizeof(struct usbmuxd_header), 0);
+    if (result == sizeof(struct usbmuxd_header))
+    {
+        if (header.length > result)
         {
-            if (error)
+            char *buffer = (char *)malloc(payload.length);
+            [payload getBytes:buffer length:payload.length];
+
+            ssize_t remainder = payload.length;
+            while (remainder)
             {
-                CFErrorRef errRef = nw_error_copy_cf_error(error);
-                if (NULL != errRef)
+                result = send(self.socket, &buffer[payload.length - remainder], sizeof(char), 0);
+                if (result != sizeof(char))
                 {
-                    outError = CFBridgingRelease(errRef);
-                    sendingDone = YES;
+                    break;
                 }
+                remainder -= result;
             }
-            else
-            {
-                dispatch_data_t payloadData = dispatch_data_create(payload.bytes, payload.length, self.queue, DISPATCH_DATA_DESTRUCTOR_DEFAULT);
-
-                nw_connection_send(self.connection, payloadData, NW_CONNECTION_DEFAULT_MESSAGE_CONTEXT, true,
-                    ^(nw_error_t _Nullable error)
-                    {
-                        if (error)
-                        {
-                            CFErrorRef errRef = nw_error_copy_cf_error(error);
-                            if (NULL != errRef)
-                            {
-                                outError = CFBridgingRelease(errRef);
-                            }
-                        }
-                        sendingDone = YES;
-                    });
-            }
-        });
-
-    while (!sendingDone)
-    {
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1f]];
+        }
     }
-    if (anError != NULL)
-    {
-        *anError = outError;
-    }
-    return outError == nil;
+    return YES;
 }
 
 - (BOOL)usbmuxd_get_result:(NSUInteger)tag result_plist:(UMPacket **)aPacket
@@ -328,106 +264,40 @@ nw_endpoint_t nw_endpoint_create_unix(const char *path);
 
 - (BOOL)receive_packet:(UMPacket **)payload
 {
-    __block BOOL recivingIsDone = NO;
-    __block NSError *error = nil;
-    __block UMPacket *outPayload = nil;
+    UMPacket *packet = nil;
 
-    nw_connection_receive(self.connection, sizeof(struct usbmuxd_header), sizeof(struct usbmuxd_header),
-        ^(dispatch_data_t  _Nullable content, nw_content_context_t  _Nullable context, bool is_complete, nw_error_t  _Nullable error)
+    ssize_t headerSize = sizeof(struct usbmuxd_header);
+
+    struct usbmuxd_header *header = malloc(headerSize);
+    ssize_t result = recv(self.socket, (void *)header, headerSize, 0);
+    if (result == headerSize)
+    {
+        ssize_t payloadSize = header->length - result;
+        if (payloadSize)
         {
-            if (content != NULL)
+            char *buffer = calloc(1, payloadSize);
+            ssize_t remainder = payloadSize;
+            while (remainder)
             {
-                NSData *data = [NSData dataWithData:(NSData *)content];
-                struct usbmuxd_header *hdr = (struct usbmuxd_header *)data.bytes;
-                uint32_t payload_size = hdr->length - sizeof(struct usbmuxd_header);
-                if (payload_size > 0)
+                result = recv(self.socket, &buffer[payloadSize - remainder], sizeof(char), 0);
+                if (result != sizeof(char))
                 {
-                    nw_connection_receive(self.connection, payload_size, payload_size,
-                        ^(dispatch_data_t  _Nullable content, nw_content_context_t  _Nullable context, bool is_complete, nw_error_t  _Nullable error)
-                        {
-                            if (content != NULL)
-                            {
-                                NSData *data = [NSData dataWithData:(NSData *)content];
-                                outPayload = [[UMPacket alloc] initWithPayloadData:data];
-                                outPayload.tag = hdr->tag;
-                            }
-                            // If the context is marked as complete, and is the final context,
-                            // we're read-closed.
-                            if (is_complete &&
-                                (context == NULL || nw_content_context_get_is_final(context)))
-                            {
-                                [self connectionCancelled];
-                            }
-                            recivingIsDone = YES;
-                        });
+                    break;
                 }
+                remainder -= result;
             }
+            NSData *xmlData = [NSData dataWithBytes:buffer length:payloadSize];
+            packet = [[UMPacket alloc] initWithPayloadData:xmlData];
+            packet.tag = header->tag;
 
-            // If the context is marked as complete, and is the final context,
-            // we're read-closed.
-            if (is_complete &&
-                (context == NULL || nw_content_context_get_is_final(context)))
-            {
-                [self connectionCancelled];
-                recivingIsDone = YES;
-            }
-        });
-
-    while (!recivingIsDone)
-    {
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1f]];
-    }
-
-    *payload = outPayload;
-
-    return error == nil;
-}
-
-#pragma mark -
-
-- (void)reset
-{
-    if (self.connection)
-    {
-        nw_connection_cancel(self.connection);
-        while (self.state == ConnectionStateCancelled)
-        {
-            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0f]];
+            free(buffer);
         }
     }
-}
+    free(header);
 
-- (BOOL)waitConnected
-{
-    while (self.state == ConnectionStateNone)
-    {
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0f]];
-    }
-    return self.state == ConnectionStateConnected;
-}
+    *payload = packet;
 
-#pragma mark -
-
-- (void)logOutside:(NSString *)aLogMessage, ...
-{
-    NSString *message = nil;
-    va_list args;
-    va_start(args, aLogMessage);
-    message = [[NSString alloc] initWithFormat:aLogMessage arguments:args];
-    va_end(args);
-    [self.delegate log:message];
-}
-
-- (void)stringReceived:(NSString *)aStringReceived
-{
-    [self.delegate stringReceived:aStringReceived];
-}
-
-- (void)connectionCancelled
-{
-    self.connection = nil;
-    self.state = ConnectionStateCancelled;
-    [self.delegate connectionCanceled:self];
+    return packet != nil;
 }
 
 @end

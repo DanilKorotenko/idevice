@@ -12,7 +12,22 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class UMConnection;
+
+@protocol UMConnectionDelegate <NSObject>
+
+@required
+
+- (void)log:(NSString *)aLogMessage;
+- (void)stringReceived:(NSString *)aStringReceived;
+- (void)didConnect:(UMConnection *)aConnection;
+- (void)connectionCanceled:(UMConnection *)aConnection;
+
+@end
+
 @interface UMConnection : NSObject
+
++ (UMConnection *)startWithDelegate:(id<UMConnectionDelegate>)aDelegate;
 
 - (BOOL)sendListDevicesPacket:(NSUInteger *)aTag error:(NSError **)anError;
 - (BOOL)sendConnectPacket:(NSUInteger *)aTag deviceId:(NSInteger)aDeviceId error:(NSError **)anError;
@@ -20,6 +35,9 @@ NS_ASSUME_NONNULL_BEGIN
     domain:(NSString * _Nullable)aDomain key:(NSString * _Nullable)aKey error:(NSError **)anError;
 
 - (BOOL)receive_packet:(UMPacket *_Nonnull*_Nonnull)payload;
+
+- (void)reset;
+- (BOOL)waitConnected;
 
 @end
 

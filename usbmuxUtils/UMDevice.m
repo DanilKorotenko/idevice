@@ -111,12 +111,12 @@ Printing description of ((__NSDictionaryM *)0x0000600002f44940):
 {
     if (connection == nil)
     {
-        connection = [UMConnection startWithDelegate:self];
-        [connection waitConnected];
+        connection = [[UMConnection alloc] init];
+
         NSUInteger tag = 0;
         NSError *error = nil;
 
-        if ([connection sendConnectPacket:&tag deviceId:self.deviceID error:&error])
+        if (connection != nil && [connection sendConnectPacket:&tag deviceId:self.deviceID error:&error])
         {
             UMPacket *packet = nil;
             if (![connection receive_packet:&packet])
@@ -130,26 +130,6 @@ Printing description of ((__NSDictionaryM *)0x0000600002f44940):
         }
     }
     return connection;
-}
-
-- (void)connectionCanceled:(nonnull UMConnection *)aConnection
-{
-    connection = nil;
-}
-
-- (void)didConnect:(nonnull UMConnection *)aConnection
-{
-
-}
-
-- (void)log:(nonnull NSString *)aLogMessage
-{
-    NSLog(@"%@", aLogMessage);
-}
-
-- (void)stringReceived:(nonnull NSString *)aStringReceived
-{ 
-
 }
 
 @end
