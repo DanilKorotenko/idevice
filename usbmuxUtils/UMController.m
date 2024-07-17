@@ -50,7 +50,7 @@
     if ([self.connection sendUsbMuxListDevicesPacket:&tag error:&error])
     {
         UMPacket *packet = nil;
-        if ([self.connection receive_packet:&packet])
+        if ([self.connection receiveUsbMuxPacket:&packet])
         {
             result = packet.deviceList;
         }

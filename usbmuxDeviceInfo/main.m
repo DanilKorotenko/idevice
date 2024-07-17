@@ -20,7 +20,7 @@ int main(int argc, const char * argv[])
 
         UMDevice *device = [devices objectAtIndex:0];
 
-        NSLog(@"%@", device.allValues);
+        NSLog(@"%@", device.daemonName);
 
 //        dispatch_main();
     }

@@ -9,6 +9,7 @@
 #import <Network/Network.h>
 
 #import "UMPacket.h"
+#import "UMDeviceMessage.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,10 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)sendUsbMuxListDevicesPacket:(NSUInteger *)aTag error:(NSError **)anError;
 - (BOOL)sendUsbMuxConnectPacket:(NSUInteger *)aTag deviceId:(NSInteger)aDeviceId error:(NSError **)anError;
-- (BOOL)sendDeviceGetValueMessage:(NSUInteger *)aTag
-    domain:(NSString * _Nullable)aDomain key:(NSString * _Nullable)aKey error:(NSError **)anError;
+- (BOOL)receiveUsbMuxPacket:(UMPacket *_Nonnull*_Nonnull)payload;
 
-- (BOOL)receive_packet:(UMPacket *_Nonnull*_Nonnull)payload;
+- (BOOL)serviceSend:(NSData *)data;
+- (BOOL)serviceReceiveMessage:(UMDeviceMessage *_Nullable*_Nullable)data;
 
 @end
 

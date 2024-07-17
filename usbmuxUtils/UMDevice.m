@@ -7,6 +7,7 @@
 
 #import "UMDevice.h"
 #import "UMConnection.h"
+#import "UMDeviceMessage.h"
 
 /*
 Printing description of ((__NSDictionaryM *)0x0000600002f44940):
@@ -28,6 +29,7 @@ Printing description of ((__NSDictionaryM *)0x0000600002f44940):
 
 @property (readonly) NSDictionary *deviceInfoDictionary;
 @property (readonly) UMConnection *connection;
+@property (readonly) BOOL isConnected;
 
 @end
 
@@ -36,7 +38,9 @@ Printing description of ((__NSDictionaryM *)0x0000600002f44940):
 @synthesize deviceInfoDictionary;
 @synthesize properties;
 @synthesize connection;
-@synthesize allValues;
+//@synthesize allValues;
+@synthesize isConnected;
+@synthesize daemonName;
 
 - (instancetype)initWithDeviceInfoDictionary:(NSDictionary *)aDeviceInfoDictionary
 {
@@ -78,32 +82,33 @@ Printing description of ((__NSDictionaryM *)0x0000600002f44940):
     return properties;
 }
 
-- (NSDictionary *)allValues
-{
-    if (allValues == nil)
-    {
-        UMConnection *connection = self.connection;
-        while (!connection)
-        {
-            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0f]];
-            connection = self.connection;
-        }
-        NSUInteger tag = 0;
-        NSError *error = nil;
-        if ([connection sendDeviceGetValueMessage:&tag domain:nil key:nil error:&error])
-        {
-            UMPacket *packet = nil;
-            if ([connection receive_packet:&packet])
-            {
-                NSLog(@"packet: %@", packet);
-            }
+#pragma mark -
 
+- (NSString *)daemonName
+{
+    if (daemonName == nil)
+    {
+        if (self.isConnected)
+        {
+            if ([self.connection serviceSend:[UMDeviceMessage messageRequestQueryType].xmlData])
+            {
+                UMDeviceMessage *message = nil;
+                [self.connection serviceReceiveMessage:&message];
+                NSLog(@"Message: %@", message);
+            }
         }
     }
-    return allValues;
+    return daemonName;
 }
 
-
+//- (NSDictionary *)allValues
+//{
+//    if (allValues == nil)
+//    {
+//        UMConnection *connection = self.connection;
+//    }
+//    return allValues;
+//}
 
 #pragma mark -
 
@@ -119,7 +124,7 @@ Printing description of ((__NSDictionaryM *)0x0000600002f44940):
         if (connection != nil && [connection sendUsbMuxConnectPacket:&tag deviceId:self.deviceID error:&error])
         {
             UMPacket *packet = nil;
-            if (![connection receive_packet:&packet])
+            if (![connection receiveUsbMuxPacket:&packet])
             {
                 connection = nil;
             }
@@ -130,6 +135,20 @@ Printing description of ((__NSDictionaryM *)0x0000600002f44940):
         }
     }
     return connection;
+}
+
+- (BOOL)connect
+{
+    return self.connection != nil;
+}
+
+- (BOOL)isConnected
+{
+    if (!isConnected)
+    {
+        isConnected = [self connect];
+    }
+    return isConnected;
 }
 
 @end

@@ -25,7 +25,9 @@ typedef NS_ENUM(NSUInteger, UMDeviceMessageType)
 
 @property (readonly) UMDeviceMessageType messageType;
 
-@property (readonly) NSDictionary *allValues;
+//@property (readonly) NSDictionary *allValues;
+
+@property (readonly) NSString *daemonName;
 
 @end
 
