@@ -186,7 +186,7 @@ all values
 {
     if (connection == nil)
     {
-        connection = [[UMConnection alloc] init];
+        connection = [UMConnection startNewConnection];
 
         NSUInteger tag = 0;
         NSError *error = nil;

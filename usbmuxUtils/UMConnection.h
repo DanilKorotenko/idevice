@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UMConnection : NSObject
 
++ (UMConnection *)startNewConnection;
+
 - (BOOL)sendUsbMuxListDevicesPacket:(NSUInteger *)aTag error:(NSError **)anError;
 - (BOOL)sendUsbMuxConnectPacket:(NSUInteger *)aTag deviceId:(NSInteger)aDeviceId error:(NSError **)anError;
 - (BOOL)receiveUsbMuxPacket:(UMPacket *_Nonnull*_Nonnull)payload;

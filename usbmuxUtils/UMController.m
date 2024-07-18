@@ -35,7 +35,7 @@
 {
     if (connection == nil)
     {
-        connection = [[UMConnection alloc] init];
+        connection = [UMConnection startNewConnection];
     }
     return connection;
 }
