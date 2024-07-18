@@ -37,7 +37,6 @@
 		DA2707892C36F8E2005CBA1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707882C36F8E2005CBA1D /* main.m */; };
 		DA27078D2C370026005CBA1D /* UMController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707812C36F8BA005CBA1D /* UMController.m */; };
 		DA2707912C37F054005CBA1D /* UMConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = DA27078F2C37EDA1005CBA1D /* UMConnection.m */; };
-		DA2707942C37F17D005CBA1D /* DispatchData.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707932C37F17D005CBA1D /* DispatchData.m */; };
 		DA2707C82C3843FD005CBA1D /* UMDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707C72C3843FD005CBA1D /* UMDevice.m */; };
 		DA2707CB2C3BF53E005CBA1D /* UMPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707CA2C3BF53E005CBA1D /* UMPacket.m */; };
 		DA2707CE2C3C362D005CBA1D /* UMDeviceProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2707CD2C3C362D005CBA1D /* UMDeviceProperties.m */; };
@@ -144,8 +143,6 @@
 		DA2707882C36F8E2005CBA1D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DA27078E2C37EDA1005CBA1D /* UMConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMConnection.h; sourceTree = "<group>"; };
 		DA27078F2C37EDA1005CBA1D /* UMConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMConnection.m; sourceTree = "<group>"; };
-		DA2707922C37F17D005CBA1D /* DispatchData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchData.h; sourceTree = "<group>"; };
-		DA2707932C37F17D005CBA1D /* DispatchData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchData.m; sourceTree = "<group>"; };
 		DA2707C62C3843FD005CBA1D /* UMDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMDevice.h; sourceTree = "<group>"; };
 		DA2707C72C3843FD005CBA1D /* UMDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMDevice.m; sourceTree = "<group>"; };
 		DA2707C92C3BF53E005CBA1D /* UMPacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMPacket.h; sourceTree = "<group>"; };
@@ -276,8 +273,6 @@
 		DA27077F2C36F869005CBA1D /* usbmuxUtils */ = {
 			isa = PBXGroup;
 			children = (
-				DA2707922C37F17D005CBA1D /* DispatchData.h */,
-				DA2707932C37F17D005CBA1D /* DispatchData.m */,
 				DA27078E2C37EDA1005CBA1D /* UMConnection.h */,
 				DA27078F2C37EDA1005CBA1D /* UMConnection.m */,
 				DA2707802C36F8BA005CBA1D /* UMController.h */,
@@ -507,7 +502,6 @@
 				DAEF0E402C46762200F01B8D /* UMDeviceMessage.m in Sources */,
 				DA2707C82C3843FD005CBA1D /* UMDevice.m in Sources */,
 				DA27078D2C370026005CBA1D /* UMController.m in Sources */,
-				DA2707942C37F17D005CBA1D /* DispatchData.m in Sources */,
 				DA2707CB2C3BF53E005CBA1D /* UMPacket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

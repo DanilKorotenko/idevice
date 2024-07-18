@@ -13,7 +13,6 @@
 #include <unistd.h>
 #include <sys/un.h>
 
-#import "DispatchData.h"
 #import "UMPacket.h"
 
 static NSUInteger tag = 0;

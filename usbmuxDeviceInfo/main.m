@@ -23,7 +23,7 @@ int main(int argc, const char * argv[])
         NSLog(@"%@", device.daemonName);
 
         NSLog(@"%@", device.deviceName);
-        NSLog(@"%@", device.serialNumber);
+//        NSLog(@"%@", device.serialNumber);
 
 //        dispatch_main();
     }
