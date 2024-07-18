@@ -25,11 +25,50 @@ Printing description of ((__NSDictionaryM *)0x0000600002f44940):
     };
 }
 */
+
+/*
+all values
+{
+    BasebandCertId = 165673526;
+    BasebandKeyHashInformation =     {
+        AKeyStatus = 64;
+        SKeyStatus = 2;
+    };
+    BasebandSerialNumber = {length = 12, bytes = 0x31c68969bd5b094700000000};
+    BasebandVersion = "6.00.00";
+    BoardId = 14;
+    BuildVersion = 21F90;
+    CPUArchitecture = arm64e;
+    ChipID = 32800;
+    DeviceClass = iPhone;
+    DeviceColor = 1;
+    DeviceName = "Danil\U2019s iPhone";
+    DieID = 3971513824444462;
+    HardwareModel = D321AP;
+    HasSiDP = 1;
+    HumanReadableProductVersionString = "17.5.1";
+    PartitionType = "GUID_partition_scheme";
+    ProductName = "iPhone OS";
+    ProductType = "iPhone11,2";
+    ProductVersion = "17.5.1";
+    ProductionSOC = 1;
+    ProtocolVersion = 2;
+    SupportedDeviceFamilies =     (
+        1
+    );
+    TelephonyCapability = 1;
+    UniqueChipID = 3971513824444462;
+    UniqueDeviceID = "00008020-000E1C121EBA002E";
+    WiFiAddress = "a4:d9:31:60:54:33";
+}
+*/
+
 @interface UMDevice ()
 
 @property (readonly) NSDictionary *deviceInfoDictionary;
 @property (readonly) UMConnection *connection;
 @property (readonly) BOOL isConnected;
+@property (readonly) NSDictionary *allValues;
 
 @end
 
@@ -38,9 +77,10 @@ Printing description of ((__NSDictionaryM *)0x0000600002f44940):
 @synthesize deviceInfoDictionary;
 @synthesize properties;
 @synthesize connection;
-//@synthesize allValues;
+@synthesize allValues;
 @synthesize isConnected;
 @synthesize daemonName;
+@synthesize serialNumber;
 
 - (instancetype)initWithDeviceInfoDictionary:(NSDictionary *)aDeviceInfoDictionary
 {
@@ -94,21 +134,51 @@ Printing description of ((__NSDictionaryM *)0x0000600002f44940):
             {
                 UMDeviceMessage *message = nil;
                 [self.connection serviceReceiveMessage:&message];
-                NSLog(@"Message: %@", message);
+                daemonName = message.type;
             }
         }
     }
     return daemonName;
 }
 
-//- (NSDictionary *)allValues
-//{
-//    if (allValues == nil)
-//    {
-//        UMConnection *connection = self.connection;
-//    }
-//    return allValues;
-//}
+- (NSDictionary *)allValues
+{
+    if (allValues == nil)
+    {
+        if (self.isConnected)
+        {
+            if ([self.connection serviceSend:[UMDeviceMessage messageRequestGetValueForDomain:nil key:nil].xmlData])
+            {
+                UMDeviceMessage *message = nil;
+                [self.connection serviceReceiveMessage:&message];
+                allValues = message.value;
+            }
+        }
+    }
+    return allValues;
+}
+
+- (NSString *)deviceName
+{
+    return self.allValues[@"DeviceName"];
+}
+
+- (NSString *)serialNumber
+{
+    if (serialNumber == nil)
+    {
+        if (self.isConnected)
+        {
+            if ([self.connection serviceSend:[UMDeviceMessage messageRequestGetValueForDomain:nil key:@"SerialNumber"].xmlData])
+            {
+                UMDeviceMessage *message = nil;
+                [self.connection serviceReceiveMessage:&message];
+                serialNumber = message.value;
+            }
+        }
+    }
+    return serialNumber;
+}
 
 #pragma mark -
 

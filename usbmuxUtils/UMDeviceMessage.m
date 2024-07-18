@@ -11,6 +11,9 @@
 
 @property (readonly) NSMutableDictionary *dictionary;
 
+@property (readwrite) NSString *domain;
+@property (readwrite) NSString *key;
+
 @end
 
 // This is adapter to mutable dictionary
@@ -21,6 +24,20 @@
 + (UMDeviceMessage *)messageRequestQueryType
 {
     return [[UMDeviceMessage alloc] initMessageWithRequest:@"QueryType"];
+}
+
++ (UMDeviceMessage *)messageRequestGetValueForDomain:(NSString *)aDomain key:(NSString *)aKey
+{
+    UMDeviceMessage *result = [[UMDeviceMessage alloc] initMessageWithRequest:@"GetValue"];
+    if (aDomain)
+    {
+        result.domain = aDomain;
+    }
+    if (aKey)
+    {
+        result.key = aKey;
+    }
+    return result;
 }
 
 - (instancetype)init
@@ -86,10 +103,36 @@
     return dictionary[@"Type"];
 }
 
+- (id)value
+{
+    return dictionary[@"Value"];
+}
+
 - (NSString *)error
 {
     return dictionary[@"Error"];
 }
+
+- (NSString *)domain
+{
+    return dictionary[@"Domain"];
+}
+
+- (void)setDomain:(NSString *)domain
+{
+    dictionary[@"Domain"] = domain;
+}
+
+- (NSString *)key
+{
+    return dictionary[@"Key"];
+}
+
+- (void)setKey:(NSString *)key
+{
+    dictionary[@"Key"] = key;
+}
+
 
 #pragma mark -
 

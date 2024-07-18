@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UMDeviceMessage : NSObject
 
 + (UMDeviceMessage *)messageRequestQueryType;
++ (UMDeviceMessage *)messageRequestGetValueForDomain:(NSString * _Nullable)aDomain key:(NSString *_Nullable)aKey;
 
 - (instancetype)initWithRequest:(NSString *)aType;
 - (instancetype)initMessageWithRequest:(NSString *)aType;
@@ -23,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly) NSString *request;
 @property(readonly) NSString *type;
 @property(readonly) NSString *error;
+@property(readonly) id value;
 
 @end
 

@@ -26,12 +26,36 @@
     {
         payload =
             @{
-                @"ClientVersionString": @"usbmuxd-323",
+//                @"ClientVersionString": @"usbmuxd-323",
+                @"ClientVersionString": @"libimobiledevice 1.3.0-235-g9ccc522",
+
                 @"MessageType": aMessageType,
                 @"kLibUSBMuxVersion": @(3),
                 @"ProgName": [[[[NSProcessInfo processInfo] arguments] objectAtIndex:0] lastPathComponent],
-                @"BundleId": @"com.danilkorotenko.idevice"
+                @"BundleID": @"com.danilkorotenko.idevice"
             };
+
+/*
+	if (!bundle_id) {
+		get_bundle_id();
+	}
+	if (!prog_name) {
+		get_prog_name();
+	}
+	plist_t plist = plist_new_dict();
+	if (bundle_id) {
+		plist_dict_set_item(plist, "BundleID", plist_new_string(bundle_id));
+	}
+	plist_dict_set_item(plist, "ClientVersionString", plist_new_string(PLIST_CLIENT_VERSION_STRING));
+	plist_dict_set_item(plist, "MessageType", plist_new_string(message_type));
+	if (prog_name) {
+		plist_dict_set_item(plist, "ProgName", plist_new_string(prog_name));
+	}
+	plist_dict_set_item(plist, "kLibUSBMuxVersion", plist_new_uint(PLIST_LIBUSBMUX_VERSION));
+	return plist;
+
+*/
+
     }
     return self;
 }
@@ -43,8 +67,13 @@
     {
         NSMutableDictionary *mutablePayload = [NSMutableDictionary dictionaryWithDictionary:payload];
         [mutablePayload setObject:@(aDeviceId) forKey:@"DeviceID"];
-        [mutablePayload setObject:@(0x7ef2) forKey:@"PortNumber"];
-        //[mutablePayload setObject:@(0xf27e) forKey:@"PortNumber"];
+
+        NSInteger portNumber = 0xf27e;
+
+        portNumber = htons(portNumber);
+
+//        [mutablePayload setObject:@(0x7ef2) forKey:@"PortNumber"];
+        [mutablePayload setObject:@(portNumber) forKey:@"PortNumber"];
         payload = [NSDictionary dictionaryWithDictionary:mutablePayload];
     }
     return self;

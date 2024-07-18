@@ -210,6 +210,11 @@ static uint32_t proto_version = 1;
     return [self send_packet:MESSAGE_PLIST tag:tag payload:[message xmlData] error:anError];
 }
 
+- (BOOL)sendConnectPacket:(NSUInteger)tag message:(UMPacket *)message error:(NSError **)anError
+{
+    return [self send_packet:MESSAGE_CONNECT tag:tag payload:[message xmlData] error:anError];
+}
+
 - (BOOL)send_packet:(usbmuxd_msgtype)message tag:(NSUInteger)tag payload:(NSData *)payload error:(NSError **)anError
 {
     struct usbmuxd_header header;
