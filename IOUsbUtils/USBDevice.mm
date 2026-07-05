@@ -31,36 +31,74 @@ void USBDeviceReleaseAndMakeNull(USBDeviceRef *aDevice)
 
 const char *USBDeviceGetDescription(USBDeviceRef aDevice)
 {
+    const char *result = NULL;
+
     IUDevice *device = (__bridge IUDevice *)aDevice->_usbdevice;
-    return GetSafeUTF8String([device description]);
+    result = GTBGetSafeUTF8String([device description]);
+
+    return result;
 }
 
 const char *USBDeviceGetName(USBDeviceRef aDevice)
 {
+    const char *result = NULL;
+
     IUDevice *device = (__bridge IUDevice *)aDevice->_usbdevice;
-    return GetSafeUTF8String(device.name);
+    result = GTBGetSafeUTF8String(device.name);
+
+    return result;
 }
 
 const char *USBDeviceGetSerial(USBDeviceRef aDevice)
 {
+    const char *result = NULL;
+
     IUDevice *device = (__bridge IUDevice *)aDevice->_usbdevice;
-    return GetSafeUTF8String(device.serial);
+    result = GTBGetSafeUTF8String(device.serial);
+
+    return result;
 }
 
 bool USBDeviceIsIPhone(USBDeviceRef aDevice)
 {
-    IUDevice *device = (__bridge IUDevice *)aDevice->_usbdevice;
-    return device.isIPhone == YES ? true : false;
+    bool result = false;
+    @autoreleasepool
+    {
+        IUDevice *device = (__bridge IUDevice *)aDevice->_usbdevice;
+        result = device.isIPhone == YES ? true : false;
+    }
+    return result;
+}
+
+bool USBDeviceIsIPad(USBDeviceRef aDevice)
+{
+    bool result = false;
+    @autoreleasepool
+    {
+        IUDevice *device = (__bridge IUDevice *)aDevice->_usbdevice;
+        result = device.isIPad == YES ? true : false;
+    }
+    return result;
 }
 
 bool USBDeviceIsMtpPtp(USBDeviceRef aDevice)
 {
-    IUDevice *device = (__bridge IUDevice *)aDevice->_usbdevice;
-    return device.isMtpPtp == YES ? true : false;
+    bool result = false;
+    @autoreleasepool
+    {
+        IUDevice *device = (__bridge IUDevice *)aDevice->_usbdevice;
+        result = device.isMtpPtp == YES ? true : false;
+    }
+    return result;
 }
 
 bool USBDeviceEject(USBDeviceRef aDevice)
 {
-    IUDevice *device = (__bridge IUDevice *)aDevice->_usbdevice;
-    return [device eject] == YES ? true : false;
+    bool result = false;
+    @autoreleasepool
+    {
+        IUDevice *device = (__bridge IUDevice *)aDevice->_usbdevice;
+        result = [device eject] == YES ? true : false;
+    }
+    return result;
 }

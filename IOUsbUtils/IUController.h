@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (IUController *)sharedController;
 
 - (BOOL)startWatchingWithBlock:(void (^)(IUDevice *aDevice))aBlock;
+- (void)stop;
 
 - (void)reenumerateDevices;
 

@@ -91,7 +91,7 @@ static void staticDeviceAdded(void *refCon, io_iterator_t iterator)
 {
     self.deviceAddedBlock = aBlock;
 
-    CFMutableDictionaryRef matchingDict = [self createMatchingDict];
+    CFMutableDictionaryRef matchingDict = IOServiceMatching(kIOUSBDeviceClassName);
     if (matchingDict == NULL)
     {
         return NO;
@@ -109,12 +109,25 @@ static void staticDeviceAdded(void *refCon, io_iterator_t iterator)
     return YES;
 }
 
+- (void)stop
+{
+    if (self.notifyPort != NULL)
+    {
+        IONotificationPortDestroy(self.notifyPort);
+        self.notifyPort = NULL;
+    }
+}
+
 - (void)reenumerateDevices
 {
-    CFMutableDictionaryRef matchingDict = [self createMatchingDict];
-    io_iterator_t iterator;
-    IOServiceGetMatchingServices(kIOMasterPortDefault, matchingDict, &iterator);
-    [self deviceAdded:iterator];
+    CFMutableDictionaryRef matchingDict = IOServiceMatching(kIOUSBDeviceClassName);
+    if (matchingDict != NULL)
+    {
+        io_iterator_t iterator;
+        IOServiceGetMatchingServices(kIOMasterPortDefault, matchingDict, &iterator);
+        [self deviceAdded:iterator];
+        IOObjectRelease(iterator);
+    }
 }
 
 #pragma mark -
@@ -124,12 +137,15 @@ static void staticDeviceAdded(void *refCon, io_iterator_t iterator)
     io_service_t serviceObject;
     while (IOIteratorIsValid(anIterator) && (serviceObject = IOIteratorNext(anIterator)))
     {
-        IUDevice *device = [[IUDevice alloc] initWithIoServiceT:serviceObject];
-        if (device)
+        @autoreleasepool
         {
-            if (self.deviceAddedBlock)
+            IUDevice *device = [[IUDevice alloc] initWithIoServiceT:serviceObject];
+            if (device)
             {
-                self.deviceAddedBlock(device);
+                if (self.deviceAddedBlock)
+                {
+                    self.deviceAddedBlock(device);
+                }
             }
         }
         IOObjectRelease(serviceObject);
@@ -143,15 +159,15 @@ static void staticDeviceAdded(void *refCon, io_iterator_t iterator)
 
 #pragma mark -
 
-- (CFMutableDictionaryRef)createMatchingDict
-{
-    CFMutableDictionaryRef matchingDict = IOServiceMatching(kIOUSBDeviceClassName);
-
-// NOTE: If we set vendorID then we have to set product ID. We cannot set only one of this.
-//    iokit_cfdictionary_set_short(matchingDict, CFSTR(kUSBVendorID), kAppleVendorID);
-//    iokit_cfdictionary_set_short(matchingDict, CFSTR(kUSBProductID), 0x12A8);
-
-    return matchingDict;
-}
+//- (CFMutableDictionaryRef)createMatchingDict
+//{
+//    CFMutableDictionaryRef matchingDict = IOServiceMatching(kIOUSBDeviceClassName);
+//
+//// NOTE: If we set vendorID then we have to set product ID. We cannot set only one of this.
+////    iokit_cfdictionary_set_short(matchingDict, CFSTR(kUSBVendorID), kAppleVendorID);
+////    iokit_cfdictionary_set_short(matchingDict, CFSTR(kUSBProductID), 0x12A8);
+//
+//    return matchingDict;
+//}
 
 @end

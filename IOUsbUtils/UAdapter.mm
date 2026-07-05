@@ -19,7 +19,18 @@ bool IOUSBStartWatchingWithBlock(void (^block)(USBDeviceRef aDevice))
     return result == YES ? true : false;
 }
 
+void IOUSBStopWatching()
+{
+    @autoreleasepool
+    {
+        [[IUController sharedController] stop];
+    }
+}
+
 void IOUSBReenumerateDevices()
 {
-    [[IUController sharedController] reenumerateDevices];
+    @autoreleasepool
+    {
+        [[IUController sharedController] reenumerateDevices];
+    }
 }

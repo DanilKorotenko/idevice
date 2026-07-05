@@ -1,5 +1,5 @@
 //
-//  IUDevice.m
+//  IOUSBDevice.m
 //  idevice
 //
 //  Created by Danil Korotenko on 6/18/24.
@@ -19,6 +19,8 @@ UInt16 Swap16(void *p)
 
 @property (readonly) BOOL isApple;
 @property (readonly) BOOL isIPhoneProduct;
+@property (readonly) BOOL isIPadProduct;
+
 @property (readonly) NSNumber *vendorIdNumber;
 @property (readonly) NSNumber *productIdNumber;
 @property (readonly) NSArray *interfaces;
@@ -60,6 +62,10 @@ UInt16 Swap16(void *p)
 
         if ((kernelReturn != kIOReturnSuccess) || !plugInInterface)
         {
+            if (_entryProperties != nil)
+            {
+                CFRelease(_entryProperties);
+            }
             return nil;
         }
 
@@ -86,8 +92,11 @@ UInt16 Swap16(void *p)
             @"name" :       self.name == nil ?      @"<none>" : self.name,
             @"vendorID" :   self.vendorID == nil ?  @"<none>" : self.vendorID,
             @"productID" :  self.productID == nil ? @"<none>" : self.productID,
-            @"isApple" :    self.isApple ? @"YES" : @"NO",
-            @"isIPhone" :   self.isIPhone ? @"YES" : @"NO",
+            @"serial" :     self.serial == nil ?    @"<none>" : self.serial,
+            @"isApple" :    self.isApple ?          @"YES" : @"NO",
+            @"isIPhone" :   self.isIPhone ?         @"YES" : @"NO",
+            @"isIPad"   :   self.isIPad ?           @"YES" : @"NO",
+            @"isMTPPTP" :   self.isMtpPtp ?         @"YES" : @"NO",
             @"interfaces" : self.interfaces
         };
     return [descr description];
@@ -193,6 +202,32 @@ UInt16 Swap16(void *p)
     return self.isApple && self.isIPhoneProduct;
 }
 
+- (BOOL)isIPadProduct
+{
+    static NSArray *iPadProducts = nil;
+    if (iPadProducts == nil)
+    {
+        iPadProducts =
+        @[
+            @(0x129a), //  iPad
+            @(0x129f), //  iPad 2
+            @(0x12a2), //  iPad 2 (3G; 64GB)
+            @(0x12a3), //  iPad 2 (CDMA)
+            @(0x12a4), //  iPad 3 (wifi)
+            @(0x12a5), //  iPad 3 (CDMA)
+            @(0x12a6), //  iPad 3 (3G, 16 GB)
+            @(0x12a9), //  iPad 2
+            @(0x12ab), //  iPad
+        ];
+    }
+    return [iPadProducts containsObject:self.productIdNumber];
+}
+
+- (BOOL)isIPad
+{
+    return self.isApple && self.isIPadProduct;
+}
+
 - (BOOL)isMtpPtp
 {
     for (IUInterface *interface in self.interfaces)
@@ -279,7 +314,11 @@ UInt16 Swap16(void *p)
 
             [mutableInterfaces addObject:
                 [[IUInterface alloc] initWithNumOfEndpoints:interfaceNumEndpoints name:interfaceName]];
+            
+            (*interface)->Release(interface);
+            interface = NULL;
         }
+        IOObjectRelease(iterator);
         interfaces = [NSArray arrayWithArray:mutableInterfaces];
     }
     return interfaces;

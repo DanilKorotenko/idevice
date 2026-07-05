@@ -15,6 +15,7 @@ extern "C"
 #endif
 
 bool IOUSBStartWatchingWithBlock(void (^block)(USBDeviceRef aDevice));
+void IOUSBStopWatching();
 void IOUSBReenumerateDevices();
 
 #ifdef __cplusplus
